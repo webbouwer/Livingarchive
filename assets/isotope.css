@@ -1,0 +1,309 @@
+/** isotope item filter styles */
+
+#rightcontentcontainer
+{
+position:relative;
+}
+.hidden
+{
+display:none;
+}
+
+/*
+.size-s {
+  width: 25%;
+}
+.size-m
+{
+  width: 25%;
+}
+.size-l  {
+  width: 50%;
+}
+.item.selected {
+width:50%;
+min-height: 180px;
+}
+
+.sidebar .size-s,
+.sidebar .size-m,
+.sidebar .size-l,
+.sidebar .shuffleItem.active,
+.sidebar .shuffleItem
+{
+width:100%;
+}
+
+
+.shuffleItem .matchweight
+{
+position: absolute;
+top:3px;
+left:3px;
+}
+
+
+.shuffleItem .itemcontent {
+position:relative;
+margin:0px 50px 30px 0px;
+}
+.shuffleItem .itemcontent .intro
+{
+display:block;
+width:100%;
+max-width:100%;
+min-height:80px;
+overflow-x: hidden;
+}
+
+.shuffleItem .itemcontent .intro .title
+{
+position: absolute;
+top:23px;
+left:3px;
+margin-right: 3px;
+}
+.shuffleItem .itemcontent .intro img,
+.shuffleItem .itemcontent .intro .mediaplaceholder
+{
+display:block;
+width:100%;
+height: auto;
+min-height:140px;
+cursor:hand;
+cursor:pointer;
+}
+.shuffleItem .itemcontent .intro .mediaplaceholder
+{
+display: block;
+padding:40px 0px;
+line-height:40px;
+text-align:center;
+color: white;
+background-color: black;
+}
+
+.shuffleItem .button,
+.shuffleItem .itemcontent .intro .excerpt
+{
+display: none;
+}
+.shuffleItem .itemcontent .itemcatbox
+{
+width:120px;
+margin:12px 10px 12px 0px;
+display:inline-block;
+}
+.shuffleItem .itemcontent .itemtagbox
+{
+margin:12px 0px;
+display:inline-block;
+}
+
+.shuffleItem.active .itemcontent
+{
+position: relative;
+margin-right:60px;
+}
+
+
+.shuffleItem.active .itemcontent .intro img,
+.shuffleItem.active .itemcontent .intro .mediaplaceholder
+{
+cursor:default;
+}
+
+
+.shuffleItem.active .itemcontent .main
+{
+position:absolute;
+display: block;
+top:0px;
+left:0px;
+width: 100%;
+max-height: 100%;
+max-width: 100%;
+overflow-y: auto;
+border-bottom:5px solid black;
+background-color: white;
+}
+
+.shuffleItem.active .itemcontent .main
+{
+}
+.shuffleItem .itemcontent .main .textbox
+{
+position: relative;
+display:none;
+padding:0px 0px 24px;
+font-size:18px;
+font-weight:bold;
+line-height:20px;
+}
+.shuffleItem.active .itemcontent .main .textbox.active
+{
+position: relative;
+width: 100%;
+overflow-x: hidden;
+overflow-y: auto;
+}
+.shuffleItem.active > .button
+{
+display:block;
+position:absolute;
+top:0px;
+font-size:42px;
+font-weight:normal;
+text-align: center;
+right:10px;
+margin:0px;
+width:50px;
+height:50px;
+background-color: white;
+}
+
+.shuffleItem.active .itemcontent .intro
+{
+width:auto;
+max-width:100%;
+max-height:100%;
+overflow-y: hidden;
+}
+.shuffleItem.active .itemcontent .intro img
+{
+display:block;
+max-width:100%;
+width: 100%;
+height: auto;
+}
+.shuffleItem iframe
+{
+max-width:100% !important;
+height:auto !important;
+}
+.shuffleItem.active iframe
+{
+max-width:100% !important;
+height:auto !important;
+min-height: 300px;
+}
+
+.sidebar .shuffleItem .itemcontent,
+.sidebar .shuffleItem.active .itemcontent {
+margin:0px 30px 0px 0px;
+}
+
+.sidebar .shuffleItem.active > .button,
+.sidebar .shuffleItem.active .itemcontent .main
+{
+display: none;
+}
+
+.shuffleMenu
+{
+}
+.shuffleMenu .tagbutton{
+}
+
+
+
+@media screen and (max-width: 900px) {
+
+.shuffleItem
+{
+width:33.33%;
+min-height: 200px;
+}
+
+
+.size-s {
+  width: 33.33%;
+  min-height:180px;
+}
+.size-m
+{
+  width: 33.33%;
+  min-height:180px;
+}
+.size-l  {
+  width: 66.66%;
+  min-height:180px;
+}
+
+.shuffleItem.active {
+width:100%;
+min-height: 400px;
+}
+
+
+}
+
+@media screen and (max-width: 640px) {
+.shuffleItem
+{
+width:50%;
+}
+.shuffleItem.active,
+.sidebar .shuffleItem
+{
+width:100%;
+}
+.size-s {
+  width: 50%;
+  min-height:180px;
+}
+.size-m  {
+  width: 50%;
+  min-height:180px;
+}
+.size-l {
+  width: 100%;
+  min-height:180px;
+}
+.itemcontent {
+  min-width: 100%;
+  min-height:100%;
+}
+
+}
+
+*/
+
+/**** Isotope CSS3 transitions ***/
+/*
+#rightcontentcontainer .item,
+*/
+
+/*
+
+#rightcontentcontainer .item .main,
+#rightcontentcontainer .item .main .textbox,
+#rightcontentcontainer .item .coverimage,
+#rightcontentcontainer .item .stage
+{
+transition: all 0.2s easeIn;
+}
+
+
+#rightcontentcontainer .item {
+   -webkit-transition: all 0.3s easeIn;
+    -moz-transition: all 0.3s easeIn;
+    -o-transition: all 0.3s easeIn;
+    transition: all 0.3s easeIn;
+}
+
+
+#rightcontentcontainer .item{
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+          transition-property: height, width;
+}
+
+
+#rightcontentcontainer .item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+          transition-property:         transform, opacity;
+}
+
+*/
