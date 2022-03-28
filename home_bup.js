@@ -16,6 +16,7 @@ jQuery(function($) {
 
         var theoryCategory = 'artikelen';
         var parentCategory = 'reststromen';
+	  		var profileCategory = 'researchteam';
         var overviewCategory = 'bulletin';
 
         // setup display posts
@@ -37,6 +38,7 @@ jQuery(function($) {
                 $(obj.tags).each(function( x , tag ){
                     objfilterclasses += ' '+tag;
                 });
+
                 $(obj.cats).each(function( x , cat ){
                     if( cat == theoryCategory ){
                         itemtype = 1; // left content
@@ -47,6 +49,7 @@ jQuery(function($) {
                     }else{
                         objfilterclasses += ' '+cat;
                     }
+
                 });
                 var catreverse = obj.cats.reverse();
                 if(oc = 0){
@@ -75,14 +78,11 @@ jQuery(function($) {
                 html += 'data-tags="'+obj.tags+'" data-cats="'+obj.cats+'">';
                 html += '<div class="itemcontent"><div class="intro">';
 
+
+
                 html += '<div class="coverimage">';
 
-                /*if( videoBox != '' && itemtype == 0){
-                    html += '<div class="stage landscape" data-url="'+obj.imgurl+'">'+obj.image;
-                    html += '<div class="mediabox">'+videoBox+'</div>';
-                    html += '<div class="optionfullscreen button">[]</div>';
-                    html += '</div>';
-                }else */
+
                 if(obj.image && obj.image != ''){
                     html += '<div class="stage '+obj.imgorient+'" data-url="'+obj.imgurl+'">'+obj.image;
                     html += '<div class="optionfullscreen button">[]</div>';
@@ -112,8 +112,46 @@ jQuery(function($) {
                     $('#leftmenucontainer .contentbox').append( html );
                 }else if( itemtype == 2 ){
                     $('#maincontentcontainer .contentbox').append( html );
-                }else if( itemtype == 3 ){
+                }else if( itemtype == 3 && obj.id != 332){
                     $('#infocontent .contentbox').append( html );
+			}else if( itemtype == 3 && obj.id === 332){
+
+
+			let catlist = JSON.parse(site_data['catdata']);
+ 			let html = '<div id="'+obj.type+'-'+obj.id+'" data-id="'+obj.id+'" data-slug="'+obj.slug+'" class="item '+obj.imgorient+' '+objfilterclasses+'" ';
+                html += 'data-link="'+obj.link+'" data-author="'+obj.author+'" data-timestamp="'+obj.timestamp+'" data-category="'+catreverse[0]+'" ';
+                html += 'data-tags="'+obj.tags+'" data-cats="'+obj.cats+'">';
+			html += '<div class="itemcontent"><div class="intro">'; //<div class="main"><div class="textbox">';
+
+			//Profile page.. '+JSON.stringify(catlist)+
+
+			//html += '<h1>Wie</h1>';
+			html += '<div class="section-container">';
+
+			$.each(catlist, function(idx, cat){
+				if( cat.parent == 2){
+					let name = cat.name;
+					let slug = cat.slug;
+					let content = cat.description;
+
+					html += '<div class="section"><div class="section-intro">';
+
+					html += '<img class="size-medium wp-image-157" src="https://zee-plaats-werk-land.nl/dev/wp-content/uploads/2018/08/Joost-zeewieroogst_wie.jpg" alt="" width="235" height="300" />';
+
+
+					html += '<br /><span class="name">'+name+'</span>';
+					html += '<span class="desc">'+content+'</span>';
+					html += '</div><div class="section-content">';
+					html += content;
+					//html += JSON.stringify(cat);
+					html += '<p><a class="catbutton" href="#cats='+slug+'" data-cats="'+slug+'">'+name+'</a></p>';
+					html += '</div></div>';
+				}
+			});
+			html += '</div><div class="selectedcontentsection">&nbsp;</div></div></div>'; //</div></div>';
+                  $('#infocontent .contentbox').append( html );
+
+
                 }else{
                     $('#rightcontentcontainer .contentbox').append( html );
                 }
@@ -1280,7 +1318,7 @@ jQuery(function($) {
 
 
 
-            // toggle info pages
+            // togge info pages
             $('body').on('click', '#infomenu ul li a', function( event ){
 
                 if(event.preventDefault){
@@ -1716,7 +1754,7 @@ jQuery(function($) {
                 }else{
 
                     $('body').removeClass('startpage');
-                    $('body').addClass('practice'); //$('body').addClass('overview');
+                    $('body').addClass('overview');
 
 										// start settings
 										tagfilter = ['zee','plaats','werk','land'];
@@ -1731,7 +1769,7 @@ jQuery(function($) {
 
                 }
 
-                /*
+								/*
 								$('#topbar .leftside .menubutton').trigger('click');
                 $('#pageloader').remove();
                 console.log('Page successfully loaded');
