@@ -74,6 +74,19 @@ min-height: 100%;
 }
 
 
+
+.itemcontent .main .textbox p
+{
+padding:4px 0px 12px;
+line-height: 1.2em;
+} 
+.itemcontent .main .textbox p.has-small-font-size
+{
+	line-height: 1.3em;
+}
+
+
+
 .widget,
 .widget h3,
 .widget ul
