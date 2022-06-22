@@ -80,7 +80,10 @@ $header_image = get_header_image();
     echo '<link rel="stylesheet" id="wp-theme-isotope-style"  href="'.$isotopestyle.'" type="text/css" media="all" />';
 
     $stylesheet = get_template_directory_uri().'/home.css';
+    $stylesmobile = get_template_directory_uri().'/mobile.css';
+
     echo '<link rel="stylesheet" id="wp-theme-custom-style"  href="'.$stylesheet.'" type="text/css" media="all" />';
+    echo '<link rel="stylesheet" id="wp-theme-mobile-style"  href="'.$stylesmobile.'" type="text/css" media="all" />'; 
 
 	$nicescroll = get_template_directory_uri().'/assets/jquery.nicescroll.min.js';
     echo '<script type="text/javascript" src="'.$nicescroll.'"></script>';
@@ -121,7 +124,7 @@ $header_image = get_header_image();
                                 <?php //wp_main_theme_menu_html( 'top' , true  ); ?>
 
                                 <div class="nav-menu"><ul>
-                                <li class="page_item page-item-508"><a href="<?php echo get_home_url(); ?>">Wat</a></li>
+                                <li class="page_item page-item-508"><a href="<?php echo get_home_url(); ?>/">Wat</a></li>
                                 <li class="page_item page-item-812"><a href="<?php echo get_home_url(); ?>/hoe/">Hoe</a></li>
                                 <li class="page_item page-item-2"><a href="<?php echo get_home_url(); ?>/wie/">Wie</a></li>
                                 <li class="page_item page-item-332"><a href="<?php echo get_home_url(); ?>/waar/">Waar</a></li>

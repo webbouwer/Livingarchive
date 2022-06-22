@@ -1,0 +1,585 @@
+html {
+        /*zoom: .5;*/
+        /*transform: scale(0.5);
+  margin: -50px;*/
+}
+
+
+
+/* ms */
+@media screen and (max-width: 1180px) {
+
+#messageOverlay
+{
+  display:none;
+}
+
+/* global elements */
+#pagecontainer
+{
+position: relative;
+height:100%;
+width:100vw;
+}
+#topcontentcontainer
+{
+position:fixed;
+left:0px;
+top:0px;
+width:100%;
+z-index:800;
+background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+
+
+/* temp */
+#leftmenucontainer,
+#leftcontentcontainer
+{
+  display:none;
+}
+
+#maincontentcontainer
+{
+}
+#rightmenucontainer,
+#rightcontentcontainer
+{
+
+}
+#rightcontentcontainer
+{
+  padding-top:58px;
+}
+
+.topplaceholder
+{
+}
+
+#leftmenuplaceholder,
+#rightmenuplaceholder
+{
+  display:none;
+}
+
+
+
+
+
+/* topbar */
+#topspace
+{
+position: relative;
+margin:0px;
+max-height:100%;
+}
+
+#topspace .closebutton
+{
+position: absolute;
+right:0px;
+top:58px;
+width:46px;
+height:46px;
+display:none;
+
+background-position: center;
+background-repeat: no-repeat;
+background-size: 30px 30px;
+
+}
+
+#topspace .closebutton span
+{
+display:none;
+}
+#topspace .closebutton.active
+{
+display:block;
+background-image:url('images/kruis.png');
+}
+
+#topbar
+{
+padding:10px 10px 5px;
+border-bottom:5px solid black;
+}
+
+#topbar .leftside
+{
+display: block;
+/*float: left;*/
+width:100%;
+/* text-align: center; */
+}
+
+
+#topbar .leftside .custom-logo-link
+{
+display: inline-block;
+width:260px;
+height:40px;
+margin-top:-2px;
+margin-left:5px;
+background-image: url('images/ZPWL_weblogo.gif');
+background-repeat: no-repeat;
+background-position:center;
+background-size:96%;
+}
+#topbar .leftside .menubutton span
+{
+display: none;
+}
+#topbar .leftside .custom-logo-link span
+{
+display: none;
+}
+
+#topbar .leftside .menubutton
+{
+display: inline-block;
+width:38px;
+height:38px;
+float:left;
+background-image:url('images/menu.png');
+background-position: left center;
+background-size: auto 100%;
+background-repeat: no-repeat;
+}
+
+
+
+#topcontent
+{
+position: relative;
+overflow-y:auto;
+}
+#topcontent #infocontainer
+{
+position: relative;
+display: none;
+width:100vw;
+}
+#topcontent #infocontainer.active
+{
+  background-color:rgb( 225,225,225, 0.7 );
+}
+#topcontent #infocontainer.active .contentpage .main
+{
+position:relative;
+display:block;
+width:100vw;
+}
+
+
+
+#topcontent #infocontainer #infomenu
+{
+transition: all linear 0.3s;
+}
+#topcontent #infocontainer.active #infomenu
+{
+ position:absolute;
+
+}
+/*
+#topcontent #infocontainer.active #infomenu ul
+{
+  display:flex;
+}
+#topcontent #infocontainer.active #infomenu ul li
+{
+  flex:1;
+}
+*/
+
+
+#topcontent #infocontainer.active #infocontent
+{
+max-height:70%;
+overflow-y:auto;
+}
+
+#topcontent #infocontainer #infocontent .item.contentpage
+{
+position:absolute;
+top:58px;
+height:0px;
+overflow:hidden;
+}
+#topcontent #infocontainer #infocontent .item.contentpage.active
+{
+position:relative;
+height:auto;
+overflow:auto;
+}
+
+
+
+
+#infocontent .contentpage
+{
+width: 100%;
+}
+.contentpage .itemcontent
+{
+width:100%;
+}
+
+#topcontent #infocontainer .itemcontent .textbox
+{
+width:100%;
+font-size:17px;
+}
+#topcontent #infocontainer .itemcontent .main h1
+{
+font-size:74px;
+/*line-height:1em;*/
+line-height:76px;
+margin-bottom: 10px
+}
+#topcontent #infocontainer .itemcontent .textbox p
+{
+margin:0px;
+padding:4px 0px;
+line-height: 1.2em;
+}
+
+
+
+
+#topbar .rightside
+{
+display: none;
+position:absolute;
+padding:3px;
+}
+#topbar .rightside #searchbox
+{
+
+}
+#searchhints.active .resultcontent ul li.listheader,
+#searchhints.active .resultcontent ul.titleresults li
+{
+display: block;
+}
+#searchhints.active .resultcontent ul.tagresults li
+{
+list-style:none;
+}
+#searchhints.active .resultcontent ul li .titlebutton
+{
+font-size:15px;
+color:black;
+text-decoration: none;
+}
+#searchhints.active .resultcontent ul li .tagbutton
+{
+font-size:15px;
+color:black;
+text-decoration: none;
+}
+
+
+
+
+
+/* item globals content */
+.item.menubutton .itemcontent .coverimage,
+.item.menubutton .itemcontent .mediaplaceholder,
+.practice #rightcontentcontainer .item .itemcatbox,
+.item.menubutton .itemtagbox,
+.item.menubutton .infotoggle,
+.item.overviewcontent .author,
+.item.menubutton .author,
+.overview #rightcontentcontainer .item .author,
+.overview #rightcontentcontainer .item .itemtagbox,
+.theory #rightcontentcontainer .item .author,
+.theory #rightcontentcontainer .item .itemtagbox,
+.practice #rightcontentcontainer .item .author,
+.item.contentpage .author,
+.item .button
+{
+display:none;
+}
+.item.selected .button,
+.item.itemcontent .author
+{
+display: block;
+}
+
+.item
+{
+  position:relative;
+}
+
+
+
+@media screen and (max-width: 640px) {
+
+
+#rightmenucontainer
+{
+  position: absolute;
+  wdith:100%;
+  top:60px;
+  z-index:600;
+}
+
+.shuffleItem
+{
+width:50%;
+}
+.shuffleItem.active,
+.sidebar .shuffleItem
+{
+width:100%;
+}
+.size-s {
+  width: 50%;
+  min-height:180px;
+}
+.size-m  {
+  width: 50%;
+  min-height:180px;
+}
+.size-l {
+  width: 100%;
+  min-height:180px;
+}
+.itemcontent {
+  min-width: 100%;
+  min-height:100%;
+}
+
+a
+{
+  font-size:15px;
+  color:black;
+  text-decoration: none;
+}
+a:hover
+{
+  text-decoration: underline;
+}
+
+}
+#infomenu ul li
+{
+  background-color:white;
+  list-style:none;
+  width:25%;
+  float:left;
+}
+#infomenu ul li a
+{
+  display:block;
+  padding:2px 5px;
+}
+#rightmenucontainer a.tagbutton
+{
+  padding:2px 5px 0px 0px;
+}
+
+
+.itemcontent .intro .title h3
+{
+font-size:21px;
+margin-bottom:4px;
+display: inline-block;
+}
+.itemcontent .author
+{
+font-size:12px;
+font-weight:bold;
+}
+.itemcontent .intro .title h3 .matchweight,
+.item .matchweight
+{
+font-weight:normal;
+padding-left:2px;
+display:inline;
+font-size:18px;
+}
+
+.title h3
+{
+display:inline;
+}
+
+.item .infotoggle.button
+{
+position:absolute;
+right:0px;
+top:0px;
+width:6%;
+text-align:center;
+font-size:50px;
+height:48px;
+background-position: center;
+background-repeat: no-repeat;
+background-size: 24px 24px;
+background-image: url('images/plus.png');
+z-index:999;
+}
+
+.item .infotoggle.button.active
+{
+background-image: url('images/min.png');
+}
+.item .infotoggle.button span
+{
+display: none;
+}
+.item .main
+{
+display:none;
+}
+.item .main.active
+{
+position:absolute;
+display: block;
+max-height:calc(100% - 0px);
+overflow-y:auto;
+left:0px;
+top:0px;
+width:100%;
+padding:2px 2px 0px 0px;
+color: black;
+background-color:white;
+border-bottom:5px solid black;
+z-index:300;
+}
+
+.item .main .textbox
+{
+position: relative;
+padding:0px 0px 24px;
+font-size:18px;
+font-weight:bold;
+line-height:20px;
+}
+
+#maincontentcontainer .item .itemcatbox a.catbutton
+{
+font-size:18px;
+padding:0px 0px 5px;
+color:black;
+font-weight: bold;
+text-decoration: none;
+text-transform: capitalize;
+}
+
+#maincontentcontainer .item .main.active
+{
+position:absolute;
+display: block;
+max-height:100%;
+overflow-y:auto;
+left:0px;
+top:0px;
+width:auto;
+padding:6px 3px 6px 3px;
+margin-right:50px;
+color: black;
+background-color:white;
+border-bottom:5px solid black;
+z-index:300;
+}
+
+.main.active .textbox img,
+.main .textbox img,
+img
+{
+max-width:100% !important;
+height:auto;
+}
+
+.item .wp-caption-text,
+.textbox figure figcaption,
+.wp-block-embed figcaption
+{
+font-weight:normal;
+font-size:15px;
+padding:3px 0px 5px;
+text-align: left;
+color: black;
+}
+
+.item .wp-caption
+{
+max-width:100%;
+}
+.item .wp-caption img
+{
+padding:8px 0px 0px;
+max-width:100%;
+height:auto;
+}
+
+.item .mediabox
+{
+display:none;
+}
+
+
+
+.item iframe
+{
+max-width:100% !important;
+height:auto !important;
+}
+.item.active iframe,
+.item.selected iframe
+{
+display:block;
+width:100% !important;
+height:auto !important;
+min-height: 460px;
+padding:8px 0px 0px;
+}
+
+
+.item .imageslides
+{
+display:none;
+}
+.item.active .imageslides
+{
+display:none;
+}
+
+.item .intro .imagenav
+{
+display:none;
+}
+.item.selected .intro .imagenav
+{
+position:relative;
+display:block;
+z-index:99;
+}
+.item.active .intro .imagenav .navleft,
+.item.active .intro .imagenav .navright
+{
+position: absolute;
+margin-top:30%;
+z-index:99;
+transition: margin-top linear .3s;
+}
+.item.active .intro .imagenav .navleft
+{
+left:0px;
+}
+.item.active .intro .imagenav .navright
+{
+right:0px;
+margin-right:0px;
+}
+
+
+}
