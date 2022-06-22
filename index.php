@@ -21,8 +21,6 @@ $header_image = get_header_image();
     echo
     //'<link rel="canonical" href="'.home_url(add_query_arg(array(),$wp->request)).'">'
     '<link rel="pingback" href="'.get_bloginfo( 'pingback_url' ).'" />'
-    .'<link rel="shortcut icon" href="images/favicon.ico" />'
-    // tell devices wich screen size to use by default
     .'<meta name="viewport" content="initial-scale=1.0, width=device-width" />'
     .'<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">'
     .'<meta name="robots" content="index,follow">'."\r\n"
@@ -51,22 +49,67 @@ $header_image = get_header_image();
     }
     echo '<meta property="og:image" content="' . $default_image . '"/>';
 
+    $stylesheet = get_template_directory_uri().'/style.css';
+    echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$stylesheet.'" type="text/css" media="all" />';
+    if( is_front_page() ){
+      $customstyles = get_template_directory_uri().'/assets/grid.css';
+      echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$customstyles.'" type="text/css" media="all" />';
+    }
     // include wp head
     wp_head();
-
     echo '</head>';
     echo '<body '.$headerbgstyle.' '; body_class(); echo '>';
     ?>
-    <div id="pagecontainer" class="site">
+
+    <div id="maincontainer" class="site">
+
+      <div id="header">
+
+        <?php if( is_front_page() ){ ?>
+      	<div id="navbar">
+
+      			<div class="outerspace">
+
+      				<div class="togglebox">
+
+      					<div class="menu-icon column">
+      						<img src="https://zee-plaats-werk-land.nl/devsite/wp-content/themes/Livingarchive/images/menu.svg" />
+      					</div>
+      					<div class="logo column">
+      						<img src="https://zee-plaats-werk-land.nl/devsite/wp-content/themes/Livingarchive/images/ZPWL_weblogo.gif" />
+      					</div>
+      					<div class="search column">
+      						<input id="searchbox" class="basic-search" placeholder="Zoek" size="24" style="background-color: white;">
+      					</div>
+
+      				</div>
+      			</div>
+
+      	</div>
+        <?php } ?>
+
+      </div>
+
+      <div id="mainbody">
+      <?php
+
+        if( is_front_page() ){
+
+              
+            // grid
+            theme_display_postgrid();
+
+        }else{
+
+            // default loop
+            wp_default_postdata();
+        }
+      ?>
+      </div>
+
     </div>
     <?php
     wp_footer();
-    ?>
-    <!-- Global site tag -->
-    <script>
-    jQuery(function($) {
-    });
-    </script>
-    <?php
+
     echo '</body></html>';
     ?>

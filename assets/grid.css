@@ -1,0 +1,35 @@
+#page-container,
+#post-container,
+#article-container
+{
+  /* display:none; */
+}
+
+#page-container
+{
+  display:none;
+}
+
+#post-container .itemcontent .intro .excerpt,
+#article-container .itemcontent .main .textbox
+{
+
+}
+
+@media screen and (min-width: 1120px) {
+
+#mainbody
+{
+}
+#page-container
+{
+}
+#post-container
+{
+}
+#article-container
+{
+}
+
+
+}
