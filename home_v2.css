@@ -116,10 +116,6 @@ line-height: 1.3em;
 */
 
 
-/* xl */
-@media screen and (min-width: 1180px) {
-
-
 #topspace.active
 {
 background-color: white;
@@ -2217,5 +2213,3 @@ background-color: orange;
 background-color: cornflowerblue;
 }
 */
-
-} /* end min 1180 width */
