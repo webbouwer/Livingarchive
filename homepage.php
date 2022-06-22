@@ -17,13 +17,18 @@ $header_image = get_header_image();
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="profile" href="http://gmpg.org/xfn/11">
-<!-- Google Tag Manager
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-W5CXPXH');</script>
-End Google Tag Manager -->
+
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QE2B2TWWCE"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-QE2B2TWWCE');
+        </script>
+        <!-- End Google Tag Manager -->
 
     <?php
     if ( ! isset( $content_width ) ) $content_width = 360; // mobile first
@@ -91,10 +96,8 @@ End Google Tag Manager -->
     echo '<body '.$headerbgstyle.' '; body_class('startpage'); echo '>';
     ?>
 
-    <!-- Google Tag Manager (noscript)
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W5CXPXH"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
- End Google Tag Manager (noscript) -->
+
+
 
     <div id="pagecontainer" class="site">
 
@@ -115,15 +118,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <div id="infocontainer">
                             <div id="infomenu">
 
-                                <?php wp_main_theme_menu_html( 'main' , true  ); ?>
-                                <!--
+                                <?php //wp_main_theme_menu_html( 'top' , true  ); ?>
+
                                 <div class="nav-menu"><ul>
-                                <li class="page_item page-item-508"><a href="<?php echo get_permalink(); ?>">Wat</a></li>
-                                <li class="page_item page-item-812"><a href="<?php echo get_permalink(); ?>hoe/">Hoe</a></li>
-                                <li class="page_item page-item-2"><a href="<?php echo get_permalink(); ?>wie/">Wie</a></li>
-                                <li class="page_item page-item-332"><a href="<?php echo get_permalink(); ?>waar/">Waar</a></li>
+                                <li class="page_item page-item-508"><a href="<?php echo get_home_url(); ?>">Wat</a></li>
+                                <li class="page_item page-item-812"><a href="<?php echo get_home_url(); ?>/hoe/">Hoe</a></li>
+                                <li class="page_item page-item-2"><a href="<?php echo get_home_url(); ?>/wie/">Wie</a></li>
+                                <li class="page_item page-item-332"><a href="<?php echo get_home_url(); ?>/waar/">Waar</a></li>
                                 </ul></div>
-                                -->
+
                             </div>
                             <div id="infocontent">
                                 <div class="contentbox"><?php wp_main_theme_loop_html(); ?></div>
