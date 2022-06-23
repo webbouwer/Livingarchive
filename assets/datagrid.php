@@ -1,24 +1,23 @@
 <?php // Grid data functions (frontpage)
 
-
 // grid content
-function theme_display_postgrid(){
+function theme_display_postgrid( $selectedtags = false ){
 
-        $args = array(
-            //'tag'               => json_encode($this->tagfilter),
-            //'category_name'     => json_encode($this->catfilter),
-            'post_type'         => 'any', //'post', //   = incl pages
-            'post__not_in'      => array(1817,3,1988,1983), // $this->loadedID, for ajax return requests
-            'post_status'       => 'publish',
-            'orderby'           => 'date',
-            'order'             => 'DESC',      // 'DESC', 'ASC' or 'RAND'
-            'posts_per_page'  => -1, //-1,
-            //'posts_offset'      => $ppload,
-            //'suppress_filters'  => false,
-        );
-        $query = new WP_Query( $args );
+          $args = array(
+              'post_type'         => 'any', //'post', //   = incl pages
+              'post__not_in'      =>  array(1817,3,1988,1983), // $this->loadedID, for ajax return requests
+              'post_status'       => 'publish',
+              'orderby'           => 'date',
+              'order'             => 'DESC',      // 'DESC', 'ASC' or 'RAND'
+              'posts_per_page'    => -1, //-1 = all,
+              //'tag'               => json_encode($this->tagfilter),
+              //'category_name'     => json_encode($this->catfilter),
+              //'posts_offset'      => $ppload,
+              //'suppress_filters'  => false,
+          );
+          $query = new WP_Query( $args );
+
         $response = array('page'=>array(),'article'=>array(),'post'=>array());
-        $count = array();
 
 				$articles = 'artikelen';
 
@@ -28,8 +27,6 @@ function theme_display_postgrid(){
               // this post
               $pid = $post->id;
               $post = get_post($pid);
-              // is post or infomenu page
-              //if( $post->post_type === 'post' || page_id_in_menu( 'info', $pid ) ){
 
                 $excerpt_length = 120; // amount of words
                 $fulltext = $post->post_content;//  str_replace( '<!--more-->', '',);
@@ -56,12 +53,17 @@ function theme_display_postgrid(){
 										$type = 'article';
 								}
 
+                if( is_array($selectedtags) ){
+                  $tagweight = calculateTagWeight( $data['tags'], $selectedtags);
+                }
+
 								$data = array(
                     'id' => get_the_ID(),
                     'type' => $type,
                     'link' => get_the_permalink(),
                     'title' => get_the_title(),
                     'slug' => $post->post_name,
+                    'tagweight' => $tagweight,
                     'image' => get_the_post_thumbnail( $post->id, 'large'),
                     'imgurl' => wp_get_attachment_url( get_post_thumbnail_id( $post->id, 'large' ) ),
                     'imgorient' => check_image_orientation( $post->id ),
@@ -86,7 +88,7 @@ function theme_display_postgrid(){
 								}
 
 								$html = '';
-								$html .= '<div id="'.$data['type'].'-'.$data['id'].'" data-id="'.$data['id'].'" data-slug="'.$data['slug'].'" class="item '.$data['imgorient'].' '.$filterclasses.'" ';
+								$html .= '<div id="'.$data['type'].'-'.$data['id'].'" data-tagweight="'.$tagweight.'" data-id="'.$data['id'].'" data-slug="'.$data['slug'].'" class="item '.$data['type'].' '.$data['imgorient'].' '.$filterclasses.'" ';
 								$html .= 'data-link="'.$data['link'].'" data-author="'.$data['author'].'" data-timestamp="'.$data['date'].'" data-category="'.$catrev[0].'" ';
 								$html .= 'data-tags="'.implode(",", $data['tags']).'" data-cats="'.implode(",", $data['tags']).'">';
 
@@ -110,7 +112,7 @@ function theme_display_postgrid(){
 								if( $data['type'] == 'page' ){
 								  $html .= '<h2>'.$data['title'].'</h2>';
                 }else{
-								  $html .= '<h3>'.$data['title'].' <span class="matchweight moderate">0</span></h3>';
+								  $html .= '<h3><a href="'.$data['link'].'" title="'.$data['title'].'">'.$data['title'].' <span class="matchweight moderate">['.$tagweight.']</span></a></h3>';
 									$html .= '<div class="author">'.$data['author'].'</div>';
 								}
                 $html .= '</div>';
@@ -126,11 +128,23 @@ function theme_display_postgrid(){
 
 								$data['html'] = $html;
 
-                $response[$type][] = $data;
 
-            //  } // is post or infomenu page
+                $response[$type][] = $data;
+                usort($response[$type], function ($a, $b) {
+                    return $b['tagweight'] - $a['tagweight'];
+                });
 
             endwhile;
+
+            echo '<div id="data-info">';
+
+            if( $selectedtags ){
+              print_r($selectedtags);
+            }
+            $tot = count($response['post']) + count($response['article']);
+            echo '<br />Total items: '.$tot;
+
+            echo '</div>';
 
             // build post sections by type
             foreach( $response as $type => $list ){
@@ -150,11 +164,7 @@ function theme_display_postgrid(){
            $response[0] = 'No posts found';
         endif;
         wp_reset_query();
-        ob_clean();
-        //wp_die();
-        //return $response;
-				//print_r($response);
-
+        ob_clean(); //wp_die();
 
 }
 
@@ -196,7 +206,8 @@ function gethtmlListTags( $itemtags ){
     foreach($tags as $obj){
     	foreach( $itemtags as $postslug){
       	if( $obj->slug == $postslug ){
-        	$html .= '<a href="#tags='.$obj->slug.'" class="tagbutton '.$obj->slug.'" data-tag="'.$obj->slug.'">'.$obj->name.'</a> ';
+          //$html .= json_encode($obj);
+        	$html .= '<a href="'.get_tag_link($obj->term_id).'" class="tagbutton '.$obj->slug.'" data-tag="'.$obj->slug.'">'.$obj->name.'</a> ';
         }
       }
     }
@@ -208,21 +219,61 @@ function gethtmlListCats( $itemcats ){
 
 	$catlist = wp_main_theme_get_all_categories();
 	$html = '';
-	foreach( $itemcats as $postcat){
-		foreach( $catlist as $obj){
-			if( $obj->slug == $postcat &&  $obj->slug != 'artikelen'){
-				if( $obj->parent == "2" ){ // person names first
-					$html = '<a href="#cats='.$obj->slug.'" class="categoryname catbutton '.$obj->slug.'" data-cats="'.$obj->slug.'">'.$obj->name.'</a> ' . $html;
-				}else{
-					$html .= '<a href="#cats='.$obj->slug.'" class="categoryname catbutton '.$obj->slug.'" data-cats="'.$obj->slug.'">'.$obj->name.'</a> ';
-				}
 
-			}
-		}
-	}
+  foreach( $catlist as $obj){
+    if (in_array($obj->slug, $itemcats) &&  $obj->slug != 'artikelen' ){
+      if( $obj->parent == "2" ){ // person names first
+        $html = '<a href="'.get_category_link($obj->term_id).'" class="categoryname catbutton '.$obj->slug.'" data-cats="'.$obj->slug.'">'.$obj->name.'</a> ' . $html;
+      }else{
+        $html .= '<a href="'.get_category_link($obj->term_id).'" class="categoryname catbutton '.$obj->slug.'" data-cats="'.$obj->slug.'">'.$obj->name.'</a> ';
+      }
+    }
+  }
 	return $html;
 
 }
+
+function calculateTagWeight( $itemtags, $selectedtags){
+  $count = 0;
+  if( is_array($itemtags) && is_array($selectedtags) ){
+
+    	foreach( $itemtags as $postslug){
+        if (in_array($postslug, $selectedtags)){
+          $count++;
+        }
+      }
+      return $count;
+  }else{
+    return $count;
+  }
+}
+/*
+function sortBySubArrayValue(&$array, $key, $dir='asc') {
+
+   $sorter=array();
+   $rebuilt=array();
+
+   //make sure we start at the beginning of $array
+   reset($array);
+
+   //loop through the $array and store the $key's value
+   foreach($array as $ii => $value) {
+     $sorter[$ii]=$value[$key];
+   }
+
+   //sort the built array of key values
+   if ($dir == 'asc') asort($sorter);
+   if ($dir == 'desc') arsort($sorter);
+
+   //build the returning array and add the other values associated with the key
+   foreach($sorter as $ii => $value) {
+     $rebuilt[$ii]=$array[$ii];
+   }
+
+   //assign the rebuilt array to $array
+   return $rebuilt;
+ }
+ */
 
 
 

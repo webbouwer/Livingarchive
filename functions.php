@@ -2,6 +2,11 @@
 require_once('assets/truncate.php');
 require_once('assets/datagrid.php');
 
+function getCurrentUrl(){
+	global $wp;
+	return home_url( add_query_arg( array(), $wp->request ) );
+}
+
 // register options
 function theme_post_thumbnails() {
 	add_theme_support( 'custom-background' );

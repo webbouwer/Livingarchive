@@ -51,10 +51,10 @@ $header_image = get_header_image();
 
     $stylesheet = get_template_directory_uri().'/style.css';
     echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$stylesheet.'" type="text/css" media="all" />';
-    if( is_front_page() ){
+    //if( is_front_page() ){
       $customstyles = get_template_directory_uri().'/assets/grid.css';
       echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$customstyles.'" type="text/css" media="all" />';
-    }
+    //}
     // include wp head
     wp_head();
     echo '</head>';
@@ -65,7 +65,7 @@ $header_image = get_header_image();
 
       <div id="header">
 
-        <?php if( is_front_page() ){ ?>
+        <?php //if( is_front_page() ){ ?>
       	<div id="navbar">
 
       			<div class="outerspace">
@@ -86,24 +86,60 @@ $header_image = get_header_image();
       			</div>
 
       	</div>
-        <?php } ?>
+        <?php //} ?>
 
       </div>
 
       <div id="mainbody">
       <?php
-
+        $tags_selected = false;
         if( is_front_page() ){
-
-              
-            // grid
-            theme_display_postgrid();
-
+          $tags_selected = array('zee','plaats','werk','land');
         }else{
+          if( is_single() ){
 
-            // default loop
-            wp_default_postdata();
+            // get post tags
+            $tags = wp_get_post_terms( get_the_ID(), 'post_tag', array("fields" => "slugs"));
+            $cats = wp_get_post_terms( get_the_ID(), 'category', array("fields" => "slugs"));
+
+            $tags_selected = array();
+            foreach($tags as $tag){
+                $tags_selected[] = $tag;
+            }
+
+          }else if( is_page() ){
+
+            // get page tags / parent..
+            $tags = wp_get_post_terms( get_the_ID(), 'post_tag', array("fields" => "slugs"));
+            $cats = wp_get_post_terms( get_the_ID(), 'category', array("fields" => "slugs"));
+
+            $tags_selected = array();
+            foreach($tags as $tag){
+                $tags_selected[] = $tag;
+            }
+
+          }else if( is_tag() ){
+
+            // get post tags
+            $tag_id = get_queried_object()->term_id;
+            $tag_slug = get_queried_object()->slug;
+
+            $tags_selected = array($tag_slug);
+
+          }else if(is_category()){
+
+            $cat_id = get_queried_object()->term_id;
+            $cat_slug = get_queried_object()->slug;
+
+          }
         }
+        // default loop
+        //wp_default_postdata();
+        // grid with selected tags (from post or tag selected)
+    
+
+        theme_display_postgrid( $tags_selected );
+
       ?>
       </div>
 
