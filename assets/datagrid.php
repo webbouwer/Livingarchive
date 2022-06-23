@@ -1,15 +1,50 @@
 <?php // Grid data functions (frontpage)
 
 // grid content
-function theme_display_postgrid( $selectedtags = false ){
+function theme_display_postgrid(){
+
+  $notpostsids = array(1817,3,1988,1983);
+  $selectedtags = false;
+
+  if( is_front_page() ){
+    $selectedtags = array('zee','plaats','werk','land');
+  }else{
+    if( is_single() ){
+      // get post tags
+      $tags = wp_get_post_terms( get_the_ID(), 'post_tag', array("fields" => "slugs"));
+      $cats = wp_get_post_terms( get_the_ID(), 'category', array("fields" => "slugs"));
+      $selectedtags = array();
+      foreach($tags as $tag){
+          $selectedtags[] = $tag;
+      }
+    }else if( is_page() ){
+      // get page tags / parent..
+      $tags = wp_get_post_terms( get_the_ID(), 'post_tag', array("fields" => "slugs"));
+      $cats = wp_get_post_terms( get_the_ID(), 'category', array("fields" => "slugs"));
+      $selectedtags = array();
+      foreach($tags as $tag){
+          $selectedtags[] = $tag;
+      }
+    }else if( is_tag() ){
+      // get post tags
+      $tag_id = get_queried_object()->term_id;
+      $tag_slug = get_queried_object()->slug;
+      $selectedtags = array($tag_slug);
+    }else if(is_category()){
+      $cat_id = get_queried_object()->term_id;
+      $cat_slug = get_queried_object()->slug;
+    }
+  }
+
+
 
           $args = array(
               'post_type'         => 'any', //'post', //   = incl pages
-              'post__not_in'      =>  array(1817,3,1988,1983), // $this->loadedID, for ajax return requests
+              'post__not_in'      =>  $notpostsids, // $this->loadedID, for ajax return requests
               'post_status'       => 'publish',
               'orderby'           => 'date',
               'order'             => 'DESC',      // 'DESC', 'ASC' or 'RAND'
-              'posts_per_page'    => -1, //-1 = all,
+              'posts_per_page'    => 50, //-1 = all,
               //'tag'               => json_encode($this->tagfilter),
               //'category_name'     => json_encode($this->catfilter),
               //'posts_offset'      => $ppload,
@@ -17,7 +52,7 @@ function theme_display_postgrid( $selectedtags = false ){
           );
           $query = new WP_Query( $args );
 
-        $response = array('page'=>array(),'article'=>array(),'post'=>array());
+        $response = array('info'=>array(),'article'=>array(),'post'=>array());
 
 				$articles = 'artikelen';
 
@@ -47,7 +82,7 @@ function theme_display_postgrid( $selectedtags = false ){
                 // detect needed post types
                 $type = 'post';
                 if( $post->post_type === 'page' ){
-                    $type = 'page';
+                    $type = 'info';
                 }
 								if( has_category($articles,$post->id) ){
 										$type = 'article';
@@ -149,14 +184,14 @@ function theme_display_postgrid( $selectedtags = false ){
             // build post sections by type
             foreach( $response as $type => $list ){
 
-              echo '<div id="'.$type.'-container" class="box">';
+              echo '<div id="'.$type.'-container"><div class="'.$type.'-box">';
               if( $type == 'page' ){
                 wp_main_theme_menu_html( 'info', false );
               }
             	foreach( $list as $nr => $post ){
             	   echo $post['html'];
             	}
-            	echo '</div>';
+              echo '</div></div>';
 
             }
 
@@ -247,33 +282,7 @@ function calculateTagWeight( $itemtags, $selectedtags){
     return $count;
   }
 }
-/*
-function sortBySubArrayValue(&$array, $key, $dir='asc') {
 
-   $sorter=array();
-   $rebuilt=array();
-
-   //make sure we start at the beginning of $array
-   reset($array);
-
-   //loop through the $array and store the $key's value
-   foreach($array as $ii => $value) {
-     $sorter[$ii]=$value[$key];
-   }
-
-   //sort the built array of key values
-   if ($dir == 'asc') asort($sorter);
-   if ($dir == 'desc') arsort($sorter);
-
-   //build the returning array and add the other values associated with the key
-   foreach($sorter as $ii => $value) {
-     $rebuilt[$ii]=$array[$ii];
-   }
-
-   //assign the rebuilt array to $array
-   return $rebuilt;
- }
- */
 
 
 
