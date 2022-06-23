@@ -14,6 +14,7 @@ class AjaxBundleShortcodes{
 
     // [wpajaxposts tax1="category" terms1="blog" tax2="post_tag" terms2="planet,earth" ppp="2" button="hidden"]Ajax load test[/wpajaxposts]
     $default = array(
+        'id' => '',
         'button' => '',
         'tax1' => '', // {0: 'category'}
         'terms1' => '', // { 0: 'blog'}
@@ -35,7 +36,7 @@ class AjaxBundleShortcodes{
 
 
     $this->nr++;
-    if( isset($att['id']) ){
+    if( $att['id'] != '' ){
       $elementid = ' id="'.$att['id'].'"';
     }else{
       $elementid = ' id="wpajaxbundle_'.$this->nr.'"';
@@ -45,7 +46,7 @@ class AjaxBundleShortcodes{
     .' data-tax1="'.$att['tax1'].'" data-terms1="'.$att['terms1'].'" data-tax2="'.$att['tax2'].'" data-terms2="'.$att['terms2'].'"'
     .' data-relation="'.$att['relation'].'" data-orderby="'.$att['orderby'].'" data-order="'.$att['order'].'"'
     .' data-ppp="'.$att['ppp'].'" data-load="'.$att['load'].'">'
-    .'<div class="container"></div>'.$button.'</div>'; 
+    .'<div class="container"></div>'.$button.'</div>';
     //print_r($att);
     return $html;
 

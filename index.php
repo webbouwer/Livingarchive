@@ -39,7 +39,11 @@ echo '<body '.$headerbgstyle.' '; body_class(); echo '>';
 ?>
 
 <?php
-wp_default_postdata(); 
+//wp_default_postdata();
+echo do_shortcode('[ajaxposts id="testbox" tax1="category" terms1="artikelen" relation="AND" tax2="" terms2="" ppp="5" load="" orderby="date" order="ASC" button=""]Ajax load test[/ajaxposts]');
+
+echo do_shortcode('[ajaxposts id="testbox2" tax1="" terms1="" relation="OR" tax2="post_tag" terms2="zee,land,werk,plaats" ppp="5" load="" orderby="date" order="ASC" button=""]Ajax load test[/ajaxposts]');
+
 ?>
 
 

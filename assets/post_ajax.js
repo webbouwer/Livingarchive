@@ -5,46 +5,44 @@ jQuery(function($) {
 var getPostsByAjax = function(options){
 
   var root = this;
-  var containerid = 'wpajaxbundle_1';
+  var containerid = '#wpajaxbundle_1';
   var pullpage = 0; // starts onload
   var pullflag = true;
   var pullend = false;
-  var reqvars;
 
-  // prepare an object with default request variables
-  var data_args_default = {
-      'posttype': 'post',
-      'postid': false, // for direct post requests
-      'notinpostid' : '',
-      'not': false, // for direct post requests
-      'tax1': 'category', // main taxonomy (custom), default category
-      'terms1': {}, // slugs
-      'relation': 'AND',
-      'tax2': 'post_tag', // default post_tag
-      'terms2': {}, //slugs
-      'orderby': 'post_date',
-      'order': 'ASC',
-      'ppp': 1,
-      'page': pullpage
-  };
+  var notinid;
+  var result;
+  var data;
+  var reqdefault;
+  var reqvars;
+  var reqdata;
+
+
+
+  this.setContainerId = function( str ){
+    this.containerid = str;
+  }
 
   this.doRequestData = function(){
 
-    if( $('body').find('#wpajaxbundle_1').length > 0 ){
-      // request arguments
-      var data = $('#wpajaxbundle_1').data();
+    //alert(this.containerid);
 
-      var notinid = '';
-      if( $('#wpajaxbundle_1').find('.container .item').length > 0 ){
-        notinid = Array();
-        $.each( $('#wpajaxbundle_1').find('.container .item'), function(){
-          notinid.push( $(this).data('postid') );
+    if( $('body').find( '#'+this.containerid ).length > 0 ){
+      // request arguments
+      root.data = $( '#'+this.containerid ).data();
+
+      root.notinid = '';
+      if( $( '#'+this.containerid ).find('.container .item').length > 0 ){
+        root.notinid = Array();
+        $.each( $('#'+this.containerid).find('.container .item'), function(){
+          root.notinid.push( $(this).data('postid') );
         });
       }
 
-      reqvars = {
+
+      root.reqvars = {
         'posttype' : 'post',
-        'notinpostid' : notinid,
+        'notinpostid' : root.notinid,
         'tax1': 'category', //
         'terms1': 'uncategorized', //{ 0: 'blog', 1: 'nieuws'},
         'tax2': '', //'post_tag',
@@ -55,56 +53,54 @@ var getPostsByAjax = function(options){
         'ppp': 2
       };
 
-      if( data.tax1 != '' ){
-        reqvars.tax1 = data.tax1;
+      if( root.data.tax1 != '' ){
+        root.reqvars.tax1 = root.data.tax1;
       }
-      if( data.terms1 != '' ){
+      if( root.data.terms1 != '' ){
         let obj = {};
-        if(/[,]/.test(data.terms1)){
-          let arr = data.terms1.split(',');
+        if(/[,]/.test(root.data.terms1)){
+          let arr = root.data.terms1.split(',');
           $.each(arr, function( r, v){
             obj[r] = v;
           });
-          reqvars.terms1 = obj;
+          root.reqvars.terms1 = obj;
         }else{
-          obj = { "0" : data.terms1 };
-          reqvars.terms1 = obj;
+          obj = { "0" : root.data.terms1 };
+          root.reqvars.terms1 = obj;
         }
       }
-      if( data.tax2!= '' ){
-        reqvars.tax2 = data.tax2;
+      if( root.data.tax2!= '' ){
+        root.reqvars.tax2 = root.data.tax2;
       }
-      if( data.terms2 != '' ){
+      if( root.data.terms2 != '' ){
         let obj = {};
-        if(/[,]/.test(data.terms2)){
-          let arr = data.terms2.split(',');
+        if(/[,]/.test(root.data.terms2)){
+          let arr = root.data.terms2.split(',');
           $.each(arr, function( r, v){
             obj[r] = v;
           });
-          reqvars.terms2 = obj;
+          root.reqvars.terms2 = obj;
         }else{
-          obj = { "0" : data.terms2 };
-          reqvars.terms2 = obj;
+          obj = { "0" : root.data.terms2 };
+          root.reqvars.terms2 = obj;
         }
       }
-      if( notinid != '' ){
-        reqvars.notinpostid = notinid;
+
+      if( root.data.relation != '' ){
+        root.reqvars.relation = root.data.relation;
       }
-      if( data.relation != '' ){
-        reqvars.relation = data.relation;
+      if( root.data.orderby != '' ){
+        root.reqvars.orderby = root.data.orderby;
       }
-      if( data.orderby != '' ){
-        reqvars.orderby = data.orderby;
+      if( root.data.order != '' ){
+        root.reqvars.order = root.data.order;
       }
-      if( data.order != '' ){
-        reqvars.order = data.order;
-      }
-      if( data.ppp != '' ){
-        reqvars.ppp = data.ppp;
+      if( root.data.ppp != '' ){
+        root.reqvars.ppp = root.data.ppp;
       }
 
       //alert(JSON.stringify(reqvars));
-      this.getPostData(reqvars);
+      this.getPostData(root.reqvars);
     }
 
   }
@@ -113,27 +109,44 @@ var getPostsByAjax = function(options){
 
   this.getPostData = function( args = false ) {
 
-    var reqdata = data_args_default; // set default variables
+    // prepare an object with default request variables
+    root.reqdefault = {
+        'posttype': 'post',
+        'postid': false, // for direct post requests
+        'notinpostid' : '',
+        'not': false, // for direct post requests
+        'tax1': 'category', // main taxonomy (custom), default category
+        'terms1': {}, // slugs
+        'relation': 'AND',
+        'tax2': 'post_tag', // default post_tag
+        'terms2': {}, //slugs
+        'orderby': 'post_date',
+        'order': 'ASC',
+        'ppp': 1,
+        'page': this.pullpage
+    };
+
+    root.reqdata = root.reqdefault; // set default variables
 
     if (pullflag) { // if no requests active
         pullflag = false;
         pullpage++;
 
-        reqdata['page'] = pullpage; // set query pagenumber
+        root.reqdata['page'] = pullpage; // set query pagenumber
         if(args){ // args from the trigger function (load/button/scroll)
-          for (const key in data_args_default) {
+          for (const key in root.reqdefault) {
               if( args[key] ) {
-                reqdata[key] = args[key]; // replace default variables
+                root.reqdata[key] = args[key]; // replace default variables
               }
           }
         }
-        getPosts( reqdata );
-        console.log( reqdata );
+        this.getPosts( root.reqdata );
+        console.log( root.reqdata );
     }
 
   }
 
-  function getPosts( args ){
+  this.getPosts = function( args ){
 
     jQuery.ajax({
       type: "POST",
@@ -146,7 +159,7 @@ var getPostsByAjax = function(options){
       },
       success: function(response) {
         //alert( JSON.stringify(args) );
-        setPostsHTML( response ); // JSON.stringify(response)
+        root.setPostsHTML( response ); // JSON.stringify(response)
         if (response.length >= args.ppp) {
           pullflag = true; // if ppp count result wait for pull again
         }else{
@@ -162,15 +175,15 @@ var getPostsByAjax = function(options){
 
   }
 
-  function setPostsHTML( result ){
+  this.setPostsHTML = function( result ){
 
     //console.log( result );
     //let t = 0; // timer for smooth slowed-down slide-in
 
     $.each( result, function( idx, post){
 
-      let objfilterclasses = 'item';
-      let obj = $('<div id="post-'+post.id+'"></div>');
+      var objfilterclasses = 'item';
+      var obj = $('<div id="post-'+post.id+'"></div>');
 
       obj.attr('data-postid', post.id );
       obj.attr('data-tags', post.tags.toString() );
@@ -199,7 +212,7 @@ var getPostsByAjax = function(options){
       }
       obj.append(tags);
 
-      $('body').find('.wpajaxbundle .container').append(obj);
+      $('body').find('#'+root.containerid+' .container').append(obj);
 
       /*let obj = $('<div id="post-'+post.id+'">'+post.title+'</div>').hide();//.slideUp(300);
       $('body').find('.wpajaxbundle.button').parent().find('.container').append(obj);
@@ -208,7 +221,7 @@ var getPostsByAjax = function(options){
         obj.slideDown(300);
       },t);
       t=(t+50);*/
-      if( $('#wpajaxbundle_1').data('load') == 'all'){
+      if( $( '#'+root.containerid ).data('load') == 'all'){
         /* repeat ppp load automaticaly untill all is loaded  */
         setTimeout(function(){
           root.doRequestData();
@@ -218,14 +231,14 @@ var getPostsByAjax = function(options){
     });
 
     // hide button if less data then page amount found
-    if( result.length < reqvars.ppp && $('.wpajaxbundlebutton').length > 0){
-      $('.wpajaxbundlebutton').hide();
+    if( result.length < root.reqvars.ppp && $( '#'+root.containerid+' .wpajaxbundlebutton' ).length > 0){
+      $( '#'+root.containerid+' .wpajaxbundlebutton' ).hide();
     }
 
     // trigger isotope
   }
 
-  $('body').on( 'click', '.wpajaxbundlebutton', function(){
+  $('body').on( 'click', '#'+root.containerid+' .wpajaxbundlebutton', function(){
       root.doRequestData();
   });
 
@@ -235,7 +248,7 @@ var getPostsByAjax = function(options){
     var scrollPosition = $(window).height() + $(window).scrollTop();
 
     if ((scrollHeight - scrollPosition) / scrollHeight <= 0.01 ) {
-      if( !pullend ){
+      if( !root.pullend ){
         root.doRequestData();
       }
     }
@@ -244,8 +257,19 @@ var getPostsByAjax = function(options){
 
   } // end get posts by ajax
 
-  var posts = new getPostsByAjax();
-  posts.doRequestData();
+  // on load check if a container is available
+  var ajaxbundle = Array();
+  if( $('.wpajaxbundle').length > 0 ){
+
+    $.each( $('.wpajaxbundle'), function(){
+      let elementid = $(this).attr('id');
+      let bundle = new getPostsByAjax();
+      bundle.setContainerId(elementid);
+      bundle.doRequestData();
+      ajaxbundle.push( bundle );
+    });
+
+  }
 
   });
 
