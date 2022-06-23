@@ -12,7 +12,7 @@ require_once ('functions.php');
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
- 
+
 <?php
     echo '<title>'.get_bloginfo( 'name' ).'</title>';
     echo '<meta name="description" content="'.get_bloginfo( 'description' ).'">';
@@ -39,8 +39,7 @@ echo '<body '.$headerbgstyle.' '; body_class(); echo '>';
 ?>
 
 <?php
-        //wp_default_postdata();
-        theme_display_postgrid();
+wp_default_postdata(); 
 ?>
 
 

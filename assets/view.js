@@ -21,11 +21,8 @@ jQuery( function($) {
 	$(document).ready(function(){
 
     $('body').imagesLoaded( function( instance ) {
-    });
-
-    window.onload = function(){
       unsetPageLoader();
-    }
+    });
 
   });
 

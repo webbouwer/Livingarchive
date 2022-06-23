@@ -36,14 +36,3 @@ body
 	background-color:black;
 	color:white;
 }
-
-#info-container .info-box
-{
-	display:none;
-}
-
-
-.item
-{
-	display:none;
-}

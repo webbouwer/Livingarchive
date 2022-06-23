@@ -1,5 +1,6 @@
 <?php
-require_once ('assets/datagrid.php');
+require_once ('assets/ajaxbundleshortcodes.php');
+require_once ('assets/ajaxbundle.php');
 require_once ('assets/truncate.php');
 
 function getCurrentUrl()
@@ -34,7 +35,7 @@ add_action('init', 'basic_setup_register_menus');
 // frontend
 function theme_scripts()
 {
-    wp_enqueue_script('jquery'); 
+    wp_enqueue_script('jquery');
 }
 add_action('wp_enqueue_scripts', 'theme_scripts');
 
@@ -87,4 +88,69 @@ function wp_main_theme_menu_html($menu, $primary = false){
         }
 
     }
+}
+
+
+function wp_default_postdata(){
+    if (have_posts()) :
+		while (have_posts()) : the_post();
+
+            echo '<div class="post-container">';
+
+                // post title section
+                $title_html = '<a href="'.get_the_permalink().'" target="_self" title="'.get_the_title().'">'.get_the_title().'</a>';
+
+                echo '<div class="post-title">';
+                if(is_page()){
+                    echo '<h1>'.$title_html.'</h1>';
+                }else if( is_single() ){
+                    echo '<h1>'.$title_html.'</h1>';
+                }else{
+                    echo '<h2>'.$title_html.'</h2>';
+                }
+
+								//$theme = get_page_template_slug( get_the_ID() );
+
+                echo '</div>';
+
+                // post content section
+                $excerpt_length = 24; // char count
+                $post = get_post($post->id);
+                $fulltext = $post->post_content;//  str_replace( '<!--more-->', '',);
+                $content = apply_filters('the_content', $fulltext );
+
+                $excerpt = truncate( $content, $excerpt_length, '', false, true );  // get_the_excerpt()
+
+                $post_tags = get_the_tags();
+                $taglist = '';
+                if ( $post_tags ) {
+                    foreach( $post_tags as $tag ) {
+                    $strlist .= $tag->name . ', ';
+                    }
+                    $strlist = preg_replace('/\s+/', '', $strlist);
+                    $taglist = rtrim($strlist,',');
+                }
+
+                if(is_page()){
+                    echo '<div class="post-content" data-tags="'.$taglist.'">';
+                    echo $content;
+                    echo '</div>';
+                }else if( is_single() ){
+                    echo '<div class="post-content" data-tags="'.$taglist.'">';
+                    echo $content;
+                    echo '</div>';
+                    previous_post_link('%link', __('previous', 'resource' ), TRUE);
+                    next_post_link('%link', __('next', 'resource' ), TRUE);
+
+                }else{
+                    echo '<div class="post-content post-excerpt" data-tags="'.$taglist.'">';
+                    echo $content; //$excerpt;
+                    echo '</div>';
+                }
+
+            echo '</div>';
+
+        endwhile;
+    endif;
+    wp_reset_query();
 }
