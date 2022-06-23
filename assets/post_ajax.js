@@ -2,16 +2,20 @@ jQuery(function($) {
 
   $(document).ready(function(){
 
-  let pullpage = 0; // starts onload
-  let pullflag = true;
-  let pullend = false;
-  let reqvars;
+var getPostsByAjax = function(options){
+
+  var root = this;
+  var containerid = 'wpajaxbundle_1';
+  var pullpage = 0; // starts onload
+  var pullflag = true;
+  var pullend = false;
+  var reqvars;
 
   // prepare an object with default request variables
-  let data_args_default = {
+  var data_args_default = {
       'posttype': 'post',
       'postid': false, // for direct post requests
-      'post__not_in' : '',
+      'notinpostid' : '',
       'not': false, // for direct post requests
       'tax1': 'category', // main taxonomy (custom), default category
       'terms1': {}, // slugs
@@ -24,16 +28,16 @@ jQuery(function($) {
       'page': pullpage
   };
 
-  function doRequestData(){
+  this.doRequestData = function(){
 
-    if( $('body').find('#wpajaxbundle').length > 0 ){
+    if( $('body').find('#wpajaxbundle_1').length > 0 ){
       // request arguments
-      var data = $('#wpajaxbundle').data();
+      var data = $('#wpajaxbundle_1').data();
 
       var notinid = '';
-      if( $('#wpajaxbundle').find('.container .item').length > 0 ){
+      if( $('#wpajaxbundle_1').find('.container .item').length > 0 ){
         notinid = Array();
-        $.each( $('#wpajaxbundle').find('.container .item'), function(){
+        $.each( $('#wpajaxbundle_1').find('.container .item'), function(){
           notinid.push( $(this).data('postid') );
         });
       }
@@ -83,6 +87,9 @@ jQuery(function($) {
           reqvars.terms2 = obj;
         }
       }
+      if( notinid != '' ){
+        reqvars.notinpostid = notinid;
+      }
       if( data.relation != '' ){
         reqvars.relation = data.relation;
       }
@@ -97,16 +104,16 @@ jQuery(function($) {
       }
 
       //alert(JSON.stringify(reqvars));
-      getPostData(reqvars);
+      this.getPostData(reqvars);
     }
 
   }
 
 
 
-  function getPostData( args = false ) {
+  this.getPostData = function( args = false ) {
 
-    let reqdata = data_args_default; // set default variables
+    var reqdata = data_args_default; // set default variables
 
     if (pullflag) { // if no requests active
         pullflag = false;
@@ -201,10 +208,10 @@ jQuery(function($) {
         obj.slideDown(300);
       },t);
       t=(t+50);*/
-      if( $('#wpajaxbundle').data('load') == 'all'){
+      if( $('#wpajaxbundle_1').data('load') == 'all'){
         /* repeat ppp load automaticaly untill all is loaded  */
         setTimeout(function(){
-          doRequestData();
+          root.doRequestData();
         }, 100);
       }
 
@@ -218,11 +225,8 @@ jQuery(function($) {
     // trigger isotope
   }
 
-
-
-
   $('body').on( 'click', '.wpajaxbundlebutton', function(){
-      doRequestData();
+      root.doRequestData();
   });
 
   // onscroll load more
@@ -232,13 +236,17 @@ jQuery(function($) {
 
     if ((scrollHeight - scrollPosition) / scrollHeight <= 0.01 ) {
       if( !pullend ){
-        doRequestData();
+        root.doRequestData();
       }
     }
 
   });
 
-  doRequestData();
+  } // end get posts by ajax
+
+  var posts = new getPostsByAjax();
+  posts.doRequestData();
+
   });
 
 });

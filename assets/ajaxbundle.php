@@ -100,17 +100,13 @@
        );
 
        //   'post__not_in'  skip previous loaded items
-
        $query = $get_post_args;
 
        // ? https://wordpress.stackexchange.com/questions/173949/order-posts-by-tags-count
-
        // >> https://wordpress.stackexchange.com/questions/326497/how-to-display-related-posts-based-on-number-of-taxonomy-terms-matched
 
        // run query with requested args
        $postdata = new WP_Query($query);
-
-
        $result = [];
 
        // check and bundle needed postdata returned
@@ -118,8 +114,6 @@
          while($postdata->have_posts()) : $postdata->the_post();
 
             $post = get_post( get_the_ID() );
-
-
             $fulltext = $post->post_content; // str_replace( '<!--more-->', '',);
 
             libxml_use_internal_errors(true); // use this to prevent warning messages from displaying because of the bad HTML

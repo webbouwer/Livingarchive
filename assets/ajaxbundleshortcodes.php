@@ -32,12 +32,20 @@ class AjaxBundleShortcodes{
     if($att['button'] != 'hidden'){
       $button = '<div class="wpajaxbundlebutton">'.$content.'</div>';
     }
-    $this->nr++; // id_'.$this->nr.'
-    $html = '<div id="wpajaxbundle" class="wpajaxbundle section-inner"'
+
+
+    $this->nr++;
+    if( isset($att['id']) ){
+      $elementid = ' id="'.$att['id'].'"';
+    }else{
+      $elementid = ' id="wpajaxbundle_'.$this->nr.'"';
+    }
+
+    $html = '<div'.$elementid.' class="wpajaxbundle section-inner"'
     .' data-tax1="'.$att['tax1'].'" data-terms1="'.$att['terms1'].'" data-tax2="'.$att['tax2'].'" data-terms2="'.$att['terms2'].'"'
     .' data-relation="'.$att['relation'].'" data-orderby="'.$att['orderby'].'" data-order="'.$att['order'].'"'
     .' data-ppp="'.$att['ppp'].'" data-load="'.$att['load'].'">'
-    .'<div class="container"></div>'.$button.'</div>';
+    .'<div class="container"></div>'.$button.'</div>'; 
     //print_r($att);
     return $html;
 
