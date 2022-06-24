@@ -2,8 +2,6 @@
 /**
  * Theme main index file
  */
-global $post; // the current page/post data
-$pagetags = get_the_tags ( $post->ID );
 require_once ('functions.php');
 ?>
 <!DOCTYPE html>
@@ -75,7 +73,7 @@ echo '<body '.$headerbgstyle.' '; body_class(); echo '>';
     </div>
     <div id="post-container">
           <?php
-          echo do_shortcode('[ajaxposts posttype="post" tax1="category" terms1="" notcategory="artikelen" relation="OR" tax2="post_tag" terms2="zee,land,werk,plaats" ppp="16" load="" orderby="date" order="ASC" button="hidden"]Ajax load test[/ajaxposts]');
+          echo do_shortcode('[ajaxposts posttype="post" notcategory="artikelen" relation="OR" tax2="post_tag" terms2="zee,land,werk,plaats" ppp="16" load="" orderby="date" order="ASC" button="hidden"]Ajax load test[/ajaxposts]');
           ?>
     </div>
   </div>

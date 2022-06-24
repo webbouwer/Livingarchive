@@ -3,6 +3,12 @@ require_once ('assets/ajaxbundleshortcodes.php');
 require_once ('assets/ajaxbundle.php');
 require_once ('assets/truncate.php');
 
+global $post; // the current page/post data
+$pagetags = false;
+if( is_single() ){
+  $pagetags = get_the_tags ( $post->ID );
+}
+
 function getCurrentUrl()
 {
     global $wp;

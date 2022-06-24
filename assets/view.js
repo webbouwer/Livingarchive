@@ -1,5 +1,6 @@
 jQuery( function($) {
 
+  // global view loaderbox (copy used in getPostsByAjax : post_ajax.js)
   function setPageLoader(){
     var box;
     if( $('body').find('#pageloadbox').length < 1 ){
@@ -21,7 +22,7 @@ jQuery( function($) {
 	$(document).ready(function(){
 
     $('body').imagesLoaded( function( instance ) {
-      unsetPageLoader();
+      //unsetPageLoader();
     });
 
   });

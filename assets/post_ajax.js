@@ -23,6 +23,8 @@ var getPostsByAjax = function(options){
 
   this.doRequestData = function(){
 
+
+
     //alert(this.containerid);
     if( $('body').find( '#'+this.containerid ).length > 0 ){
       // request arguments
@@ -164,9 +166,12 @@ var getPostsByAjax = function(options){
 
     root.reqdata = root.reqdefault; // set default variables
 
+
     if (pullflag) { // if no requests active
         pullflag = false;
         pullpage++;
+
+        root.setPageLoader();
 
         root.reqdata['page'] = pullpage; // set query pagenumber
         if(args){ // args from the trigger function (load/button/scroll)
@@ -257,21 +262,39 @@ var getPostsByAjax = function(options){
         obj.slideDown(300);
       },t);
       t=(t+50);*/
-      if( $( '#'+root.containerid ).data('load') == 'all'){
-        /* repeat ppp load automaticaly untill all is loaded  */
-        setTimeout(function(){
-          root.doRequestData();
-        }, 100);
-      }
+
 
     });
 
+    root.unsetPageLoader();
+
+    if( $( '#'+root.containerid ).data('load') == 'all'){
+      /* repeat ppp load automaticaly untill all is loaded  */
+      setTimeout(function(){
+        root.doRequestData();
+      }, 100);
+    }
     // hide button if less data then page amount found
     if( result.length < root.reqvars.ppp && $( '#'+root.containerid+' .wpajaxbundlebutton' ).length > 0){
       $( '#'+root.containerid+' .wpajaxbundlebutton' ).hide();
     }
-
     // trigger isotope
+  }
+
+  this.setPageLoader = function(){
+    var box;
+    if( $('body').find('#pageloadbox').length < 1 ){
+      box = $('<div id="pageloadbox"><div class="visual"></div><div class="text">Loading</div></div>').hide();
+      $('body').append( box );
+    }else{
+      box = $('#pageloadbox');
+    }
+    box.fadeIn();
+
+  }
+
+  this.unsetPageLoader = function(){
+    $('#pageloadbox').fadeOut();
   }
 
   $('body').on( 'click', '#'+root.containerid+' .wpajaxbundlebutton', function(){
@@ -286,6 +309,8 @@ var getPostsByAjax = function(options){
     if ((scrollHeight - scrollPosition) / scrollHeight <= 0.01 ) {
       if( !root.pullend ){
         root.doRequestData();
+      }else{
+        root.unsetPageLoader();
       }
     }
 
