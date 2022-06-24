@@ -68,12 +68,12 @@ echo '<body '.$headerbgstyle.' '; body_class(); echo '>';
     <div id="article-container">
           <?php
           //wp_default_postdata();
-          echo do_shortcode('[ajaxposts posttype="post" tax1="category" terms1="artikelen" relation="AND" tax2="" terms2="" ppp="8" load="" orderby="date" order="ASC" button="hidden"]Ajax load test[/ajaxposts]');
+          echo do_shortcode('[ajaxposts posttype="post" tax1="category" terms1="artikelen" relation="AND" tax2="" terms2="" ppp="8" load="" orderby="post_tag" order="ASC" button="hidden"]Ajax load test[/ajaxposts]');
           ?>
     </div>
     <div id="post-container">
           <?php
-          echo do_shortcode('[ajaxposts posttype="post" notcategory="artikelen" relation="OR" tax2="post_tag" terms2="zee,land,werk,plaats" ppp="16" load="" orderby="date" order="ASC" button="hidden"]Ajax load test[/ajaxposts]');
+          echo do_shortcode('[ajaxposts posttype="post" notcategory="artikelen" relation="AND" tax2="post_tag" terms2="zee,land,werk,plaats" ppp="16" load="" orderby="post_tag" order="ASC" button="hidden"]Ajax load test[/ajaxposts]');
           ?>
     </div>
   </div>

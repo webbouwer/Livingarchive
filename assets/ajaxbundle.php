@@ -4,6 +4,8 @@
 
     var $query;
 
+    var $querytags = false;
+
     public function __construct() {
 
        // add if statements accoording to view types (if is_single etc.)
@@ -63,7 +65,9 @@
        $tax_query = array();
        // .. https://wordpress.stackexchange.com/questions/313622/nested-tax-query-that-allows-specified-categories-or-tags-but-not-other-categor
        if( $posttype != 'page' ){
+
          $tax_query = array('relation' => $relation);
+
          if (isset($tax1) && isset($terms1) && $terms1 != '' && count($terms1) > 0){
            $tax_query[] =  array(
            'taxonomy' => $tax1,
@@ -71,13 +75,17 @@
            'terms' => $terms1
            );
          }
-         if(isset($tax2) && isset($terms2) && $terms2 != '' && count($terms2) > 0){
-           $tax_query[] =  array(
-             'taxonomy' => $tax2,
-             'field' => 'slug',
-             'terms' => $terms2
-           );
-         }
+
+         if(isset($tax2) && $tax2 != 'post_tag' && isset($terms2) && $terms2 != '' && count($terms2) > 0){
+
+             $tax_query[] =  array(
+               'taxonomy' => $tax2,
+               'field' => 'slug',
+               'terms' => $terms2
+             );
+
+         } // post_tag is filter by tag__in
+
 
          if(isset($notcategory) && $notcategory != '' && count($notcategory) > 0 ){
            $tax_query[] = array(
@@ -91,39 +99,34 @@
 
 
 
-       /* related to post
-       if( $tax2 == 'post_tag' ){
-         $custom_taxterms = wp_get_object_terms($post->ID, 'post_tag', array('fields' => 'slugs'));
-         $tax_query[] = array(
-            'taxonomy' => 'post_tag',
-            'field' => 'slug',
-            'terms' => $custom_taxterms
-          );
-        }
-        */
-
        // complete query args bundle
        $get_post_args = array(
          'post_type'        => $posttype,   // post type
-         'post__not_in'     => $notinpostid, // not these post ids
-         //'notcategory'      => $notcategory,
+         'post__not_in'     => $notinpostid,// not these post ids
          'status'           => 'published', // only published visible
          'posts_per_page'   => $amount,     // amount of post each request(page)
          'orderby'          => $orderby,    // 'menu_order', // date
          'order'            => $order,      //'ASC', // desc
-         'suppress_filters' => false,        // remove plugin ordenings (?)
+         'suppress_filters' => false,       // remove plugin ordenings (?)
          'paged'            => $paged,      // loaded requests (pages)
-         'tax_query'        => $tax_query   // taxonomy request variables array
+         'tax_query'        => $tax_query,  // taxonomy request variables array,
        );
 
-       //   'post__not_in'  skip previous loaded items
-       $query = $get_post_args;
 
+       if($data['tax2'] == 'post_tag' && $data['terms2'] != '' ){
+
+         $get_post_args['tag_slug__in'] = $data['terms2'];
+         $get_post_args['orderby'] = 'tag_slug__in';
+
+       }
+       
        // ? https://wordpress.stackexchange.com/questions/173949/order-posts-by-tags-count
        // >> https://wordpress.stackexchange.com/questions/326497/how-to-display-related-posts-based-on-number-of-taxonomy-terms-matched
 
+       $postdata = new WP_Query( $get_post_args );
+
        // run query with requested args
-       $postdata = new WP_Query($query);
+       //$postdata = new WP_Query($get_post_args);
        $result = [];
 
        // check and bundle needed postdata returned
@@ -181,6 +184,20 @@
  }
  new AjaxBundle();
 
+ function calculateTagWeight( $itemtags, $selectedtags){
+   $count = 0;
+   if( is_array($itemtags) && is_array($selectedtags) ){
+
+     	foreach( $itemtags as $postslug){
+         if (in_array($postslug, $selectedtags)){
+           $count++;
+         }
+       }
+       return $count;
+   }else{
+     return $count;
+   }
+ }
 
  // image orient
  function check_image_orientation($pid){

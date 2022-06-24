@@ -42,8 +42,8 @@ var getPostsByAjax = function(options){
       root.reqvars = {
         'posttype' : 'any',
         'notinpostid' : root.notinid,
-        'tax1': 'category', //
-        'terms1': 'uncategorized', //{ 0: 'blog', 1: 'nieuws'},
+        'tax1': '', //
+        'terms1': '', //{ 0: 'blog', 1: 'nieuws'},
         'tax2': '', //'post_tag',
         'terms2': '', //{ 0: 'planet', 1: 'universe'},
         'relation' : 'AND',
@@ -136,7 +136,7 @@ var getPostsByAjax = function(options){
         root.reqvars.ppp = root.data.ppp;
       }
 
-      //alert(JSON.stringify(reqvars));
+      //alert(JSON.stringify(root.reqvars));
       this.getPostData(root.reqvars);
     }
 
