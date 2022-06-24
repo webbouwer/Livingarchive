@@ -47,34 +47,50 @@
        $paged  = $data['page'];
        $posttype  = $data['posttype'];
        $notinpostid  = $data['notinpostid'];
+
        $relation = $data['relation'];
        $tax1 = $data['tax1'];          // category array..
        $terms1  = $data['terms1'];     // slugs array..
        $tax2 = $data['tax2'];          // category array..
        $terms2  = $data['terms2'];      //$_POST['data']['slug']; // slugs array..
+       $notcategory = $data['notcategory'];
        $orderby  = $data['orderby'];
        $order = $data['order'];
        $amount  = $data['ppp'];
 
        $paged = (isset($paged) || !(empty($paged))) ? $paged : 1;
 
+       $tax_query = array();
        // .. https://wordpress.stackexchange.com/questions/313622/nested-tax-query-that-allows-specified-categories-or-tags-but-not-other-categor
-
-       $tax_query = array('relation' => $relation);
-       if (isset($tax1) && isset($terms1) && $terms1 != '' && count($terms1) > 0){
-         $tax_query[] =  array(
-         'taxonomy' => $tax1,
-         'field' => 'slug',
-         'terms' => $terms1
-         );
-       }
-       if(isset($tax2) && isset($terms2) && $terms2 != '' && count($terms2) > 0){
-         $tax_query[] =  array(
-           'taxonomy' => $tax2,
+       if( $posttype != 'page' ){
+         $tax_query = array('relation' => $relation);
+         if (isset($tax1) && isset($terms1) && $terms1 != '' && count($terms1) > 0){
+           $tax_query[] =  array(
+           'taxonomy' => $tax1,
            'field' => 'slug',
-           'terms' => $terms2
-         );
+           'terms' => $terms1
+           );
+         }
+         if(isset($tax2) && isset($terms2) && $terms2 != '' && count($terms2) > 0){
+           $tax_query[] =  array(
+             'taxonomy' => $tax2,
+             'field' => 'slug',
+             'terms' => $terms2
+           );
+         }
+
+         if(isset($notcategory) && $notcategory != '' && count($notcategory) > 0 ){
+           $tax_query[] = array(
+                  'taxonomy' => 'category',
+                  'field'    => 'slug',
+                  'terms'    => $notcategory,
+                  'operator' => 'NOT IN'
+            );
+         }
        }
+
+
+
        /* related to post
        if( $tax2 == 'post_tag' ){
          $custom_taxterms = wp_get_object_terms($post->ID, 'post_tag', array('fields' => 'slugs'));
@@ -90,6 +106,7 @@
        $get_post_args = array(
          'post_type'        => $posttype,   // post type
          'post__not_in'     => $notinpostid, // not these post ids
+         //'notcategory'      => $notcategory,
          'status'           => 'published', // only published visible
          'posts_per_page'   => $amount,     // amount of post each request(page)
          'orderby'          => $orderby,    // 'menu_order', // date

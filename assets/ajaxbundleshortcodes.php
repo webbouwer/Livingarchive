@@ -16,11 +16,14 @@ class AjaxBundleShortcodes{
     $default = array(
         'id' => '',
         'button' => '',
+        'posttype' => '',
         'tax1' => '', // {0: 'category'}
         'terms1' => '', // { 0: 'blog'}
         'tax2' => '', // { 0: 'planet',1: 'earth'}
         'terms2' => '', // { 0: 'planet',1: 'earth'}
-        'relation' => 'AND',
+        'relation' => '',
+        'notcategory' => '',
+        'notinpostid' => '',
         'orderby' => '',
         'order' => '',
         'ppp' => '10',
@@ -42,9 +45,9 @@ class AjaxBundleShortcodes{
       $elementid = ' id="wpajaxbundle_'.$this->nr.'"';
     }
 
-    $html = '<div'.$elementid.' class="wpajaxbundle section-inner"'
+    $html = '<div'.$elementid.' class="wpajaxbundle section-inner" data-posttype="'.$att['posttype'].'"'
     .' data-tax1="'.$att['tax1'].'" data-terms1="'.$att['terms1'].'" data-tax2="'.$att['tax2'].'" data-terms2="'.$att['terms2'].'"'
-    .' data-relation="'.$att['relation'].'" data-orderby="'.$att['orderby'].'" data-order="'.$att['order'].'"'
+    .' data-relation="'.$att['relation'].'" data-notcategory="'.$att['notcategory'].'" data-notinpostid="'.$att['notinpostid'].'" data-orderby="'.$att['orderby'].'" data-order="'.$att['order'].'"'
     .' data-ppp="'.$att['ppp'].'" data-load="'.$att['load'].'">'
     .'<div class="container"></div>'.$button.'</div>';
     //print_r($att);

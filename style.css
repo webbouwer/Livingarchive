@@ -1,7 +1,9 @@
 
 body
 {
-
+width:100%;
+margin:0;
+padding:0;
 }
 
 #data-info
@@ -35,4 +37,47 @@ body
 	text-align:center;
 	background-color:black;
 	color:white;
+}
+
+
+@media all and (min-width: 960px) {
+/*
+#mainbody
+{
+	width: 100%;
+}
+#article-container
+{
+  float:left;
+	width: 320px;
+}
+#post-container
+{
+  float:right;
+	width: calc(100% - 320px);
+}
+*/
+#mainbody
+{
+	display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+#article-container
+{
+  flex-direction: column;
+  flex: 1;
+  flex-wrap: wrap;
+	min-width: 320px;
+}
+#post-container
+{
+  flex-direction: column;
+  min-width: calc(100% - 320px);
+  flex-wrap: wrap;
+  flex: 3;
+}
+
+
 }

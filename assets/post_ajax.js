@@ -17,8 +17,6 @@ var getPostsByAjax = function(options){
   var reqvars;
   var reqdata;
 
-
-
   this.setContainerId = function( str ){
     this.containerid = str;
   }
@@ -26,7 +24,6 @@ var getPostsByAjax = function(options){
   this.doRequestData = function(){
 
     //alert(this.containerid);
-
     if( $('body').find( '#'+this.containerid ).length > 0 ){
       // request arguments
       root.data = $( '#'+this.containerid ).data();
@@ -41,18 +38,22 @@ var getPostsByAjax = function(options){
 
 
       root.reqvars = {
-        'posttype' : 'post',
+        'posttype' : 'any',
         'notinpostid' : root.notinid,
         'tax1': 'category', //
         'terms1': 'uncategorized', //{ 0: 'blog', 1: 'nieuws'},
         'tax2': '', //'post_tag',
         'terms2': '', //{ 0: 'planet', 1: 'universe'},
         'relation' : 'AND',
+        'notcategory': '',
         'orderby' : 'post_date',
         'order' : 'ASC',
         'ppp': 2
       };
 
+      if( root.data.posttype != '' ){
+        root.reqvars.posttype = root.data.posttype;
+      }
       if( root.data.tax1 != '' ){
         root.reqvars.tax1 = root.data.tax1;
       }
@@ -89,6 +90,40 @@ var getPostsByAjax = function(options){
       if( root.data.relation != '' ){
         root.reqvars.relation = root.data.relation;
       }
+
+      if( root.data.notcategory != '' ){
+        let obj = {};
+        if(/[,]/.test(root.data.notcategory)){
+          let arr = root.data.notcategory.split(',');
+          $.each(arr, function( r, v){
+            obj[r] = v;
+          });
+          root.reqvars.notcategory = obj;
+        }else{
+          obj = { "0" : root.data.notcategory };
+          root.reqvars.notcategory = obj;
+        }
+      }
+
+      if( root.data.notinpostid != '' ){
+        let obj = {};
+        if(/[,]/.test(root.data.notinpostid)){
+          let arr = root.data.notinpostid.split(',');
+          $.each(arr, function( r, v){
+            obj[r] = v;
+          });
+        }else{
+          obj = { "0" : root.data.notinpostid };
+        }
+
+        if( root.reqvars.notinpostid != ''){
+          $.extend(root.reqvars.notinpostid, obj);
+        }else{
+          root.reqvars.notinpostid = obj;
+        }
+
+      }
+
       if( root.data.orderby != '' ){
         root.reqvars.orderby = root.data.orderby;
       }
@@ -111,15 +146,16 @@ var getPostsByAjax = function(options){
 
     // prepare an object with default request variables
     root.reqdefault = {
-        'posttype': 'post',
+        'posttype': 'any',
         'postid': false, // for direct post requests
         'notinpostid' : '',
         'not': false, // for direct post requests
         'tax1': 'category', // main taxonomy (custom), default category
         'terms1': {}, // slugs
-        'relation': 'AND',
+        'relation': 'OR',
         'tax2': 'post_tag', // default post_tag
         'terms2': {}, //slugs
+        'notcategory': {},
         'orderby': 'post_date',
         'order': 'ASC',
         'ppp': 1,

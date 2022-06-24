@@ -3,6 +3,7 @@
  * Theme main index file
  */
 global $post; // the current page/post data
+$pagetags = get_the_tags ( $post->ID );
 require_once ('functions.php');
 ?>
 <!DOCTYPE html>
@@ -37,16 +38,48 @@ require_once ('functions.php');
 <?php
 echo '<body '.$headerbgstyle.' '; body_class(); echo '>';
 ?>
+<div id="maincontainer" class="site">
+  <div id="header">
+    <div id="navbar">
+      <div class="outerspace">
+  			<div class="togglebox">
+  				<div class="menu-icon column">
+  					<img src="https://zee-plaats-werk-land.nl/devsite/wp-content/themes/Livingarchive/images/menu.svg" />
+  				</div>
+  				<div class="logo column">
+  					<img src="https://zee-plaats-werk-land.nl/devsite/wp-content/themes/Livingarchive/images/ZPWL_weblogo.gif" />
+  				</div>
+  				<div class="search column">
+  					<input id="searchbox" class="basic-search" placeholder="Zoek" size="24" style="background-color: white;">
+  				</div>
+  			</div>
 
-<?php
-//wp_default_postdata();
-echo do_shortcode('[ajaxposts id="testbox" tax1="category" terms1="artikelen" relation="AND" tax2="" terms2="" ppp="5" load="" orderby="date" order="ASC" button=""]Ajax load test[/ajaxposts]');
+        <div id="info-container">
+              <?php
+              wp_main_theme_menu_html('info', false);
+              //wp_default_postdata();
+              echo do_shortcode('[ajaxposts id="infocontentbox" posttype="page" notinpostid="3,1817,1983,1988" ppp="8" load="all" button=""]Ajax load test[/ajaxposts]');
+              ?>
+        </div>
 
-echo do_shortcode('[ajaxposts id="testbox2" tax1="" terms1="" relation="OR" tax2="post_tag" terms2="zee,land,werk,plaats" ppp="5" load="" orderby="date" order="ASC" button=""]Ajax load test[/ajaxposts]');
+  		</div>
+  	</div>
+  </div>
+  <div id="mainbody">
 
-?>
-
-
+    <div id="article-container">
+          <?php
+          //wp_default_postdata();
+          echo do_shortcode('[ajaxposts posttype="post" tax1="category" terms1="artikelen" relation="AND" tax2="" terms2="" ppp="8" load="" orderby="date" order="ASC" button="hidden"]Ajax load test[/ajaxposts]');
+          ?>
+    </div>
+    <div id="post-container">
+          <?php
+          echo do_shortcode('[ajaxposts posttype="post" tax1="category" terms1="" notcategory="artikelen" relation="OR" tax2="post_tag" terms2="zee,land,werk,plaats" ppp="16" load="" orderby="date" order="ASC" button="hidden"]Ajax load test[/ajaxposts]');
+          ?>
+    </div>
+  </div>
+</div>
 <?php
     wp_footer();
     echo '</body></html>';
