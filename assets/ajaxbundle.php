@@ -78,62 +78,26 @@
 
          if(isset($tax2) && isset($terms2) && $terms2 != '' && count($terms2) > 0){
 
-           if($tax2 != 'post_tag' || count($terms2) == 1){
-
-             $tax_query[] =  array(
-               'taxonomy' => $tax2,
-               'field' => 'slug',
-               'terms' => $terms2,
-               'operator' => 'IN'
+          $tax_tags =  array(
+            'relation'  => 'and',
+            array(
+            'taxonomy' => $tax2,
+            'field' => 'slug',
+            'terms' => $terms2,
+            )
+          );
+          if(isset($notcategory) && $tax2 == 'post_tag' && $notcategory != '' && count($notcategory) > 0 ){
+            $tax_tags[] = array(
+                   'taxonomy' => 'category',
+                   'field'    => 'slug',
+                   'terms'    => $notcategory,
+                   'operator' => 'NOT IN'
              );
-
-           }else{
-
-/*
-             $tax_query[] = array(
-
-               'taxonomy' => $tax2,
-               'field' => 'slug',
-               'terms' => $terms2,
-               'operator' => 'IN'
-
-             );
-
-
-
-
-                          $arrorder = array('field' => 'slug','orderby'=>'count', 'order'=>'DESC' );
-                          $termsordered = wp_parse_args( $terms2, $arrorder );
-                          $termscopy = $termsordered;
-                          $tagtaxquery = [];
-                          $tagtaxquery['relation'] = 'OR';
-                          // loop through original ordered terms array (by term)
-                          foreach( $termsordered as $val ){
-
-                            if( !isset($tagtaxquery[$val->slug]) && count($termscopy) > 0 ){
-                             $tagtaxquery[$val->slug] = array(
-                                 'taxonomy' => 'tag_slug__in',
-                                 'field' => 'slug',
-                                 'terms' => $termscopy,
-                               );
-                               $termscopy = array_pop($termscopy);  // remove last tag
-
-                            }
-
-                          }
-                          $tax_query[] = $tagtaxquery; // add to tax_query
-                          $orderby = 'tag_slug__in';
-
-              //https://wordpress.stackexchange.com/questions/103078/posts-with-at-least-3-tags-of-a-list-of-tags
-              */
-
-           }
-
-
+          }
+          $tax_query[] = $taxtags;
          } // post_tag is filter by tag__in
 
-
-         if(isset($notcategory) && $notcategory != '' && count($notcategory) > 0 ){
+         if(isset($notcategory) && $tax2 != 'post_tag' && $notcategory != '' && count($notcategory) > 0 ){
 
            $tax_query[] = array(
                   'taxonomy' => 'category',
@@ -143,8 +107,6 @@
             );
          }
        }
-
-
 
        // complete query args bundle
        $get_post_args = array(
@@ -156,14 +118,15 @@
          'order'            => $order,      //'ASC', // desc
          'suppress_filters' => false,       // remove plugin ordenings (?)
          'paged'            => $paged,      // loaded requests (pages)
+         'ignore_sticky_posts' => 1,
          'tax_query'        => $tax_query,  // taxonomy request variables array,
        );
 
-
        // should become tax query
        if($data['tax2'] == 'post_tag' && $data['terms2'] != '' ){
-         $get_post_args['relation'] = 'AND';
-         //$get_post_args['post_tag'] = $data['terms2'];
+
+         $get_post_args['post_tag'] = $data['terms2'];
+         $get_post_args['relation'] = 'OR';
          $get_post_args['tag_slug__and'] = $data['terms2'];
          $get_post_args['orderby'] = 'tag_slug__and';
 
