@@ -76,18 +76,65 @@
            );
          }
 
-         if(isset($tax2) && $tax2 != 'post_tag' && isset($terms2) && $terms2 != '' && count($terms2) > 0){
+         if(isset($tax2) && isset($terms2) && $terms2 != '' && count($terms2) > 0){
+
+           if($tax2 != 'post_tag' || count($terms2) == 1){
 
              $tax_query[] =  array(
                'taxonomy' => $tax2,
                'field' => 'slug',
-               'terms' => $terms2
+               'terms' => $terms2,
+               'operator' => 'IN'
              );
+
+           }else{
+
+/*
+             $tax_query[] = array(
+
+               'taxonomy' => $tax2,
+               'field' => 'slug',
+               'terms' => $terms2,
+               'operator' => 'IN'
+
+             );
+
+
+
+
+                          $arrorder = array('field' => 'slug','orderby'=>'count', 'order'=>'DESC' );
+                          $termsordered = wp_parse_args( $terms2, $arrorder );
+                          $termscopy = $termsordered;
+                          $tagtaxquery = [];
+                          $tagtaxquery['relation'] = 'OR';
+                          // loop through original ordered terms array (by term)
+                          foreach( $termsordered as $val ){
+
+                            if( !isset($tagtaxquery[$val->slug]) && count($termscopy) > 0 ){
+                             $tagtaxquery[$val->slug] = array(
+                                 'taxonomy' => 'tag_slug__in',
+                                 'field' => 'slug',
+                                 'terms' => $termscopy,
+                               );
+                               $termscopy = array_pop($termscopy);  // remove last tag
+
+                            }
+
+                          }
+                          $tax_query[] = $tagtaxquery; // add to tax_query
+                          $orderby = 'tag_slug__in';
+
+              //https://wordpress.stackexchange.com/questions/103078/posts-with-at-least-3-tags-of-a-list-of-tags
+              */
+
+           }
+
 
          } // post_tag is filter by tag__in
 
 
          if(isset($notcategory) && $notcategory != '' && count($notcategory) > 0 ){
+
            $tax_query[] = array(
                   'taxonomy' => 'category',
                   'field'    => 'slug',
@@ -113,22 +160,37 @@
        );
 
 
+       // should become tax query
        if($data['tax2'] == 'post_tag' && $data['terms2'] != '' ){
+         $get_post_args['relation'] = 'AND';
+         //$get_post_args['post_tag'] = $data['terms2'];
+         $get_post_args['tag_slug__and'] = $data['terms2'];
+         $get_post_args['orderby'] = 'tag_slug__and';
 
-         $get_post_args['tag_slug__in'] = $data['terms2'];
-         $get_post_args['orderby'] = 'tag_slug__in';
+         /*
+         //$chk = new WP_Query( $get_post_args );
+
+         if ( count( $chk->posts() ) < $amount ) {
+           wp_reset_query();
+           unset( $get_post_args['tag_slug__and'] );
+           $get_post_args['tax_query']['relation'] = 'OR';
+           $get_post_args['tag_slug__in'] = $data['terms2'];
+         }
+         */
 
        }
-       
-       // ? https://wordpress.stackexchange.com/questions/173949/order-posts-by-tags-count
-       // >> https://wordpress.stackexchange.com/questions/326497/how-to-display-related-posts-based-on-number-of-taxonomy-terms-matched
+
 
        $postdata = new WP_Query( $get_post_args );
+
+
+
+              // ? https://wordpress.stackexchange.com/questions/173949/order-posts-by-tags-count
+              // >> https://wordpress.stackexchange.com/questions/326497/how-to-display-related-posts-based-on-number-of-taxonomy-terms-matched
 
        // run query with requested args
        //$postdata = new WP_Query($get_post_args);
        $result = [];
-
        // check and bundle needed postdata returned
        if($postdata->have_posts()) :
          while($postdata->have_posts()) : $postdata->the_post();
