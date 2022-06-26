@@ -89,7 +89,7 @@
         }
       }
 
-      public function preparePostsTagweight( $tags, $notcats = false, $notids = false ){
+      public function updateTagweight( $tags, $notcats = false, $notids = false ){
 
         $preargs = array(
          'post_type'         => 'post',
@@ -102,7 +102,6 @@
          while ( $prequery->have_posts() ) : $prequery->the_post();
            $pid = get_the_ID();
            $post = get_post($pid);
-
           $posttags = wp_get_post_terms( $pid, 'post_tag', array("fields" => "slugs"));
            if(is_array($posttags) && count($posttags) > 0){
              $tagweight = $this->calculateTagWeight( $posttags,  $tags );
@@ -118,9 +117,6 @@
        //ob_clean(); //wp_die();
        return $prequery;
       }
-
-
-
 
      public function getWPPostData(){
 
@@ -211,7 +207,7 @@
 
        // if post_tag revalue the tagweight
        if( $posttype == 'post' && $data['tax2'] == 'post_tag' && $data['terms2'] != '' ){
-         $prequery = $this->preparePostsTagweight( $data['terms2'], $notcategory, explode(",",$notinpostid) );
+         $prequery = $this->updateTagweight( $data['terms2'] ); // $notcategory  , explode(",",$notinpostid)
          $get_post_args['meta_key'] = '_tagweight';
          $get_post_args['orderby'] = 'meta_value_num';
          $get_post_args['order'] = 'DESC';

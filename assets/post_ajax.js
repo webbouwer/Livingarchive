@@ -5,7 +5,7 @@ jQuery(function($) {
 var getPostsByAjax = function(options){
 
   var root = this;
-  var containerid = '#wpajaxbundle_1';
+  var containerid = '#wpajaxbundle_1'; // default id
   var pullpage = 0; // starts onload
   var pullflag = true;
   var pullend = false;
@@ -298,13 +298,6 @@ var getPostsByAjax = function(options){
       alert('check!');
   });
 
-  $('body').on( 'click', '#'+root.containerid+' a', function(e){
-       e.stopPropagation();
-       e.preventDefault();
-       e.stopImmediatePropagation();
-       alert( $(this).closest('.item').data('tags') );
-  });
-
   // onscroll load more
   $(document).on('scroll', function() {
     var scrollHeight = $(document).height();
@@ -335,6 +328,33 @@ var getPostsByAjax = function(options){
     });
 
   }
+
+  $('body').on( 'click', '.container h2 a', function(e){
+       e.stopPropagation();
+       e.preventDefault();
+       e.stopImmediatePropagation();
+       let tags = $(this).closest('.item').data('tags');
+       console.log( tags );
+
+       let selected = $(this).closest('.item');
+       let elementid = $(this).closest('.wpajaxbundle').attr('id');
+       $('#'+elementid).attr('data-terms2', tags);
+
+       $.each(ajaxbundle, function( key, obj){
+         if( obj.containerid == elementid){
+           console.log(elementid);
+           //$( '#'+elementid+' .container' ).html('').append(selected); // refresh container
+           obj.doRequestData();
+         }
+       });
+       /*
+       let bundle = new getPostsByAjax();
+       bundle.setContainerId(elementid);
+       bundle.doRequestData();
+       ajaxbundle.push( bundle );
+       */
+
+  });
 
   });
 
