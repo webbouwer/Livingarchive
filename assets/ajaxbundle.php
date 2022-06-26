@@ -94,25 +94,8 @@
         $preargs = array(
          'post_type'         => 'post',
          'post_status'       => 'publish',
-         'orderby'           => 'date',
-         'order'             => 'DESC',
          'posts_per_page'    => -1, // all
        );
-
-       if($notids){
-         $preargs['post__not_in'] =  $notids;//array(1817,3,1988,1983),
-       }
-       /*
-       if($notcats){
-         $tax_query[] = array(
-                'taxonomy' => 'category',
-                'field'    => 'slug',
-                'terms'    => $notcats,
-                'operator' => 'NOT IN'
-          );
-       }
-       $preargs['tax_query'] = $tax_query;
-       */
 
        $prequery = new WP_Query( $preargs );
        if ( $prequery->have_posts() ) :
@@ -120,21 +103,19 @@
            $pid = get_the_ID();
            $post = get_post($pid);
 
-             $posttags = wp_get_post_terms( $pid, 'post_tag', array("fields" => "slugs"));
-             if(is_array($posttags) && count($posttags) > 0){
+          $posttags = wp_get_post_terms( $pid, 'post_tag', array("fields" => "slugs"));
+           if(is_array($posttags) && count($posttags) > 0){
              $tagweight = $this->calculateTagWeight( $posttags,  $tags );
-
              $post_metas = get_post_meta( $pid );
              $post_metas = array_combine( array_keys( $post_metas ), array_column( $post_metas, '0' ) );
-
              update_post_meta( $pid, '_tagweight', $tagweight );
            }else{
-             delete_post_meta( $pid, '_tagweight' ); // if no tags found
+             update_post_metameta( $pid, '_tagweight', 0 ); // if no tags found
            }
          endwhile;
        endif;
        wp_reset_query();
-       ob_clean(); //wp_die();
+       //ob_clean(); //wp_die();
        return $prequery;
       }
 
@@ -185,43 +166,23 @@
 
             if( $tax2 == 'post_tag'){
 
-            $tax_query[] =  array(
-              'taxonomy' => $tax2,
-              'field' => 'slug',
-              'terms' => $terms2,
-              'operator' => 'IN', // AND only shows true relevance
+              $tax_query["tax2"] = array(
+                 'key' => '_tagweight',
+                 'compare' => 'EXISTS' // this should work...
+              );
+
+           }else{
+
+             $tax_query["tax2"] =  array(
+               'taxonomy' => $tax2,
+               'field' => 'slug',
+               'terms' => $terms2,
+               'operator' => 'IN'
             );
-            /*
-             $tax_query['reltags'] = array(
-               'relation' => 'OR',
-               'orderby' => 'tagweight',
-             );
-
-             $tagcombi = $this->allCombi($terms2);
-
-             // count down slugs array
-             foreach($tagcombi as $tags){
-                 $tax_query['reltags'][] = array(
-                   'taxonomy' => 'post_tag',
-                   'field' => 'slug',
-                   'terms' => $tags,
-                   'operator' => 'AND',
-                 );
-             }*/
-
-         }else{
-           $tax_query[] =  array(
-             'taxonomy' => $tax2,
-             'field' => 'slug',
-             'terms' => $terms2,
-             'operator' => 'IN'
-          );
 
          }
 
-
          } // post_tag is filter by tag__
-
 
          if(isset($notcategory) && $notcategory != '' && count($notcategory) > 0 ){
 
@@ -241,8 +202,6 @@
          'status'           => 'published', // only published visible
          'posts_per_page'   => $amount,     // amount of post each request(page)
          'orderby'          => $orderby,    // 'menu_order', // date
-         //'meta_key'         => 'tagweight',
-         //'orderby'          => 'meta_value_num',
          'order'            => $order,
          'suppress_filters' => false,       // remove plugin ordenings (?)
          'paged'            => $paged,      // loaded requests (pages)
@@ -250,43 +209,31 @@
          'tax_query'        => $tax_query,  // taxonomy request variables array,
        );
 
-       // should become tax query
-
-       if($data['tax2'] == 'post_tag' && $data['terms2'] != '' ){
-
+       // if post_tag revalue the tagweight
+       if( $posttype == 'post' && $data['tax2'] == 'post_tag' && $data['terms2'] != '' ){
          $prequery = $this->preparePostsTagweight( $data['terms2'], $notcategory, explode(",",$notinpostid) );
-         //$get_post_args['orderby'] = 'tagweight';
          $get_post_args['meta_key'] = '_tagweight';
          $get_post_args['orderby'] = 'meta_value_num';
          $get_post_args['order'] = 'DESC';
-         //$order_args = array( 'field'=>'slug','orderby'=>'count', 'order'=>'DESC' );
-         //$termorder = wp_parse_args( $terms2, $order_args );
-
-         //$get_post_args['relation'] = 'OR';
-         //$get_post_args['post_tag'] = $data['terms2'];
-         //$get_post_args['tag_slug__in'] = $terms2;
-         //$get_post_args['order'] = 'ASC';
-         /*
-         $chk = new WP_Query( $get_post_args );
-         if ( count( $chk->posts() ) < $amount ) {
-           wp_reset_query();
-           unset( $get_post_args['tag_slug__and'] );
-           $get_post_args['tag_slug__in'] = $data['terms2'];
-           $get_post_args['orderby'] = 'tag_slug__in';
-         }
-         */
        }
 
-       //if( $prequery ){
-      //   $postdata = $prequery;
-      // }else{
-         $postdata = new WP_Query( $get_post_args );
-      // }
-       // ? https://wordpress.stackexchange.com/questions/173949/order-posts-by-tags-count
-       // >> https://wordpress.stackexchange.com/questions/326497/how-to-display-related-posts-based-on-number-of-taxonomy-terms-matched
+       $postdata = new WP_Query( $get_post_args );   //if( $prequery ){ $postdata = $prequery; ..
 
-       // run query with requested args
-       //$postdata = new WP_Query($get_post_args);
+         if( !$postdata->have_posts() || $postdata->found_posts < $amount ) {
+
+           unset($tax_query["tax2"]);
+           //unset($get_post_args['meta_key']);
+           //$get_post_args['orderby'] = 'tag_count';
+           $get_post_args['tax_query'] = $tax_query;
+           $get_post_args['paged'] = 1;
+           $morepostdata = new WP_Query( $get_post_args );
+           //if( $postdata->found_posts < $amount ){
+          //   $postdata = array_merge( $postdata, $morepostdata );
+           //}else{
+             $postdata = $morepostdata;
+          // }
+         }
+
        $result = [];
        // check and bundle needed postdata returned
        if($postdata->have_posts()) :

@@ -40,6 +40,21 @@ padding:0;
 }
 
 
+
+#article-container .excerpt,
+#article-container .tags,
+#info-container
+{
+	display:none;
+}
+
+
+div.tags span
+{
+	display: inline-block;
+}
+
+
 @media all and (min-width: 960px) {
 /*
 #mainbody
@@ -66,8 +81,8 @@ padding:0;
 }
 #info-container
 {
-	/*display:none;*/
 }
+
 #article-container
 {
   flex-direction: column;
@@ -75,6 +90,8 @@ padding:0;
   flex-wrap: wrap;
 	min-width: 320px;
 }
+
+
 #post-container
 {
   flex-direction: column;

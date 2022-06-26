@@ -239,8 +239,10 @@ var getPostsByAjax = function(options){
       if( post.tagweight != null ){
         tagweight = ' [<span class="tagweight">'+post.tagweight+'</span>]';
       }
-      let title = $('<h2><a href="'+post.link+'">'+post.title+''+tagweight+'</a></h2>');
-      obj.append(title);
+      let title = $('<a href="'+post.link+'">'+post.title+''+tagweight+'</a>');
+      let header = $('<h2 />');
+      header.append(title);
+      obj.append(header);
       let excerpt = $('<div class="excerpt">'+post.excerpt+'</div>');
       obj.append(excerpt);
 
@@ -252,20 +254,11 @@ var getPostsByAjax = function(options){
 
       let tags = $('<div class="tags" />');
       for(s=0;s<post.tags.length;s++){
-        tags.append('<span>'+post.tags[s])+'</span> ';
+        tags.append('<span>'+post.tags[s])+'</span>';
       }
       obj.append(tags);
 
       $('body').find('#'+root.containerid+' .container').append(obj);
-
-      /*let obj = $('<div id="post-'+post.id+'">'+post.title+'</div>').hide();//.slideUp(300);
-      $('body').find('.wpajaxbundle.button').parent().find('.container').append(obj);
-      // slowed-down slide-in
-      setTimeout(function(){
-        obj.slideDown(300);
-      },t);
-      t=(t+50);*/
-
 
     });
 
@@ -302,6 +295,14 @@ var getPostsByAjax = function(options){
 
   $('body').on( 'click', '#'+root.containerid+' .wpajaxbundlebutton', function(){
       root.doRequestData();
+      alert('check!');
+  });
+
+  $('body').on( 'click', '#'+root.containerid+' a', function(e){
+       e.stopPropagation();
+       e.preventDefault();
+       e.stopImmediatePropagation();
+       alert( $(this).closest('.item').data('tags') );
   });
 
   // onscroll load more
