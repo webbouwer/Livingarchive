@@ -64,6 +64,10 @@ padding:0;
   flex-wrap: wrap;
   width: 100%;
 }
+#info-container
+{
+	/*display:none;*/
+}
 #article-container
 {
   flex-direction: column;

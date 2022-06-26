@@ -218,7 +218,7 @@ var getPostsByAjax = function(options){
 
   this.setPostsHTML = function( result ){
 
-    //console.log( result );
+    console.log( result );
     //let t = 0; // timer for smooth slowed-down slide-in
 
     $.each( result, function( idx, post){
@@ -235,21 +235,24 @@ var getPostsByAjax = function(options){
       });
 
       obj.attr('class', objfilterclasses );
-
-      let title = $('<h2><a href="'+post.link+'">'+post.title+'</a></h2>');
+      let tagweight = '';
+      if( post.tagweight != null ){
+        tagweight = ' [<span class="tagweight">'+post.tagweight+'</span>]';
+      }
+      let title = $('<h2><a href="'+post.link+'">'+post.title+''+tagweight+'</a></h2>');
       obj.append(title);
       let excerpt = $('<div class="excerpt">'+post.excerpt+'</div>');
       obj.append(excerpt);
 
       let cats = $('<div class="cats" />');
       for(c=0;c<post.cats.length;c++){
-        cats.append('<span>'+post.cats[c])+'</span>';
+        cats.append('<span>'+post.cats[c])+'</span> ';
       }
       obj.append(cats);
 
       let tags = $('<div class="tags" />');
       for(s=0;s<post.tags.length;s++){
-        tags.append('<span>'+post.tags[s])+'</span>';
+        tags.append('<span>'+post.tags[s])+'</span> ';
       }
       obj.append(tags);
 
