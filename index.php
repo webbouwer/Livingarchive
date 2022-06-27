@@ -20,11 +20,17 @@ require_once ('functions.php');
     $stylesheet = get_template_directory_uri().'/style.css';
     echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$stylesheet.'" type="text/css" media="all" />';
 
+    $isotopecss = get_template_directory_uri().'/assets/isotope.css';
+    echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$isotopecss.'" type="text/css" media="all" />';
+
+
     $customstyles = get_template_directory_uri().'/assets/grid.css';
     echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$customstyles.'" type="text/css" media="all" />';
 
     wp_head();
 
+        $isotope = get_template_directory_uri().'/assets/isotope.js';
+        echo '<script src="'.$isotope.'" type="text/javascript" media="all" /></script>';
 
         $imagesloaded = get_template_directory_uri().'/assets/imagesloaded.js';
         echo '<script src="'.$imagesloaded.'" type="text/javascript" media="all"></script>';
@@ -32,6 +38,7 @@ require_once ('functions.php');
         $viewscript = get_template_directory_uri().'/assets/view.js';
         echo '<script src="'.$viewscript.'" type="text/javascript" media="all" /></script>';
 ?>
+
 </head>
 <?php
 echo '<body '.$headerbgstyle.' '; body_class(); echo '>';

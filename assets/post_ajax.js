@@ -24,7 +24,6 @@ var getPostsByAjax = function(options){
   this.doRequestData = function(){
 
 
-
     //alert(this.containerid);
     if( $('body').find( '#'+this.containerid ).length > 0 ){
       // request arguments
@@ -138,6 +137,7 @@ var getPostsByAjax = function(options){
 
       //alert(JSON.stringify(root.reqvars));
       this.getPostData(root.reqvars);
+
     }
 
   }
@@ -203,8 +203,10 @@ var getPostsByAjax = function(options){
         root.setPostsHTML( response ); // JSON.stringify(response)
         if (response.length >= args.ppp) {
           pullflag = true; // if ppp count result wait for pull again
+          root.reOrderItems();
         }else{
-          pullend = true; // if all results no pull again
+          //pullend = true; // if all results no pull again
+          root.reOrderItems();
         }
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -224,6 +226,8 @@ var getPostsByAjax = function(options){
     $.each( result, function( idx, post){
 
       var objfilterclasses = 'item';
+      let tagweight = '';
+
       var obj = $('<div id="post-'+post.id+'"></div>');
 
       obj.attr('data-postid', post.id );
@@ -235,8 +239,9 @@ var getPostsByAjax = function(options){
       });
 
       obj.attr('class', objfilterclasses );
-      let tagweight = '';
+
       if( post.tagweight != null ){
+        obj.attr('data-tagweight', post.tagweight );
         tagweight = ' [<span class="tagweight">'+post.tagweight+'</span>]';
       }
       let title = $('<a href="'+post.link+'">'+post.title+''+tagweight+'</a>');
@@ -274,7 +279,69 @@ var getPostsByAjax = function(options){
     if( result.length < root.reqvars.ppp && $( '#'+root.containerid+' .wpajaxbundlebutton' ).length > 0){
       $( '#'+root.containerid+' .wpajaxbundlebutton' ).hide();
     }
+
+    // isotope
+    root.reOrderItems();
+
+  }
+
+  this.reOrderItems = function(){
     // trigger isotope
+      var container = $('#'+root.containerid+' .container');
+              container.isotope({
+
+                  itemSelector: '.item',
+                  layoutMode: 'masonry',
+                  animationEngine: 'best-available',
+                  transitionDuration: '0.9s',
+                  masonry: {
+                      //isFitWidth: true,
+                      columnWidth: container.innerWidth()/4,
+                      gutter: 0,
+                  },
+                  getSortData: {
+                      //byCategory: function (elem) { // sort randomly
+                        //      return $(elem).data('category') === selectedCat ? 0 : 1;
+                      //},
+                      byTagWeight: '.tagweight parseInt',
+                  },
+                  sortBy : [ 'byCategory', 'byTagWeight' ],//'byTagWeight', //
+                  sortAscending: {
+                            byCategory: true, // name ascendingly
+                            byTagWeight: false, // weight descendingly
+                  },
+              });
+
+              var w = container.innerWidth()/4;
+              container
+              .isotope('reloadItems')
+              .isotope('updateSortData')
+              .isotope({ masonry: { columnWidth: w } })
+              //.isotope({ filter: [root.data.terms2] })
+              .isotope({
+                  sortBy : 'byTagWeight', //[ 'byCategory', 'byTagWeight' ], //
+                  sortAscending: {
+                      //byCategory: true, // name ascendingly
+                      byTagWeight: false, // weight descendingly
+                  },
+              }).isotope( 'layout' );
+
+            }
+
+
+
+  this.calculateTagWeight = function( itemtags, tagfilter ){
+    var mc = 0;
+                    var tags = itemtags;
+                    if( tags.length > 0  && tagfilter.length > 0){
+                        for(i=0;i<tags.length;i++){
+                            if( $.inArray( tags[i], tagfilter ) > -1 ){
+                                mc++;
+                            }
+                        }
+                    }
+                    return mc;
+
   }
 
   this.setPageLoader = function(){
@@ -307,6 +374,7 @@ var getPostsByAjax = function(options){
       if( !root.pullend ){
         root.doRequestData();
       }else{
+        root.reOrderItems();
         root.unsetPageLoader();
       }
     }
@@ -343,8 +411,23 @@ var getPostsByAjax = function(options){
        $.each(ajaxbundle, function( key, obj){
          if( obj.containerid == elementid){
            console.log(elementid);
+
            //$( '#'+elementid+' .container' ).html('').append(selected); // refresh container
-           obj.doRequestData();
+
+           $.each( $('#'+elementid+' .container .item'), function( ){
+             if( $(this).attr('data-tagweight').length > 0 ){
+                $newtagweigth = obj.calculateTagWeight( $(this).data('tags').split(','), tags.split(',') );
+                $(this).attr('data-tagweight', $newtagweigth );
+                $(this).find('span.tagweight').html( $newtagweigth );
+             }
+           });
+           if( !obj.pullend ){
+             obj.doRequestData();
+           }else{
+             obj.reOrderItems();
+             obj.unsetPageLoader();
+           }
+
          }
        });
        /*

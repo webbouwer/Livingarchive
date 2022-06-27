@@ -164,7 +164,8 @@
 
               $tax_query["tax2"] = array(
                  'key' => '_tagweight',
-                 'compare' => 'EXISTS' // this should work...
+                 'compare' => 'EXISTS',
+                 'orderby' => array( 'meta_value_num' => 'DESC', 'date' =>'DESC', 'menu_order'=>'ASC' )
               );
 
            }else{
@@ -173,7 +174,8 @@
                'taxonomy' => $tax2,
                'field' => 'slug',
                'terms' => $terms2,
-               'operator' => 'IN'
+               'operator' => 'IN',
+               'orderby' => array( 'date' =>'DESC', 'menu_order'=>'ASC' ) 
             );
 
          }
