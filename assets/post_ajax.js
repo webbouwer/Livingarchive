@@ -203,10 +203,8 @@ var getPostsByAjax = function(options){
         root.setPostsHTML( response ); // JSON.stringify(response)
         if (response.length >= args.ppp) {
           pullflag = true; // if ppp count result wait for pull again
-          root.reOrderItems();
         }else{
-          //pullend = true; // if all results no pull again
-          root.reOrderItems();
+          pullend = true; // if all results no pull again
         }
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -221,6 +219,8 @@ var getPostsByAjax = function(options){
   this.setPostsHTML = function( result ){
 
     console.log( result );
+
+    var container = $('body').find('#'+root.containerid+' .container');
     //let t = 0; // timer for smooth slowed-down slide-in
 
     $.each( result, function( idx, post){
@@ -263,11 +263,17 @@ var getPostsByAjax = function(options){
       }
       obj.append(tags);
 
-      $('body').find('#'+root.containerid+' .container').append(obj);
+      container.append(obj);
 
     });
 
+    //container.addEventListener("DOMContentLoaded", function(event){
+
     root.unsetPageLoader();
+    // isotope
+    //root.reOrderItems();
+
+    //});
 
     if( $( '#'+root.containerid ).data('load') == 'all'){
       /* repeat ppp load automaticaly untill all is loaded  */
@@ -275,19 +281,25 @@ var getPostsByAjax = function(options){
         root.doRequestData();
       }, 100);
     }
+
     // hide button if less data then page amount found
     if( result.length < root.reqvars.ppp && $( '#'+root.containerid+' .wpajaxbundlebutton' ).length > 0){
+
       $( '#'+root.containerid+' .wpajaxbundlebutton' ).hide();
+
     }
 
-    // isotope
-    root.reOrderItems();
 
   }
 
   this.reOrderItems = function(){
+
+    alert('called!');
+    /*
+
     // trigger isotope
       var container = $('#'+root.containerid+' .container');
+
               container.isotope({
 
                   itemSelector: '.item',
@@ -312,6 +324,7 @@ var getPostsByAjax = function(options){
                   },
               });
 
+
               var w = container.innerWidth()/4;
               container
               .isotope('reloadItems')
@@ -326,7 +339,9 @@ var getPostsByAjax = function(options){
                   },
               }).isotope( 'layout' );
 
-            }
+              */
+
+  }
 
 
 
@@ -374,7 +389,6 @@ var getPostsByAjax = function(options){
       if( !root.pullend ){
         root.doRequestData();
       }else{
-        root.reOrderItems();
         root.unsetPageLoader();
       }
     }
@@ -424,7 +438,6 @@ var getPostsByAjax = function(options){
            if( !obj.pullend ){
              obj.doRequestData();
            }else{
-             obj.reOrderItems();
              obj.unsetPageLoader();
            }
 
@@ -438,6 +451,16 @@ var getPostsByAjax = function(options){
        */
 
   });
+
+
+  /*
+  container.imagesLoaded( function() {
+    root.unsetPageLoader();
+    // isotope
+    root.reOrderItems();
+  });
+
+  */
 
   });
 
