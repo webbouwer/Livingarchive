@@ -8,7 +8,7 @@ get_header();
 <div id="maincontainer" class="site">
   Index
   <?php
-  echo getCurrentUrl(); 
+  //echo getCurrentUrl();
 
 
     echo '<hr />';

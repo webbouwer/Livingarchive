@@ -3,7 +3,6 @@ require_once ('assets/rewrite.php');
 require_once ('assets/truncate.php');
 
 
-
 // register options
 function theme_post_thumbnails()
 {
@@ -149,6 +148,13 @@ function wp_mainquery_postdata(){
             echo '</div>';
 
         endwhile;
+
+    else :
+
+      echo '<div class="post-container">';
+      echo 'Page not found.';
+      echo '</div>';
+
     endif;
     wp_reset_query();
 }

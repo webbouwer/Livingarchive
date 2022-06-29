@@ -10,7 +10,7 @@ get_header();
 ?>
 <div id="maincontainer" class="site">
   <h1>collection</h1>
-  <?php 
+  <?php
 
 
   echo getCurrentUrl();
