@@ -3,18 +3,23 @@
  * Theme main index file
  */
 require_once ('functions.php');
+
+global $wp; //print_r($wp->query_vars);
+
 get_header();
 ?>
 <div id="maincontainer" class="site">
-  Index
-  <?php
-  echo getCurrentUrl(); 
+  <h1>collection</h1>
+  <?php 
 
 
-    echo '<hr />';
-    print_r($wp->query_vars);
+  echo getCurrentUrl();
 
-  wp_main_theme_menu_html('info', false);
+  echo '<hr />';
+  print_r($wp->query_vars);
+
+
+  //wp_main_theme_menu_html('info', false);
   wp_mainquery_postdata();
 ?>
 </div>

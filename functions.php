@@ -1,19 +1,8 @@
 <?php
-require_once ('assets/ajaxbundleshortcodes.php');
-require_once ('assets/ajaxbundle.php');
+require_once ('assets/rewrite.php');
 require_once ('assets/truncate.php');
 
-global $post; // the current page/post data
-$pagetags = false;
-if( is_single() ){
-  $pagetags = get_the_tags ( $post->ID );
-}
 
-function getCurrentUrl()
-{
-    global $wp;
-    return home_url(add_query_arg(array() , $wp->request));
-}
 
 // register options
 function theme_post_thumbnails()
@@ -97,7 +86,7 @@ function wp_main_theme_menu_html($menu, $primary = false){
 }
 
 
-function wp_default_postdata(){
+function wp_mainquery_postdata(){
     if (have_posts()) :
 		while (have_posts()) : the_post();
 
@@ -138,10 +127,13 @@ function wp_default_postdata(){
                 }
 
                 if(is_page()){
+
                     echo '<div class="post-content" data-tags="'.$taglist.'">';
                     echo $content;
                     echo '</div>';
+
                 }else if( is_single() ){
+
                     echo '<div class="post-content" data-tags="'.$taglist.'">';
                     echo $content;
                     echo '</div>';
@@ -150,7 +142,7 @@ function wp_default_postdata(){
 
                 }else{
                     echo '<div class="post-content post-excerpt" data-tags="'.$taglist.'">';
-                    echo $content; //$excerpt;
+                    echo $excerpt;
                     echo '</div>';
                 }
 
