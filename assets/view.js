@@ -1,5 +1,7 @@
 jQuery( function($) {
 
+
+
   // global view loaderbox
   function setPageLoader(){
     var box;
@@ -19,12 +21,16 @@ jQuery( function($) {
 
   setPageLoader();
 
-	$(document).ready(function(){
+	$(document).ready(function(){ 
 
+    if( postdata && postdata.length > 0 ){
+      alert(postdata);
+    }
     $('body').imagesLoaded( function( instance ) {
 
           //alert('Loaded');
           unsetPageLoader();
+
 
     });
 

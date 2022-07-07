@@ -1,7 +1,13 @@
 <?php
 require_once ('assets/rewrite.php');
 require_once ('assets/truncate.php');
+require_once ('assets/collection.php');
 
+global $post; // the current page/post data
+$pagetags = false;
+if( is_single() ){
+  $pagetags = get_the_tags ( $post->ID );
+}
 
 // register options
 function theme_post_thumbnails()
@@ -41,6 +47,11 @@ function wp_terms_checklist_args($args, $post_id)
 }
 add_filter('wp_terms_checklist_args', 'wp_terms_checklist_args', 1, 2);
 
+
+function show_template() {
+    global $template;
+    return basename($template);
+}
 
 
 // theme html output menu's by name (str or array, default primary)
@@ -85,7 +96,10 @@ function wp_main_theme_menu_html($menu, $primary = false){
 }
 
 
-function wp_mainquery_postdata(){
+function wp_mainquery_postdata( ){
+
+
+
     if (have_posts()) :
 		while (have_posts()) : the_post();
 
