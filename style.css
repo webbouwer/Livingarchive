@@ -1,10 +1,43 @@
-
-body
-{
-width:100%;
-margin:0;
-padding:0;
+html {
+  height:100%;
 }
+body {
+  height:100%;
+	padding:0;
+	margin:0;
+	overflow:hidden;
+}
+
+.selected{
+	background-color:red;
+}
+#rightcontainer .itemcontainer .item
+{
+	position:relative;
+	height:auto;
+	min-height:190px;
+}
+#rightcontainer .itemcontainer .item.size-l
+{
+	width:48%;
+}
+#rightcontainer .itemcontainer .item.size-m
+{
+	width: 23%;
+}
+#rightcontainer .itemcontainer .item.size-s
+{
+	width: 23%; 
+}
+
+.leftview #rightcontainer .itemcontainer .item.size-l
+.leftview #rightcontainer .itemcontainer .item.size-m,
+.leftview #rightcontainer .itemcontainer .item.size-s
+{
+	width:100%;
+	min-height:180px;
+}
+
 
 #pageloadbox
 {
@@ -28,7 +61,470 @@ padding:0;
 }
 
 
-@media all and (min-width: 960px) {
+/* colors, styling & animation */
+body
+{
+	background-color:#efefef;
+}
+
+#maincontainer
+{
+  height:100%;
+}
+
+/* toparea placeholder */
+#maincontainer #toparea
+{
+	position:absolute;
+	top:0px;
+	width:100%;
+
+	z-index:600;
+
+	/*background-color:grey;*/
+}
+#toparea #topcontainer
+{
+	max-width:880px;
+	margin:0px auto;
+}
+.pagemenu #toparea #topcontainer
+{
+	background-color:white;
+	box-shadow: 0px 2px 15px -4px rgba(18,18,18,1);
+}
+#toparea #topcontainer #topbar
+{
+	height:76px;
+}
+#toparea #topcontainer #topbar .placeholder
+{
+	background-color:red;
+}
+#toparea #topcontainer #infocontainer
+{
+	/*background-color:turquoise;*/
+}
+
+
+
+
+
+
+/* mainarea content panels*/
+#maincontainer #mainarea
+{
+	width:100vw;
+	margin-top:76px;
+	height:calc(100% - 76px);
+
+	background-color: pink;
+}
+#toparea #topcontainer,
+#toparea #topcontainer #infocontainer,
+#maincontainer #leftmenu-toggle,
+#maincontainer #rightmenu-toggle,
+#maincontainer #rightmenu-container,
+#maincontainer #leftmenu-container,
+#mainarea #rightcontainer,
+#mainarea #contentswitch,
+#mainarea #leftcontainer,
+#mainarea #leftcontainer .placeholder
+{
+	transition: all linear 0.3s;
+}
+#mainarea #rightcontainer .placeholder .contentarea,
+#mainarea #leftcontainer .placeholder .contentarea
+{
+}
+#mainarea #rightcontainer .placeholder .contentarea .itemcontainer,
+#mainarea #leftcontainer .placeholder .contentarea .itemcontainer
+{
+	background-color:silver;
+}
+
+
+/* mainarea content */
+#mainarea #rightcontainer
+{
+	background-color:orange;
+}
+#mainarea #contentswitch
+{
+	background-color:silver;
+}
+#mainarea #contentswitch .placeholder
+{
+	opacity:0.3;
+
+	z-index:500;
+
+	background-color:brown;
+}
+#mainarea #leftcontainer
+{
+	background-color:green;
+}
+
+img {
+  max-width: 100% !important;
+  height: auto;
+}
+
+
+
+
+#maincontainer #rightmenu-toggle
+{
+	background-color:blue;
+	z-index:700;
+}
+#maincontainer #rightmenu-container
+{
+	background-color:blue;
+	z-index:400;
+}
+#maincontainer #leftmenu-toggle
+{
+	background-color:blue;
+	z-index:700;
+}
+#maincontainer #leftmenu-container
+{
+	background-color:blue;
+	z-index:400;
+}
+
+
+
+
+
+/* Responsive */
+@media screen and (max-width: 960px) {
+
+#toparea #topcontainer
+{
+	max-width:100%;
+	width:100%;
+}
+#toparea #topcontainer #topbar
+{
+	height:76px;
+}
+#toparea #topcontainer #topbar .placeholder
+{
+	margin:0px;
+	background-color:red;
+}
+#toparea #topcontainer #infocontainer
+{
+	width:100%;
+}
+#toparea #topcontainer #infocontainer
+{
+	height:0;
+	overflow:hidden;
+}
+.pagemenu #toparea #topcontainer #infocontainer
+{
+	height:calc(100% - 76px);
+	overflow-y:auto;
+}
+
+#maincontainer #mainarea
+{
+  height:calc(100% - 76px);
+  display: flex;
+  flex-direction: column;
+}
+
+#mainarea #contentswitch
+{
+	flex: 0;
+}
+#mainarea #contentswitch .placeholder
+{
+	position:absolute;
+	margin-top:-25px;
+	width:100%;
+	height:50px;
+}
+
+#mainarea #rightcontainer
+{
+	flex: calc(100% - 25px);
+	overflow-y:auto;
+}
+#mainarea #leftcontainer
+{
+	flex: 25px;
+	overflow:hidden;
+}
+.leftview #mainarea #rightcontainer
+{
+	flex: 25px;
+	overflow:hidden;
+}
+.leftview #mainarea #leftcontainer
+{
+	flex: calc(100% - 25px);
+	overflow-y:auto;
+}
+
+
+
+#leftmenu-toggle,
+#rightmenu-toggle,
+#leftmenu-container,
+#rightmenu-container
+{
+	display: none;
+}
+
+}
+
+
+
+
+
+
+
+
+@media screen and (min-width: 960px) {
+
+#maincontainer #toparea
+{
+	position:absolute;
+	top:0px;
+	width:100%;
+	height:90px;
+}
+#toparea #topcontainer
+{
+	max-width:960px;
+	width:58%;
+}
+#toparea #topcontainer #topbar
+{
+	height:90px;
+}
+#toparea #topcontainer #topbar .placeholder
+{
+	margin:0px 60px;
+	height:90px;
+}
+#toparea #topcontainer #infocontainer .placeholder .contentmenu,
+#toparea #topcontainer #infocontainer .placeholder .contentarea
+{
+	height:0;
+	overflow:hidden;
+}
+
+.pagemenu #toparea #topcontainer #infocontainer
+{
+	height:auto;
+	min-height:calc(90vh - 90px);
+	background-color:#846320;
+}
+.pagemenu #toparea #topcontainer #infocontainer .placeholder
+{
+}
+.pagemenu #toparea #topcontainer #infocontainer .placeholder .contentmenu
+{
+	padding:0px 60px;
+	height:54px;
+}
+.pagemenu #toparea #topcontainer #infocontainer .placeholder .contentarea
+{
+	padding:0px 60px;
+	height:auto;
+	max-height:calc(100vh - 144px);
+	overflow-y:auto;
+}
+#maincontainer #mainarea
+{
+	display: flex;
+	width:100vw;
+	margin-top:0px;
+	height:100vh;
+	flex-direction: row-reverse; /* row */
+}
+
+#mainarea #contentswitch
+{
+	flex: 0;
+}
+#mainarea #contentswitch .placeholder
+{
+	position:absolute;
+	top:0px;
+	width:50px;
+	margin-left:-25px;
+	height:100vh;
+}
+
+#mainarea #rightcontainer
+{
+	position:relative;
+	flex: 85%;
+}
+#mainarea #leftcontainer
+{
+	flex:15%;
+}
+
+/* leftcontent */
+#mainarea #leftcontainer .placeholder
+{
+
+	position:absolute;
+	left:-50%;
+	width:60%;
+	background-color:#498732;
+	z-index:300;
+}
+.leftview #mainarea #leftcontainer .placeholder
+{
+	position:absolute;
+	left:0px;
+	width:100%;
+	z-index:300;
+}
+#mainarea #leftcontainer .placeholder .contentarea
+{
+	margin:90px auto 0px;
+	max-width:960px;
+	width:58%;
+}
+#mainarea #leftcontainer .placeholder .contentarea .itemcontainer
+{
+	margin:0px 60px;
+	height:calc(100vh - 90px);
+	overflow-y:auto;
+}
+
+/* rightcontent */
+#mainarea #rightcontainer .placeholder
+{
+	position:relative;
+	width:100%;
+	z-index:400;
+}
+#mainarea #rightcontainer .placeholder .contentarea
+{
+	height:100vh;
+	width:100%;
+	overflow-y:auto;
+}
+#mainarea #rightcontainer .placeholder .contentarea .itemcontainer
+{
+	margin-top:90px;
+	width:100%;
+}
+.leftview #mainarea #rightcontainer .placeholder .contentarea .itemcontainer
+{
+	margin-top:90px;
+	width:100%;
+}
+
+
+/* leftmenu open on rightview (default) */
+.leftmenu #mainarea #rightcontainer
+{
+	flex: 79%;
+}
+.leftmenu #mainarea #leftcontainer
+{
+	flex:21%;
+}
+/* leftview open (with or without menu) */
+.leftview #mainarea #rightcontainer
+{
+	flex: 21%;
+}
+.leftview #mainarea #leftcontainer
+{
+	flex:79%;
+}
+
+
+#maincontainer #rightmenu-toggle
+{
+	position:absolute;
+	top:0px;
+	min-width:190px;
+	width:21%;
+	max-width:240px;
+	right:0px;
+	text-align:right;
+}
+#maincontainer.rightmenu #rightmenu-toggle
+{
+	width:21%;
+	max-width:400px;
+}
+#maincontainer #rightmenu-toggle .placeholder
+{
+	height:90px;
+}
+
+#maincontainer #rightmenu-container
+{
+	position:absolute;
+	top:90px;
+	right:-400px;
+	width:21%;
+	max-width:400px;
+	height:calc(100vh - 90px);
+}
+#maincontainer.rightmenu #rightmenu-container
+{
+	right:0px;
+}
+
+
+#maincontainer #leftmenu-toggle
+{
+	position:absolute;
+	top:0px;
+	min-width:190px;
+	width:21%;
+	max-width:240px;
+}
+#maincontainer.leftmenu  #leftmenu-toggle
+{
+	width:21%;
+	max-width:400px;
+}
+#maincontainer #leftmenu-toggle .placeholder
+{
+	height:90px;
+}
+
+#maincontainer #leftmenu-container
+{
+	position:absolute;
+	top:90px;
+	left:-400px;
+	width:21%;
+	max-width:400px;
+	height:calc(100vh - 90px);
+}
+#maincontainer.leftmenu #leftmenu-container
+{
+	left:0px;
+}
+
+#leftmenu-container .placeholder
+{
+	height:100%;
+	overflow-y:auto;
+}
+#leftmenu-container .placeholder .itemcontainer
+{
+	min-height:100%;
+}
+
 
 
 }

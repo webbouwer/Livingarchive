@@ -53,6 +53,35 @@ function show_template() {
     return basename($template);
 }
 
+/**
+ * Date display in tweet('time ago') format
+ */
+function wp_time_ago( $t ) {
+	// https://codex.wordpress.org/Function_Reference/human_time_diff
+	//get_the_time( 'U' )
+	printf( _x( '%s ago', '%s = human-readable time difference', 'onepiece' ), human_time_diff( $t, current_time( 'timestamp' ) ) );
+
+}
+
+// image orient
+function check_image_orientation($pid){
+	$orient = 'landscape';
+    $image = wp_get_attachment_image_src( get_post_thumbnail_id($pid), '');
+    if($image){
+        $image_w = $image[1];
+        $image_h = $image[2];
+        if ($image_w > $image_h) {
+            $orient = 'landscape';
+        }elseif ($image_w == $image_h) {
+            $orient = 'square';
+        }else {
+            $orient = 'portrait';
+        }
+    }
+    return $orient;
+}
+
+
 
 // theme html output menu's by name (str or array, default primary)
 function wp_main_theme_menu_html($menu, $primary = false){
