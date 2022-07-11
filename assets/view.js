@@ -134,7 +134,7 @@ jQuery( function($) {
             let container = $('#rightcontainer .itemcontainer');
             let w = container.innerWidth()/4;
 
-            if( !$.isFunction( 'isotope' ) ){
+          //  if( !$.isFunction( 'isotope' ) ){
 
             container.isotope({
 
@@ -160,7 +160,7 @@ jQuery( function($) {
                 },
             });
 
-          }else{
+          //}else{
 
             container
               .isotope('reloadItems')
@@ -168,14 +168,14 @@ jQuery( function($) {
               .isotope({ masonry: { columnWidth: w } })
               //.isotope({ filter: filterClass })
               .isotope({
-                   sortBy : 'byTagWeight', //[ 'byCategory', 'byTagWeight' ], //
+                   sortBy : [ 'byCategory', 'byTagWeight' ], //
                    sortAscending: {
-                   //byCategory: true, // name ascendingly
+                   byCategory: true, // name ascendingly
                    byTagWeight: false, // weight descendingly
                    },
                 }).isotope( 'layout' );
 
-            }
+            //}
 
           }
 
@@ -237,9 +237,11 @@ jQuery( function($) {
        .isotope('updateSortData')
        .isotope('layout');
        */
-       rightIsotope();
+       //rightIsotope();
        //setIsotope( $('#leftmenu-container .itemcontainer') );
        //setIsotope( $('#leftcontainer .leftmenu') );
+
+       $('#rightcontainer .itemcontainer').isotope('layout');
 
 		});
 
@@ -344,8 +346,6 @@ jQuery( function($) {
 
                 $('.item').removeClass('selected');
                 var selecteditem =  $(this).parent().parent().addClass('selected');
-                selecteditem.parent().prepend(selecteditem);
-
                 tagfilter = selecteditem.attr("data-tags").split(',');
 
                 $('.tagbutton').removeClass('selected');
@@ -355,6 +355,8 @@ jQuery( function($) {
                 });
 
                 $('#maincontainer').attr("data-tags", tagfilter.toString() );
+
+                selecteditem.prependTo(selecteditem.parent('.itemcontainer'));
 
                 applyTagWeight();
 
