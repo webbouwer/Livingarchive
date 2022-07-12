@@ -8,37 +8,6 @@ body {
 	overflow:hidden;
 }
 
-.selected{
-	background-color:red;
-}
-#rightcontainer .itemcontainer .item
-{
-	position:relative;
-	height:auto;
-	min-height:190px;
-}
-#rightcontainer .itemcontainer .item.size-l
-{
-	width:48%;
-}
-#rightcontainer .itemcontainer .item.size-m
-{
-	width: 23%;
-}
-#rightcontainer .itemcontainer .item.size-s
-{
-	width: 23%; 
-}
-
-.leftview #rightcontainer .itemcontainer .item.size-l
-.leftview #rightcontainer .itemcontainer .item.size-m,
-.leftview #rightcontainer .itemcontainer .item.size-s
-{
-	width:100%;
-	min-height:180px;
-}
-
-
 #pageloadbox
 {
 	position:fixed;
@@ -171,9 +140,66 @@ img {
   height: auto;
 }
 
+/* tagmenu and selections */
+.tagbutton
+{
+  display:inline-block;
+}
+.selected{
+	background-color:red;
+}
+#rightmenu-container .itemcontainer .tagbutton.selected,
+#leftmenu-container .item .itemtagbox,
+#leftmenu-container .item .main
+{
+  display:none;
+}
+
+#rightmenu-container #tagmenu .tagbutton.selected
+{
+  display:inline-block;
+}
+
+#leftcontainer .itemcontainer .item .main
+{
+  display:block;
+}
+
+/* item global size */
+#rightcontainer .itemcontainer .item
+{
+	position:relative;
+	height:auto;
+	min-height:190px;
+
+		width:48%;
+		float:left;
+}
+#rightcontainer .itemcontainer .item.size-l
+{
+	width:48%;
+}
+#rightcontainer .itemcontainer .item.size-m
+{
+	width: 23%;
+}
+#rightcontainer .itemcontainer .item.size-s
+{
+	width: 23%;
+}
+
+
+.leftview #rightcontainer .itemcontainer .item.size-l
+.leftview #rightcontainer .itemcontainer .item.size-m,
+.leftview #rightcontainer .itemcontainer .item.size-s
+{
+	width:100%;
+	min-height:180px;
+}
 
 
 
+/* menu panel toggles */
 #maincontainer #rightmenu-toggle
 {
 	background-color:blue;
@@ -418,13 +444,12 @@ img {
 }
 #mainarea #rightcontainer .placeholder .contentarea .itemcontainer
 {
-	margin-top:90px;
-	width:100%;
+	margin:90px auto 0px;
+	width:98%;
 }
-.leftview #mainarea #rightcontainer .placeholder .contentarea .itemcontainer
+.leftview #mainarea #rightcontainer .placeholder .contentarea .itemcontainer .item
 {
-	margin-top:90px;
-	width:100%;
+	width:100% !important;
 }
 
 

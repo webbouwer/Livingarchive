@@ -9,13 +9,19 @@ global $wp; //print_r($wp->query_vars);
 get_header();
 
 $q = $wp->query_vars;
+
 $tgs = '';
-if( isset( $q['tags'] ) ){
-    $tgs = $q['tags'];
-}
 $cts = '';
+
 if( isset( $q['cats'] ) ){
     $cts = $q['cats'];
+}
+if( isset( $q['p'] ) && $q['p'] == 'cats'){
+    $cts = $q['tags'];
+}else{
+  if( isset( $q['tags'] ) || $q['p'] == 'tags'){
+    $tgs = $q['tags'];
+  }
 }
 
 echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$cts.'">';
@@ -42,6 +48,7 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 					</div>
 					<div id="searchbox">
 						search
+            <?php print_r( $wp->query_vars ); ?>
 					</div>
 				</div>
 			</div>
@@ -102,7 +109,7 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 
 		<div class="placeholder">
       <div class="itemcontainer">
-        	<!-- right-menu -->	
+        	<!-- right-menu -->
   			<?php build_tagmenu(); ?>
       </div>
 		</div>

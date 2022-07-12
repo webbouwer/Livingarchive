@@ -9,7 +9,7 @@ function getWPPostData(){
     //'post_type'        => 'post',   // post type
     'post_type'         => 'any',
     'status'           => 'published', // only published visible
-    'posts_per_page'   => 30,     // -1 = all ..amount of post each request(page)
+    'posts_per_page'   => -1,     // -1 = all ..amount of post each request(page)
   );
 
   $postdata = new WP_Query( $get_post_args );
@@ -106,11 +106,12 @@ function getWPPostData(){
       if( $type != 'page' ){
         $output .= '<div class="title">';
         $output .= '<h3>'.$title.' <span class="countbox">[<span class="matchweight moderate">0</span>]</span></h3>';
-        $output .= '<div class="author">'.$author.'</div></div></div>';
+        //$output .= '<div class="author">'.$author.'</div>';
+        $output .= '</div></div>';
       }
 
       $output .= '<div class="itemcatbox">'.$catlist.'</div><div class="itemtagbox">'.$taglist.'</div>';
-      $output .= '<div class="main"><div class="textbox"></div></div>'; // '.$content.'
+      $output .= '<div class="main"><div class="textbox">'.$content.'</div></div>'; // '.$content.'
       $output .= '</div>';
       $output .= '<div class="infotoggle button"><span>+</span></div>';
       $output .= '</div>';
@@ -171,7 +172,7 @@ function build_tagmenu(){
     $html = '<div id="tagmenu"></div>';
 
     foreach($taglist as $tag){
-       $html .= '<a href="'.site_url().'/tags/'.$tag->slug.'" class="tagbutton '.$tag->slug.'" data-tag="'.$tag->slug.'">'.$tag->name.'</a> ';
+       $html .= '<a href="'.site_url().'/tags/'.$tag->slug.'" class="tagbutton '.$tag->slug.'" data-tag="'.$tag->slug.'">#'.$tag->name.'</a>';
     }
     echo $html;
     //return json_encode( $taglist );
