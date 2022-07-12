@@ -40,7 +40,7 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 
 			<div id="topbar">
 				<div class="placeholder">
-					<div id="menutoggle">
+					<div id="infomenutoggle">
 					 menu
 					</div>
 					<div id="logo">
@@ -90,9 +90,7 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 		<div id="leftcontainer">
 			<div class="placeholder">
 				<div class="contentarea">
-					<div class="itemcontainer">
-						<!-- left-content -->
-					</div>
+					<div class="itemcontainer"></div>
 				</div>
 			</div>
 		</div>
@@ -108,7 +106,7 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 	<div id="rightmenu-container">
 
 		<div class="placeholder">
-      <div class="itemcontainer">
+      <div class="menucontainer rightmenu">
         	<!-- right-menu -->
   			<?php build_tagmenu(); ?>
       </div>
@@ -125,7 +123,7 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 	<div id="leftmenu-container">
 
 		<div class="placeholder">
-      <div class="itemcontainer">
+      <div class="menucontainer leftmenu">
 			     	<!-- left-menu -->
       </div>
 		</div>

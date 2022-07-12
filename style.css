@@ -148,9 +148,10 @@ img {
 .selected{
 	background-color:red;
 }
-#rightmenu-container .itemcontainer .tagbutton.selected,
-#leftmenu-container .item .itemtagbox,
-#leftmenu-container .item .main
+.menucontainer.rightmenu .tagbutton.selected,
+.menucontainer.leftmenu .item .itemtagbox,
+#rightcontainer .itemcontainer .item .main,
+.menucontainer.leftmenu .item .main
 {
   display:none;
 }
@@ -169,15 +170,20 @@ img {
 #rightcontainer .itemcontainer .item
 {
 	position:relative;
-	height:auto;
-	min-height:190px;
-
-		width:48%;
-		float:left;
+  width:20%;
+  0verflow: hidden;
+  border:none;
+  min-height:240px;
+  font-size:15px;
+  margin-bottom:2%;
 }
 #rightcontainer .itemcontainer .item.size-l
 {
-	width:48%;
+	width:42%;
+}
+#rightcontainer .itemcontainer .item.portrait.size-l
+{
+	width:39%;
 }
 #rightcontainer .itemcontainer .item.size-m
 {
@@ -186,6 +192,17 @@ img {
 #rightcontainer .itemcontainer .item.size-s
 {
 	width: 23%;
+}
+
+#rightcontainer .itemcontainer .item.portrait.selected,
+#rightcontainer .itemcontainer .item.selected
+{
+    width: 49%;
+}
+#rightcontainer .itemcontainer .contentbox .item.portrait.selected.fullscreen,
+#rightcontainer .itemcontainer .contentbox .item.selected.fullscreen
+{
+    width: 86%;
 }
 
 
@@ -281,11 +298,20 @@ img {
 	flex: calc(100% - 25px);
 	overflow-y:auto;
 }
+#mainarea #rightcontainer .placeholder .contentarea .itemcontainer
+{
+	margin:0px 0px 0px 2%;
+	width:98%;
+}
+
+
 #mainarea #leftcontainer
 {
 	flex: 25px;
 	overflow:hidden;
 }
+
+
 .leftview #mainarea #rightcontainer
 {
 	flex: 25px;
@@ -444,13 +470,24 @@ img {
 }
 #mainarea #rightcontainer .placeholder .contentarea .itemcontainer
 {
-	margin:90px auto 0px;
-	width:98%;
+	margin:110px 0px 0px 2%;
+	width:96%;
+}
+#rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage img
+{
+width:100%;
+}
+#rightcontainer .itemcontainer .item.selected .stage,
+#rightcontainer .itemcontainer .item.selected .mediaplaceholder
+{
+position: relative;
+width:94%;
 }
 .leftview #mainarea #rightcontainer .placeholder .contentarea .itemcontainer .item
 {
 	width:100% !important;
 }
+
 
 
 /* leftmenu open on rightview (default) */
@@ -545,7 +582,7 @@ img {
 	height:100%;
 	overflow-y:auto;
 }
-#leftmenu-container .placeholder .itemcontainer
+#leftmenu-container .placeholder .menucontainer
 {
 	min-height:100%;
 }

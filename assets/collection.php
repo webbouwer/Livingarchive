@@ -53,13 +53,14 @@ function getWPPostData(){
       $posttags = wp_get_post_terms( $pid, 'post_tag', array("fields" => "slugs"));
 
       // list tags to links
+      $objfilterclasses = '';
+      $catlist = '';
       $taglist = '';
+
       foreach( $posttags as $tag){
         $taglist .= '<a href="'.site_url().'/tags/'.$tag.'" class="tagbutton '.$tag.'" data-tag="'.$tag.'">'.$tag.'</a> ';
+        $objfilterclasses .= ' '.$tag;
       }
-
-      $catlist = '';
-      $objfilterclasses = '';
 
       foreach( $postcats as $cat){
         if( $cat == $theoryCategory ){

@@ -40,8 +40,6 @@
         $viewscript = get_template_directory_uri().'/assets/view.js';
         echo '<script src="'.$viewscript.'" type="text/javascript" media="all" /></script>';
 
-        $viewscript = get_template_directory_uri().'/assets/navigate.js';
-        echo '<script src="'.$viewscript.'" type="text/javascript" media="all" /></script>'; 
 
       }
     }
