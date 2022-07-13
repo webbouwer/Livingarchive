@@ -362,4 +362,10 @@ jQuery( function($) {
     });
 
   });
+
+  /*
+  $(window).load(function(){
+    var nice= $('.itemcontainer').niceScroll({cursorborder:"",cursorcolor:"#333333",cursorwidth:"8px", boxzoom:true, autohidemode:false});
+  });
+  */
 });

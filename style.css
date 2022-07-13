@@ -1,5 +1,6 @@
 html {
   height:100%;
+  scroll-behavior: smooth;
 }
 body {
   height:100%;
@@ -272,6 +273,7 @@ img {
 {
 	height:calc(100% - 76px);
 	overflow-y:auto;
+  scroll-behavior: smooth;
 }
 
 #maincontainer #mainarea
@@ -297,6 +299,7 @@ img {
 {
 	flex: calc(100% - 25px);
 	overflow-y:auto;
+  scroll-behavior: smooth;
 }
 #mainarea #rightcontainer .placeholder .contentarea .itemcontainer
 {
@@ -321,6 +324,7 @@ img {
 {
 	flex: calc(100% - 25px);
 	overflow-y:auto;
+  scroll-behavior: smooth;
 }
 
 
@@ -392,6 +396,7 @@ img {
 	height:auto;
 	max-height:calc(100vh - 144px);
 	overflow-y:auto;
+  scroll-behavior: smooth;
 }
 #maincontainer #mainarea
 {
@@ -453,6 +458,7 @@ img {
 	margin:0px 60px;
 	height:calc(100vh - 90px);
 	overflow-y:auto;
+  scroll-behavior: smooth;
 }
 
 /* rightcontent */
@@ -467,6 +473,7 @@ img {
 	height:100vh;
 	width:100%;
 	overflow-y:auto;
+  scroll-behavior: smooth;
 }
 #mainarea #rightcontainer .placeholder .contentarea .itemcontainer
 {
@@ -581,6 +588,7 @@ width:94%;
 {
 	height:100%;
 	overflow-y:auto;
+  scroll-behavior: smooth;
 }
 #leftmenu-container .placeholder .menucontainer
 {
