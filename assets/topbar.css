@@ -1,0 +1,159 @@
+/* topbar globals */
+#toparea #topcontainer #topbar .placeholder
+{
+  position:relative;
+  display:flex;
+  height:87px;
+	border-bottom:3px solid black;
+}
+#toparea #topcontainer #topbar .placeholder > div
+{
+  flex:1 7 7;
+}
+#toparea #topcontainer #topbar .placeholder #infomenutoggle
+{
+  width:50px;
+}
+
+#toparea #topcontainer #topbar .placeholder #logo
+{
+  width:45%;
+}
+
+#toparea #topcontainer #topbar .placeholder #rightside
+{
+
+  display: block;
+  width:calc(55% - 50px);
+	text-align:right;
+  height:40px;
+}
+
+
+
+#topbar #rightside #searchbox
+{
+  text-align:left;
+  width:85%;
+  max-width:380px;
+  border:2px solid grey;
+  padding: 8px 6px;
+  font-size:20px;
+  font-weight:bold;
+  text-transform:uppercase;
+}
+#searchhints
+{
+position:absolute;
+left:0px;
+top:87px;
+height:auto;
+z-index:999;
+min-width:560px;
+/*max-width:80%;*/
+width:84%;
+
+border-top:none;
+visibility: hidden;
+}
+#searchhints.active
+{
+visibility: visible;
+border-bottom:5px solid black;
+background-color: white;
+/*
+-webkit-box-shadow: 0px 2px 15px -4px rgba(18,18,18,1);
+-moz-box-shadow: 0px 2px 15px -4px rgba(18,18,18,1);
+box-shadow: 0px 2px 15px -4px rgba(18,18,18,1);
+*/
+}
+#searchhints .resultcontent
+{
+border:none;
+display:none;
+}
+
+#searchhints.active .resultcontent
+{
+position: relative;
+display:block;
+width:100%;
+height:auto;
+
+
+
+}
+#searchhints .resultcontent ul
+{
+border:none;
+}
+
+
+#searchhints.active .resultcontent ul li a
+{
+}
+
+#searchhints.active .resultcontent ul li a:hover
+{
+text-decoration:underline;
+}
+#searchhints.active .resultcontent ul li h5
+{
+font-size: 17px;
+}
+
+#searchhints.active .resultcontent ul
+{
+position: relative;
+margin:0px;
+padding:0;
+float:right;
+width:33.33%;
+max-height:560px;
+overflow-y:auto;
+margin:0px;
+padding:5px 0px;
+}
+#searchhints.active .resultcontent ul li
+{
+display: inline-block;
+padding:3px 5px 2px 3px;
+}
+
+#searchhints.active .resultcontent ul li:last-child
+{
+}
+/*
+#searchhints.active .resultcontent ul li.listheader
+{
+    position:fixed;
+    background-color:white;
+    display:block;
+    padding:3px 0px;
+}
+#searchhints.active .resultcontent ul.titleresults
+{
+    padding-top:40px;
+}
+*/
+#searchhints.active .resultcontent ul li.listheader,
+#searchhints.active .resultcontent ul.titleresults li
+{
+display: block;
+}
+#searchhints.active .resultcontent ul.tagresults li
+{
+list-style:none;
+}
+#searchhints.active .resultcontent ul li .titlebutton
+{
+font-size:15px;
+color:black;
+text-decoration: none;
+}
+#searchhints.active .resultcontent ul li .tagbutton
+{
+font-size:15px;
+color:black;
+text-decoration: none;
+}

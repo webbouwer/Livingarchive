@@ -3,6 +3,10 @@ require_once ('assets/rewrite.php');
 require_once ('assets/truncate.php');
 require_once ('assets/collection.php');
 
+require_once( 'customizer.php'); // customizer functions
+
+
+// register functions
 global $post; // the current page/post data
 $pagetags = false;
 if( is_single() ){
@@ -124,6 +128,52 @@ function wp_main_theme_menu_html($menu, $primary = false){
     }
 }
 
+// theme html output toplogo (custom_logo) or site title home link
+function wp_main_theme_toplogo_html(){
+
+    if( is_customize_preview() ){
+        echo '<div id="area-custom-image" class="customizer-placeholder">Logo image</div>';
+    }
+    if( get_theme_mod('wp_main_theme_identity_logo', '') != '' ){
+        $custom_logo_url = get_theme_mod('wp_main_theme_identity_logo');
+        $custom_logo_attr = array(
+            'class'    => 'custom-logo',
+            'itemprop' => 'logo',
+        );
+        echo sprintf( '<a href="%1$s" class="custom-logo-link image" rel="home" itemprop="url">%2$s</a>',
+        esc_url( home_url( '/' ) ),
+        '<img id="toplogo" src="'.$custom_logo_url.'" border="0" />'
+        );
+    }else if( get_theme_mod('custom_logo', '') != '' ){
+        $custom_logo_id = get_theme_mod('custom_logo');
+        $custom_logo_attr = array(
+            'class'    => 'custom-logo',
+            'itemprop' => 'logo',
+        );
+        echo sprintf( '<a href="%1$s" class="custom-logo-link image" rel="home" itemprop="url">%2$s</a>',
+        esc_url( home_url( '/' ) ),
+        wp_get_attachment_image( $custom_logo_id, 'full', false, $custom_logo_attr )
+        );
+    }else{
+        echo sprintf( '<a href="%1$s" class="custom-logo-link text" rel="home" itemprop="url"><span>%2$s</span></a>',
+        esc_url( home_url( '/' ) ),
+        esc_attr( get_bloginfo( 'name', 'display' ) ) //get_bloginfo( 'description' )
+        );
+    }
+
+
+    /*
+        $custom_logo_url = get_template_directory_uri().'/images/logo2.svg';
+        $custom_logo_attr = array(
+            'class'    => 'custom-logo',
+            'itemprop' => 'logo',
+        );
+        echo sprintf( '<a href="%1$s" class="custom-logo-link image" rel="home" itemprop="url">%2$s</a>',
+        esc_url( home_url( '/' ) ),
+        '<img id="toplogo" src="'.$custom_logo_url.'" border="0" />'
+        );
+    */
+}
 
 function wp_mainquery_postdata( ){
 
@@ -200,4 +250,37 @@ function wp_mainquery_postdata( ){
 
     endif;
     wp_reset_query();
+}
+
+function wp_main_theme_get_all_tags(){
+
+    $args = array(
+        'orderby'           => 'name',
+        'order'             => 'ASC',
+        'hide_empty'        => false,
+        'fields'            => 'all',
+        'parent'            => 0,
+        'hierarchical'      => true,
+        'child_of'          => 0,
+        'childless'         => false,
+        'pad_counts'        => false,
+        'cache_domain'      => 'core'
+    );
+
+    $taglist = get_terms( 'post_tag', $args );
+
+    usort($taglist, function($a, $b){
+        return strcmp($a->name, $b->name);
+    });
+
+    return json_encode( $taglist );
+
+    //return json_encode( get_terms( $args ) );
+}
+function wp_main_theme_get_all_categories(){
+
+    $args = array(
+		'order'         => 'DESC'
+    );
+    return json_encode( get_terms( 'category', $args ) ); //get_categories( array("type"=>"post") )
 }

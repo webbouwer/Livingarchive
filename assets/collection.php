@@ -106,14 +106,14 @@ function getWPPostData(){
 
       if( $type != 'page' ){
         $output .= '<div class="title">';
-        $output .= '<h3>'.$title.' <span class="countbox">[<span class="matchweight moderate">0</span>]</span></h3>';
+        $output .= '<h3><a href="'.$link.'">'.$title.' <span class="countbox">[<span class="matchweight moderate">0</span>]</span></a></h3>';
         //$output .= '<div class="author">'.$author.'</div>';
         $output .= '</div></div>';
       }
 
       $output .= '<div class="itemcatbox">'.$catlist.'</div><div class="itemtagbox">'.$taglist.'</div>';
       //$output .= '<div class="main"><div class="textbox">'.$content.'</div></div>'; // '.$content.'
-      $output .= '<div class="main"><div class="textbox"></div></div>'; 
+      $output .= '<div class="main"><div class="textbox"></div></div>';
       $output .= '</div>';
       $output .= '<div class="infotoggle button"><span>+</span></div>';
       $output .= '</div>';

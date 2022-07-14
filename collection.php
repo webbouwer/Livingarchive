@@ -39,24 +39,33 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 		<div id="topcontainer">
 
 			<div id="topbar">
+
 				<div class="placeholder">
+
 					<div id="infomenutoggle">
 					 menu
 					</div>
+
 					<div id="logo">
-						logo
+						<?php wp_main_theme_toplogo_html(); ?>
 					</div>
-					<div id="searchbox">
-						search
-            <?php print_r( $wp->query_vars ); ?>
-					</div>
+
+					<div id="rightside">
+            <input id="searchbox" class="basic-search" placeholder="Zoek" size="24">
+          </div>
+
+          <div id="searchhints">
+            <div class="resultcontent"></div>
+          </div>
+          
 				</div>
+
 			</div>
 
 			<div id="infocontainer">
 				<div class="placeholder">
 					<div class="contentmenu">
-						menu
+					       <?php wp_main_theme_menu_html( 'main' , true ); ?>
 					</div>
 					<div class="contentarea">
 						info pages
@@ -132,5 +141,7 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 
 <?php
 echo '</div>'; // maincontainer
+
+echo '<div id="developerbox"><div class="query">'.json_encode( $wp->query_vars ).'</div></div>';
 get_footer();
 ?>

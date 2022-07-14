@@ -1,22 +1,25 @@
+// global reference variables
+var tagfilter = [];
+var prevtags = [];
+var catfilter = [];
+var prevcats = []
+var itemfilter = ''; // item classes
+var selectedCat = '';
+
 jQuery( function($) {
 
 
   // loading
   setPageLoader();
 
-  // global reference variables
-  var tagfilter = [];
-  var prevtags = [];
-  var catfilter = [];
-  var prevcats = []
-  var itemfilter = ''; // item classes
-  var selectedCat = '';
-
   // set content panels
   var pagebox = $('#maincontainer');
   var leftmenu = $('#leftmenu-container');
   var rightmenu = $('#rightmenu-container');
   var tagmenu =   $('#rightmenu-container #tagmenu');
+
+  // defaults
+  var defaulttags = 'zee,plaats,werk,land';
 
   // global view loaderbox
   function setPageLoader(){
@@ -36,10 +39,9 @@ jQuery( function($) {
 
 	$(document).ready(function(){
 
-    /* load content */
+    // load content
     if( postdata && postdata.length > 0 ){
-      //rightcontainer.append(JSON.stringify(postdata) );
-
+        // order content
         $.each(postdata, function( n, p ){
           if( p.group == 1 ){
             $('#leftmenu-container .menucontainer').append(p.output);
@@ -49,29 +51,31 @@ jQuery( function($) {
             $('#rightcontainer .itemcontainer').append(p.output);
           }
         });
-
     }
 
-    // set start tags
+
+    // set start tags and cats
     let startTags = pagebox.data('tags');
-    if( startTags == '' ){
-        startTags = 'zee,plaats,werk,land';
+    let startCats = pagebox.data('cats');
+    if( startTags == '' && startCats == ''){
+        startTags = defaulttags;
         tagfilter = startTags.split(',');
         pagebox.attr('data-tags', startTags);
+
+        $.each(tagfilter, function (n,tag){
+          $('body').find('.tagbutton.'+tag).addClass('selected');
+          rightmenu.find('.tagbutton.'+tag).addClass('selected');
+        });
     }
 
-
-    /**
-    ACTIONS PAGE
-    **/
+    // ACTIONS PAGE
 
     // top menu icon toggle
-		$('#infomenutoggle').on('click touchstart', function() {
+		$('#infomenutoggle').on('click', function() {
       pagebox.toggleClass("pagemenu");//pagebox.removeClass("leftview");
 		});
-
     // switch content
-		$('#contentswitch .placeholder').on('click touchstart', function() {
+		$('#contentswitch .placeholder').on('click', function() {
 
 			if( !pagebox.hasClass('leftview') && !pagebox.hasClass('leftmenu')){
 				pagebox.removeClass("rightmenu");
@@ -79,10 +83,8 @@ jQuery( function($) {
 			}else if( pagebox.hasClass('leftview') && pagebox.hasClass('leftmenu') ){
 				pagebox.removeClass("leftmenu"); // switch right
 			}
-      //if( $('#leftcontainer .itemcontainer').html() == '' ){
       let item = $('#leftmenu-container .menucontainer.leftmenu .menubutton:first-child').addClass('selected').clone();
       $('#leftcontainer .itemcontainer').html( item );
-      //}
 
       pagebox.toggleClass("leftview");
 			pagebox.removeClass("pagemenu");
@@ -93,22 +95,18 @@ jQuery( function($) {
       checkSelected();
       layoutIsotope();
 		});
-
-		$('#leftmenu-toggle .placeholder').on('click touchstart', function() {
+    // toggle left menu
+		$('#leftmenu-toggle .placeholder').on('click', function() {
       pagebox.toggleClass("leftmenu");
 		});
-
-		$('#rightmenu-toggle .placeholder').on('click touchstart', function() {
+    // toggle right menu
+		$('#rightmenu-toggle .placeholder').on('click', function() {
       pagebox.toggleClass("rightmenu");
 		});
 
 
 
-
-
-    /**
-    ACTIONS ITEM
-    **/
+    // ACTIONS ITEM
 
     $('body').on('click','#rightcontainer .item .intro, #leftmenu-container .item .intro, #leftcontainer .leftmenu .item .intro', function( e ){
 
@@ -118,25 +116,34 @@ jQuery( function($) {
       }else{
         e.returnValue = false;
       }
+
+      prevtags = tagfilter;
+      prevcats = catfilter;
+
+      // reset active selected
       $('body').find('.item.selected').removeClass('selected');
       $('body').find('.item.fullscreen').removeClass('fullscreen');
       $('body').find('.itemcontainer .active').removeClass('active');
+      $('.catbutton').removeClass('selected');
+      pagebox.removeClass("pagemenu");
 
+      // set selected
       let item = $(this).closest('.item');
       item.toggleClass('selected'); // ? :
-
+      // check selected
       if( item.hasClass('selected')){
-        //item.addClass('active');
         item.prependTo( item.parent() );
-
         if( item.attr('data-cats').includes('artikelen') ){
           $('#leftcontainer .itemcontainer').html( item.clone() );
           $('#maincontainer').removeClass('rightview,rightmenu').addClass('leftview');
         }
-        //alert( item.data('tags') );
-        taglist = item.data('tags').split(',');
+        taglist = item.data('tags').split(','); //alert( item.data('tags') );
+
       }else{
+
+        // deselect - get previous tags
         taglist = previoustags;
+
       }
 
       $('.tagbutton').removeClass('selected');
@@ -212,11 +219,7 @@ jQuery( function($) {
 
 
 
-  /**
-  ACTIONS TAGS
-  **/
-
-
+    // ACTIONS TAGS
     $('body').on('click','.tagbutton', function( e ){
       e.stopPropagation();
       if(e.preventDefault){
@@ -224,8 +227,30 @@ jQuery( function($) {
       }else{
         e.returnValue = false;
       }
+      prevtags = tagfilter;
+      prevcats = catfilter;
+
+      // reset active selected
+      $('body').find('.item.selected').removeClass('selected');
+      $('body').find('.item.fullscreen').removeClass('fullscreen');
+      $('body').find('.itemcontainer .active').removeClass('active');
+      $('.catbutton').removeClass('selected');
+      pagebox.removeClass("pagemenu");
+
       let tag = $(this).data('tag');
-      $('.tagbutton.'+tag).toggleClass('selected');
+
+      if( $(this).parent().parent().hasClass('tagresults') ){
+        pagebox.attr('data-tags', tag );
+        $('.tagbutton').removeClass('selected');
+        $('.tagbutton.'+tag).addClass('selected');
+      }else{
+        // toggle tag to selection
+        $('.tagbutton.'+tag).toggleClass('selected');
+      }
+
+      selectedCat = '';
+      catfilter = [];
+      pagebox.attr('data-cats', '' );
 
       if( pagebox.hasClass('leftview') ){
         pagebox.removeClass("leftview");
@@ -234,18 +259,74 @@ jQuery( function($) {
       tagSelect();
     });
 
+    $('body').on('click','.catbutton', function( e ){
+      e.stopPropagation();
+      if(e.preventDefault){
+        e.preventDefault();
+      }else{
+        e.returnValue = false;
+      }
+      prevtags = tagfilter;
+      prevcats = catfilter;
+
+      catfilter = [];
+
+      // reset active selected
+      $('body').find('.item.selected').removeClass('selected');
+      $('body').find('.item.fullscreen').removeClass('fullscreen');
+      $('body').find('.itemcontainer .active').removeClass('active');
+      pagebox.removeClass("pagemenu");
+
+      let cat = $(this).data('cats');
+      $('.catbutton.'+cat).toggleClass('selected');
+
+      if( $('.catbutton.selected.'+cat).length > 0 ){
+
+        selectedCat = cat;
+        catfilter.push(cat);
+      }else{
+        selectedCat = '';
+        catfilter.splice(catfilter.indexOf(cat), 1);
+      }
+
+      catlist = catfilter.join(',');
+      pagebox.attr('data-cats', catlist );
+
+      if( pagebox.hasClass('leftview') ){
+        pagebox.removeClass("leftview");
+        pagebox.addClass("rightview");
+      }
+      tagSelect();
+    });
+
+    $('body').on('click', '#tagmenu .cleartags', function( event ){
+      if(event.preventDefault){
+        event.preventDefault();
+      }else{
+        event.returnValue = false;
+      }
+      event.stopPropagation();
+
+      // contentfilter
+      $( '.item' ).removeClass( 'selected' );
+      $( '.tagbutton' ).removeClass( 'selected' );
+
+      $('.cleartags').remove();
+
+      // display
+      $('body').removeClass('leftview leftmenu');
+      $('body').addClass('rightview');
+      tagSelect();
+
+    });
 
 
 
-  /**
-  FUNCTIONS
-  **/
 
-
+    // FUNCTIONS
     function tagSelect(){
 
       let taglist = '';
-      prevtags = tagfilter;
       tagfilter  = [];
       tagmenu.html('');
 
@@ -254,16 +335,40 @@ jQuery( function($) {
         tagfilter.push(tag);
         $(this).clone().appendTo( tagmenu );
       });
-      tagmenu.append('<a class="cleartags" href="#">X</a>');
-
+      if( tagfilter.length > 0 && tagmenu.find('.cleartags').length < 1){
+        tagmenu.append('<a class="cleartags" href="#">X</a>');
+      }
       taglist = tagfilter.join(',');
 
       pagebox.attr('data-tags', taglist);
 
+      catSelect();
       checkSelected();
       applyTagWeight();
       reorderIsotope();
-      //console.log(JSON.stringify(this.tagfilter));
+      //console.log(JSON.stringify(tagfilter));
+    }
+
+    function catSelect(){
+
+      if( $('.item.selected').length > 0 ){
+
+        let cat = $('.item.selected').attr('data-category');
+        selectedCat = cat;
+
+        let selectedCats = $('.item.selected').attr('data-cats');
+        if( selectedCats != '' ){
+          catfilter = selectedCats.split(',');
+          pagebox.attr('data-cats', selectedCats );
+        }
+
+      }else if( catfilter.length < 1 ){
+
+        selectedCat = '';
+        catfilter = [];
+        pagebox.attr('data-cats', '' );
+
+      }
 
     }
 
@@ -339,7 +444,7 @@ jQuery( function($) {
     }
 
 
-    var calculateTagWeight = function( obj ){
+    function calculateTagWeight( obj ){
         var mc = 0;
         var tags = $(obj).data('tags').split(',');
         if( tags.length > 0  && tagfilter.length > 0){
@@ -389,6 +494,7 @@ jQuery( function($) {
       $.each(options, function( idx, obj) {
         menu.append(obj);
       });
+
     }
 
     function initIsotope(){
@@ -454,6 +560,7 @@ jQuery( function($) {
 
       });
 
+      setDevBox();
       scrollPanelsTop();
 
     }
@@ -475,6 +582,18 @@ jQuery( function($) {
 
 
 
+
+    function setDevBox(){
+
+      let t = '<div class="tags">Labels: '+pagebox.attr('data-tags')+'</div>';
+      let c = '<div class="cats">Categories: '+pagebox.attr('data-cats')+'</div>';
+      $('#developerbox .query').html( t + c );
+
+    }
+
+
+
+    // TOP SEARCHBOX
 
 
 
@@ -508,7 +627,9 @@ jQuery( function($) {
           applyTagWeight();
           initIsotope();
           doneGlobalResizing();
+          tagSelect();
           unsetPageLoader();
+
     });
 
   });

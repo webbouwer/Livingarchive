@@ -21,9 +21,13 @@
         $json = json_encode( $data );
 ?>
     <script>
-      var postdata = <?php echo $json; ?>;
+      const postdata = <?php echo $json; ?>;
+      const alltags = <?php echo wp_main_theme_get_all_tags(); ?>;
     </script>
 <?php
+
+        $topbarstyles = get_template_directory_uri().'/assets/topbar.css';
+        echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$topbarstyles.'" type="text/css" media="all" />';
 
         $isotopecss = get_template_directory_uri().'/assets/isotope.css';
         echo '<link rel="stylesheet" id="wp-theme-main-style"  href="'.$isotopecss.'" type="text/css" media="all" />';
@@ -39,6 +43,9 @@
 
         $viewscript = get_template_directory_uri().'/assets/view.js';
         echo '<script src="'.$viewscript.'" type="text/javascript" media="all" /></script>';
+
+        $topbarscript = get_template_directory_uri().'/assets/topbar.js';
+        echo '<script src="'.$topbarscript.'" type="text/javascript" media="all" /></script>';
 
 
       }

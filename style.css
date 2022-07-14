@@ -31,6 +31,18 @@ body {
 }
 
 
+#developerbox
+{
+  position:fixed;
+  min-width:20%;
+  min-height:80px;
+  right:2%;
+  bottom: 2%;
+  padding:5px;
+  background-color:rgba(255,255,255,0.8);
+  z-index: 999;
+}
+
 /* colors, styling & animation */
 body
 {
@@ -75,10 +87,6 @@ body
 {
 	/*background-color:turquoise;*/
 }
-
-
-
-
 
 
 /* mainarea content panels*/
@@ -208,8 +216,14 @@ img {
 #toparea #topcontainer #topbar .placeholder
 {
 	margin:0px;
-	background-color:red;
 }
+
+#topbar #rightside #searchbox
+{
+  max-width:200px;
+  padding:2px 5px;
+}
+
 #toparea #topcontainer #infocontainer
 {
 	width:100%;
@@ -229,12 +243,18 @@ img {
 #maincontainer #mainarea
 {
   height:calc(100% - 76px);
+  display: -ms-flexbox;
+	display: -webkit-flex;
   display: flex;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
   flex-direction: column;
 }
 
 #mainarea #contentswitch
 {
+  -ms-flex: 0;
+  -webkit-flex: 0;
 	flex: 0;
 }
 #mainarea #contentswitch .placeholder
@@ -247,6 +267,8 @@ img {
 
 #mainarea #rightcontainer
 {
+	-ms-flex: calc(100% - 25px);
+  -webkit-flex: calc(100% - 25px);
 	flex: calc(100% - 25px);
 	overflow-y:auto;
   scroll-behavior: smooth;
@@ -260,6 +282,8 @@ img {
 
 #mainarea #leftcontainer
 {
+  -ms-flex: 25px;
+  -webkit-flex: 25px;
 	flex: 25px;
 	overflow:hidden;
 }
@@ -267,11 +291,15 @@ img {
 
 .leftview #mainarea #rightcontainer
 {
-	flex: 25px;
+  -ms-flex: 25px;
+  -webkit-flex: 25px;
+  flex: 25px;
 	overflow:hidden;
 }
 .leftview #mainarea #leftcontainer
 {
+  -ms-flex: calc(100% - 25px);
+  -webkit-flex: calc(100% - 25px);
 	flex: calc(100% - 25px);
 	overflow-y:auto;
   scroll-behavior: smooth;
@@ -350,16 +378,22 @@ img {
 }
 #maincontainer #mainarea
 {
+  display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	width:100vw;
 	margin-top:0px;
 	height:100vh;
+	-ms-flex-direction: row-reverse;
+	-webkit-flex-direction: row-reverse;
 	flex-direction: row-reverse; /* row */
 }
 
 #mainarea #contentswitch
 {
-	flex: 0;
+  -ms-flex: 0;
+  -webkit-flex: 0;
+  flex: 0;
 }
 #mainarea #contentswitch .placeholder
 {
@@ -373,10 +407,14 @@ img {
 #mainarea #rightcontainer
 {
 	position:relative;
+  -ms-flex: 86%;
+  -webkit-flex: 86%;
 	flex: 86%;
 }
 #mainarea #leftcontainer
 {
+  -ms-flex: 14%;
+  -webkit-flex: 14%;
 	flex:14%;
 }
 
@@ -437,19 +475,27 @@ img {
 /* leftmenu open on rightview (default) */
 .leftmenu #mainarea #rightcontainer
 {
+  -ms-flex: 79%;
+  -webkit-flex: 79%;
 	flex: 79%;
 }
 .leftmenu #mainarea #leftcontainer
 {
+  -ms-flex: 21%;
+  -webkit-flex: 21%;
 	flex:21%;
 }
 /* leftview open (with or without menu) */
 .leftview #mainarea #rightcontainer
 {
+  -ms-flex: 21%;
+  -webkit-flex: 21%;
 	flex: 21%;
 }
 .leftview #mainarea #leftcontainer
 {
+  -ms-flex: 79%;
+  -webkit-flex: 79%;
 	flex:79%;
 }
 
