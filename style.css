@@ -149,72 +149,22 @@ img {
 .selected{
 	background-color:red;
 }
-.menucontainer.rightmenu .tagbutton.selected,
-.menucontainer.leftmenu .item .itemtagbox,
-#rightcontainer .itemcontainer .item .main,
-.menucontainer.leftmenu .item .main
+.menucontainer.rightmenu .tagbutton.selected
 {
   display:none;
 }
-
 #rightmenu-container #tagmenu .tagbutton.selected
 {
   display:inline-block;
 }
 
-#leftcontainer .itemcontainer .item .main
-{
-  display:block;
-}
-
-/* item global size */
-#rightcontainer .itemcontainer .item
-{
-	position:relative;
-  width:20%;
-  0verflow: hidden;
-  border:none;
-  min-height:240px;
-  font-size:15px;
-  margin-bottom:2%;
-}
-#rightcontainer .itemcontainer .item.size-l
-{
-	width:42%;
-}
-#rightcontainer .itemcontainer .item.portrait.size-l
-{
-	width:39%;
-}
-#rightcontainer .itemcontainer .item.size-m
-{
-	width: 23%;
-}
-#rightcontainer .itemcontainer .item.size-s
-{
-	width: 23%;
-}
-
-#rightcontainer .itemcontainer .item.portrait.selected,
-#rightcontainer .itemcontainer .item.selected
-{
-    width: 49%;
-}
-#rightcontainer .itemcontainer .contentbox .item.portrait.selected.fullscreen,
-#rightcontainer .itemcontainer .contentbox .item.selected.fullscreen
-{
-    width: 86%;
-}
 
 
-.leftview #rightcontainer .itemcontainer .item.size-l
-.leftview #rightcontainer .itemcontainer .item.size-m,
-.leftview #rightcontainer .itemcontainer .item.size-s
+.button
 {
-	width:100%;
-	min-height:180px;
+  cursor:hand;
+  cursor:pointer;
 }
-
 
 
 /* menu panel toggles */
@@ -423,11 +373,11 @@ img {
 #mainarea #rightcontainer
 {
 	position:relative;
-	flex: 85%;
+	flex: 86%;
 }
 #mainarea #leftcontainer
 {
-	flex:15%;
+	flex:14%;
 }
 
 /* leftcontent */
@@ -477,23 +427,10 @@ img {
 }
 #mainarea #rightcontainer .placeholder .contentarea .itemcontainer
 {
-	margin:110px 0px 0px 2%;
-	width:96%;
+	margin:110px 0px 0px 3%;
+	width:95%;
 }
-#rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage img
-{
-width:100%;
-}
-#rightcontainer .itemcontainer .item.selected .stage,
-#rightcontainer .itemcontainer .item.selected .mediaplaceholder
-{
-position: relative;
-width:94%;
-}
-.leftview #mainarea #rightcontainer .placeholder .contentarea .itemcontainer .item
-{
-	width:100% !important;
-}
+
 
 
 

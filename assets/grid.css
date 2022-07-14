@@ -1,0 +1,255 @@
+/* grid items */
+
+/* nonactive states */
+.menucontainer.leftmenu .item .itemtagbox,
+#rightcontainer .itemcontainer .item .main,
+.menucontainer.leftmenu .item .main,
+#rightcontainer .itemcontainer .item .optionfullscreen.button,
+#rightcontainer .itemcontainer .item .optionfullscreen.button span,
+#rightcontainer .itemcontainer .item .infotoggle.button,
+#rightcontainer .itemcontainer .item .infotoggle.button span,
+.menubutton .optionfullscreen,
+.menubutton .infotoggle ,
+.navright span,
+.navleft span
+{
+  display:none;
+}
+
+#leftcontainer .itemcontainer .item .main
+{
+  display:block;
+}
+
+/* item global size */
+#rightcontainer .itemcontainer .item
+{
+	position:relative;
+  width:20%;
+  0verflow: hidden;
+  border:none;
+  min-height:240px;
+  font-size:15px;
+  margin-bottom:2%;
+}
+#rightcontainer .itemcontainer .item.size-l
+{
+	width:42%;
+}
+#rightcontainer .itemcontainer .item.portrait.size-l
+{
+	width:39%;
+}
+#rightcontainer .itemcontainer .item.size-m
+{
+	width: 23%;
+}
+#rightcontainer .itemcontainer .item.size-s
+{
+	width: 23%;
+}
+#rightcontainer .itemcontainer .item.portrait.selected,
+#rightcontainer .itemcontainer .item.selected
+{
+    width: 49%;
+}
+#rightcontainer .itemcontainer .item.portrait.selected.fullscreen,
+#rightcontainer .itemcontainer .item.selected.fullscreen
+{
+    width: 86%;
+}
+
+
+.leftview #rightcontainer .itemcontainer .item.size-l
+.leftview #rightcontainer .itemcontainer .item.size-m,
+.leftview #rightcontainer .itemcontainer .item.size-s
+{
+	width:100%;
+	min-height:180px;
+}
+
+
+
+/* active item buttons */
+#rightcontainer .itemcontainer .item.selected .infotoggle.button
+{
+  display:block;
+  position:absolute;
+  right:0px;
+  top:0px;
+  width:6%;
+  text-align:center;
+  font-size:50px;
+  height:48px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  background-image: url('../images/plus.png');
+}
+#rightcontainer .itemcontainer .item.selected .infotoggle.button.active
+{
+  background-image: url('../images/min.png');
+}
+
+
+#rightcontainer .itemcontainer .item.selected .optionfullscreen.button
+{
+position:absolute;
+display: block;
+content: '';
+right:7px;
+bottom:14px;
+font-size:0px;
+width:46px;
+height:46px;
+background-image: url('../images/full.png');
+background-size:cover;
+z-index:99;
+}
+#rightcontainer .itemcontainer .item.fullscreen .optionfullscreen.button
+{
+background-image: url('../images/small.png');
+}
+
+#rightcontainer .itemcontainer .item .main.active
+{
+position:absolute;
+display: block;
+max-height:100%;
+overflow-y:auto;
+left:0px;
+top:0px;
+width:94.8%;
+padding:2px 2px 0px 0px;
+color: black;
+background-color:white;
+border-bottom:5px solid black;
+z-index:300;
+}
+
+#rightcontainer .itemcontainer .item .main.active .textbox img,
+#rightcontainer .itemcontainer .item .main .textbox img,
+img
+{
+max-width:100% !important;
+height:auto;
+}
+
+
+#rightcontainer .itemcontainer .item .main .textbox
+{
+position: relative;
+padding:0px 0px 24px;
+font-size:18px;
+font-weight:bold;
+line-height:20px;
+}
+
+/* item iframes (video )*/
+.item iframe
+{
+max-width:100% !important;
+height:auto !important;
+}
+.item.active iframe,
+.item.selected iframe
+{
+display:block;
+width:100% !important;
+height:auto !important;
+min-height: 460px;
+padding:8px 0px 0px;
+}
+
+/* item image slides gallery */
+.item .imageslides
+{
+display:none;
+}
+#rightcontainer .itemcontainer .item.selected .imageslides
+{
+display:none;
+}
+
+.item .intro .imagenav
+{
+display:none;
+}
+#rightcontainer .itemcontainer .item.selected .intro .imagenav
+{
+position:relative;
+display:block;
+z-index:99;
+}
+.item.selected .intro .imagenav .navleft,
+.item.selected .intro .imagenav .navright
+{
+position: absolute;
+margin-top:30%;
+z-index:99;
+transition: margin-top linear .3s;
+}
+.item.selected .intro .imagenav .navleft
+{
+left:-10px;
+}
+.item.selected .intro .imagenav .navright
+{
+right:0px;
+margin-right:-10px;
+}
+
+#rightcontainer .item.selected .intro .imagenav .navleft,
+#rightcontainer .item.selected .intro .imagenav .navright
+{
+width:40px;
+height:40px;
+background-image:url('../images/pijl_links.png');
+background-position: center;
+background-size:24px;
+background-repeat: no-repeat;
+cursor:hand;
+cursor:pointer;
+}
+#rightcontainer .item.selected .intro .imagenav .navright
+{
+background-image:url('../images/pijl_rechts.png');
+right:10px;
+}
+.item.selected.gallery .coverimage,
+.item.selected.gallery .title,
+.item.selected.gallery .itemcatbox,
+.item.selected.gallery .itemtagbox
+{
+margin-left:4%;
+}
+
+
+
+
+/* Responsive */
+@media screen and (max-width: 960px) {
+
+}
+
+
+@media screen and (min-width: 960px) {
+
+
+#rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage img
+{
+width:100%;
+}
+#rightcontainer .itemcontainer .item.selected .stage,
+#rightcontainer .itemcontainer .item.selected .mediaplaceholder
+{
+position: relative;
+width:94%;
+}
+.leftview #mainarea #rightcontainer .placeholder .contentarea .itemcontainer .item
+{
+	width:100% !important;
+}
+
+
+}

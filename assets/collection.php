@@ -112,7 +112,8 @@ function getWPPostData(){
       }
 
       $output .= '<div class="itemcatbox">'.$catlist.'</div><div class="itemtagbox">'.$taglist.'</div>';
-      $output .= '<div class="main"><div class="textbox">'.$content.'</div></div>'; // '.$content.'
+      //$output .= '<div class="main"><div class="textbox">'.$content.'</div></div>'; // '.$content.'
+      $output .= '<div class="main"><div class="textbox"></div></div>'; 
       $output .= '</div>';
       $output .= '<div class="infotoggle button"><span>+</span></div>';
       $output .= '</div>';
