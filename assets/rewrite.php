@@ -42,6 +42,9 @@ add_action( 'template_include', function( $template ) {
     if ( is_home() || is_front_page() ){
       return get_template_directory() . '/collection.php';
     }
+    if ( is_single() || is_page() ){
+      return get_template_directory() . '/collection.php';
+    }
     if ( get_query_var( 'tags' )  ) {
         return get_template_directory() . '/collection.php';
     }

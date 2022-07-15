@@ -199,8 +199,8 @@ right:0px;
 margin-right:-10px;
 }
 
-#rightcontainer .item.selected .intro .imagenav .navleft,
-#rightcontainer .item.selected .intro .imagenav .navright
+.rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft,
+.rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
 width:40px;
 height:40px;
@@ -211,18 +211,51 @@ background-repeat: no-repeat;
 cursor:hand;
 cursor:pointer;
 }
-#rightcontainer .item.selected .intro .imagenav .navright
+.rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
 background-image:url('../images/pijl_rechts.png');
 right:10px;
 }
-.item.selected.gallery .coverimage,
-.item.selected.gallery .title,
-.item.selected.gallery .itemcatbox,
-.item.selected.gallery .itemtagbox
+.rightcontainer .itemcontainer .item.selected.gallery .coverimage,
+.rightcontainer .itemcontainer .item.selected.gallery .title,
+.rightcontainer .itemcontainer .item.selected.gallery .itemcatbox,
+.rightcontainer .itemcontainer .item.selected.gallery .itemtagbox
 {
 margin-left:4%;
 }
+
+.rightcontainer .itemcontainer .item .itemcontent .intro h3
+{
+margin:7px 0px 5px;
+word-wrap:break-word;
+}
+.rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage
+{
+position: relative;
+}
+.rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage img
+{
+width:100%;
+}
+.rightcontainer .itemcontainer .item.selected .stage,
+.rightcontainer .itemcontainer .item.selected .mediaplaceholder
+{
+position: relative;
+width:94%;
+
+}
+
+.rightcontainer .itemcontainer .item.active .itemcontent .intro .coverimage .stage img
+{
+border-bottom:5px solid black;
+}
+
+#rightcontainer .itemcontainer .item.selected .itemtagbox
+{
+margin-right:4.5%;
+}
+
+
 
 
 
@@ -230,7 +263,7 @@ margin-left:4%;
 /* Responsive */
 @media screen and (max-width: 960px) {
 
-  
+
 
 }
 

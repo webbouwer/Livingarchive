@@ -134,13 +134,13 @@ jQuery( function($) {
                     });
                     if( type == 0 ){
                       titlegroup.push( obj.title );
-                      related += '<li><a href="#id='+obj.id+'" class="titlebutton" ';
+                      related += '<li><a href="'+obj.link+'" class="titlebutton" ';
                       related += 'data-id="'+obj.id+'">'+obj.title+'</a></li>';
                     }
                     if( type == 1 ){
                       titlegroup.push( obj.title );
-                      articlesearch += '<li><a href="#id='+obj.id+'" class="titlebutton" ';
-                      articlesearch += 'data-id="'+obj.id+'">'+obj.title+'</a></li>';
+                      articlesearch += '<li><a href="'+obj.link+'" class="titlebutton" ';
+                      articlesearch += 'data-id="'+obj.id+'">'+obj.title+'</a></li>'; 
                     }
                   }
                 }

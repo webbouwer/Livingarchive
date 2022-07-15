@@ -5,6 +5,7 @@ var catfilter = [];
 var prevcats = []
 var itemfilter = ''; // item classes
 var selectedCat = '';
+var itemid = '';
 
 jQuery( function($) {
 
@@ -55,9 +56,10 @@ jQuery( function($) {
 
 
     // set start tags and cats
+    let startid = pagebox.data('item');
     let startTags = pagebox.data('tags');
     let startCats = pagebox.data('cats');
-    if( startTags == '' && startCats == ''){
+    if( startTags == '' && startCats == '' && startid == ''){
         startTags = defaulttags;
         tagfilter = startTags.split(',');
         pagebox.attr('data-tags', startTags);
@@ -67,6 +69,7 @@ jQuery( function($) {
           rightmenu.find('.tagbutton.'+tag).addClass('selected');
         });
     }
+
 
     // ACTIONS PAGE
 
@@ -95,13 +98,18 @@ jQuery( function($) {
       checkSelected();
       layoutIsotope();
 		});
+
+
     // toggle left menu
 		$('#leftmenu-toggle .placeholder').on('click', function() {
       pagebox.toggleClass("leftmenu");
+      //layoutIsotope();
 		});
+
     // toggle right menu
 		$('#rightmenu-toggle .placeholder').on('click', function() {
       pagebox.toggleClass("rightmenu");
+      //layoutIsotope();
 		});
 
 
@@ -138,12 +146,8 @@ jQuery( function($) {
           $('#maincontainer').removeClass('rightview,rightmenu').addClass('leftview');
         }
         taglist = item.data('tags').split(','); //alert( item.data('tags') );
-
       }else{
-
-        // deselect - get previous tags
-        taglist = previoustags;
-
+        taglist = previoustags; // deselect - get previous tags
       }
 
       $('.tagbutton').removeClass('selected');
@@ -154,6 +158,9 @@ jQuery( function($) {
       if( pagebox.hasClass('leftview') && !item.hasClass('menubutton') && !item.hasClass('contentpage') ){
         pagebox.removeClass("leftview");
         pagebox.addClass("rightview");
+      }
+      if( !pagebox.hasClass('leftmenu') && item.hasClass('menubutton') ){
+        pagebox.addClass("leftmenu");
       }
 
       tagSelect();
@@ -275,6 +282,7 @@ jQuery( function($) {
       $('body').find('.item.selected').removeClass('selected');
       $('body').find('.item.fullscreen').removeClass('fullscreen');
       $('body').find('.itemcontainer .active').removeClass('active');
+      $('.tagbutton').removeClass('selected');
       pagebox.removeClass("pagemenu");
 
       let cat = $(this).data('cats');
@@ -627,7 +635,18 @@ jQuery( function($) {
           applyTagWeight();
           initIsotope();
           doneGlobalResizing();
-          tagSelect();
+          let selecteditem = pagebox.data('item');
+          if( selecteditem != ''){
+
+            $('#post-'+selecteditem+' .intro').trigger('click');
+            pagebox.attr('data-item', '');
+            selecteditem = '';
+
+          }else{
+
+            tagSelect();
+
+          }
           unsetPageLoader();
 
     });

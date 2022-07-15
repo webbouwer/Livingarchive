@@ -23,8 +23,13 @@ if( isset( $q['p'] ) && $q['p'] == 'cats'){
     $tgs = $q['tags'];
   }
 }
+$pageid = '';
+if( is_single() || is_page() ){
+  $pageid = get_the_ID();
+}
+echo '<div id="developerbox">page: '.json_encode( $q ).'<br /><div class="query"></div></div>';
 
-echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$cts.'">';
+echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.$tgs.'" data-cats="'.$cts.'">';
 
 //print_r( $wp->query_vars);
 //print_r( getWPPostData() );
@@ -57,7 +62,7 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
           <div id="searchhints">
             <div class="resultcontent"></div>
           </div>
-          
+
 				</div>
 
 			</div>
@@ -142,6 +147,5 @@ echo '<div id="maincontainer" class="site" data-tags="'.$tgs.'" data-cats="'.$ct
 <?php
 echo '</div>'; // maincontainer
 
-echo '<div id="developerbox"><div class="query">'.json_encode( $wp->query_vars ).'</div></div>';
 get_footer();
 ?>
