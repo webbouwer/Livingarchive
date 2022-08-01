@@ -400,7 +400,10 @@ jQuery( function($) {
         itemfilter = '.'+tagfilter.join(',.');
       }
       if( catfilter.length > 0 ){
-        itemfilter += '.'+catfilter.join(',.');
+        if( itemfilter != '' ){
+          itemfilter += ',';
+        }
+        itemfilter += '.'+catfilter.join(',.'); 
       }
 
       // check selected item and retrieve the item gallery and html content
@@ -443,6 +446,7 @@ jQuery( function($) {
         item.find('.intro').prepend( nav );
         setImageSlideArrowHeight( item );
       }
+      //console.log('Gallery intro check');
     }
 
     function setImageSlideArrowHeight( obj ){

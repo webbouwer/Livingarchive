@@ -175,18 +175,21 @@ display:none;
 {
 display:none;
 }
+#rightcontainer .itemcontainer .item.selected .intro
+{
+position:relative;
+}
 #rightcontainer .itemcontainer .item.selected .intro .imagenav
 {
 position:relative;
 display:block;
-z-index:99;
 }
 .item.selected .intro .imagenav .navleft,
 .item.selected .intro .imagenav .navright
 {
 position: absolute;
 margin-top:30%;
-z-index:99;
+z-index:999;
 transition: margin-top linear .3s;
 }
 .item.selected .intro .imagenav .navleft
@@ -199,8 +202,8 @@ right:0px;
 margin-right:-10px;
 }
 
-.rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft,
-.rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
+.item.selected .intro .imagenav .navleft,
+.item.selected .intro .imagenav .navright
 {
 width:40px;
 height:40px;
@@ -211,15 +214,15 @@ background-repeat: no-repeat;
 cursor:hand;
 cursor:pointer;
 }
-.rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
+.item.selected .intro .imagenav .navright
 {
 background-image:url('../images/pijl_rechts.png');
 right:10px;
 }
-.rightcontainer .itemcontainer .item.selected.gallery .coverimage,
-.rightcontainer .itemcontainer .item.selected.gallery .title,
-.rightcontainer .itemcontainer .item.selected.gallery .itemcatbox,
-.rightcontainer .itemcontainer .item.selected.gallery .itemtagbox
+.item.selected.gallery .coverimage,
+.item.selected.gallery .title,
+.item.selected.gallery .itemcatbox,
+.item.selected.gallery .itemtagbox
 {
 margin-left:4%;
 }
@@ -237,12 +240,11 @@ position: relative;
 {
 width:100%;
 }
-.rightcontainer .itemcontainer .item.selected .stage,
-.rightcontainer .itemcontainer .item.selected .mediaplaceholder
+.item.selected .stage,
+.item.selected .mediaplaceholder
 {
 position: relative;
 width:94%;
-
 }
 
 .rightcontainer .itemcontainer .item.active .itemcontent .intro .coverimage .stage img
@@ -250,7 +252,7 @@ width:94%;
 border-bottom:5px solid black;
 }
 
-#rightcontainer .itemcontainer .item.selected .itemtagbox
+.item.selected .itemtagbox
 {
 margin-right:4.5%;
 }
