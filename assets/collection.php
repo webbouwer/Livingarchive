@@ -14,6 +14,17 @@ function getWPPostData(){
 
   $postdata = new WP_Query( $get_post_args );
 
+  $allcategories = get_categories( array("type"=>"post") );
+  $catreference = [];
+  foreach($allcategories as $n => $c ){
+    $catreference[$c->slug] = $c->name;
+  }
+  $alltags = get_tags( array("type"=>"post") );
+  $tagreference = [];
+  foreach($alltags as $n => $c ){
+    $tagreference[$c->slug] = $c->name;
+  }
+
   $result = [];
   $count = 0;
   //print_r($postdata);
@@ -58,7 +69,8 @@ function getWPPostData(){
       $taglist = '';
 
       foreach( $posttags as $tag){
-        $taglist .= '<a href="'.site_url().'/tags/'.$tag.'" class="tagbutton '.$tag.'" data-tag="'.$tag.'">'.$tag.'</a> ';
+        $tagname = $tagreference[$tag];
+        $taglist .= '<a href="'.site_url().'/tags/'.$tag.'" class="tagbutton '.$tag.'" data-tag="'.$tag.'">#'.$tagname.'</a> ';
         $objfilterclasses .= ' '.$tag;
       }
 
@@ -74,7 +86,10 @@ function getWPPostData(){
         }
 
         if( $cat != $overviewCategory && $cat != $theoryCategory ){
-          $catlist .= '<a href="'.site_url().'/cats/'.$cat.'" class="categoryname catbutton '.$cat.'" data-cats="'.$cat.'">'.$cat.'</a> ';
+          $catname = $catreference[$cat];
+          //$catObj = get_category_by_slug($cat);
+          //$catName = $catObj->name;
+          $catlist .= '<a href="'.site_url().'/cats/'.$cat.'" class="categoryname catbutton '.$cat.'" data-cats="'.$cat.'">'.$catname .'</a> ';
         }
       }
       $catsreversedlist = array_reverse($postcats);

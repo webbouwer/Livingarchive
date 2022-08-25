@@ -26,7 +26,7 @@ jQuery( function($) {
   function setPageLoader(){
     var box;
     if( $('body').find('#pageloadbox').length < 1 ){
-      box = $('<div id="pageloadbox"><div class="visual"></div><div class="text">Loading</div></div>').hide();
+      box = $('<div id="pageloadbox"><div class="visual"><div class="text">Loading</div></div></div>').hide();
       $('body').append( box );
     }else{
       box = $('#pageloadbox');
@@ -184,6 +184,20 @@ jQuery( function($) {
     });
 
 
+
+
+    /* Postlinks */
+    $('body').on('click','.titlebutton', function( e ){
+      e.stopPropagation();
+      if(e.preventDefault){
+        e.preventDefault();
+      }else{
+        e.returnValue = false;
+      }
+      let selecteditem = $(this).data('id');
+      $('#post-'+selecteditem+' .intro').trigger('click');
+      //$('#post-'+ $(this).data('id') ).trigger('click');
+    });
 
 
     /**
@@ -403,7 +417,7 @@ jQuery( function($) {
         if( itemfilter != '' ){
           itemfilter += ',';
         }
-        itemfilter += '.'+catfilter.join(',.'); 
+        itemfilter += '.'+catfilter.join(',.');
       }
 
       // check selected item and retrieve the item gallery and html content

@@ -12,23 +12,48 @@ body {
 #pageloadbox
 {
 	position:fixed;
-	width:200px;
-	height:200px;
-	left:50%;
-	top:50%;
-	margin-left:-100px;
-	margin-top:-100px;
+  top:0px;
+  left:0px;
+	width:100vw;
+  height:100vh;
 	z-index:900;
+  background-color:white;
 }
 #pageloadbox .visual{
-
+  position:relative;
+  width:100vw;
+  height:100vh;
 }
-#pageloadbox .text{
+#pageloadbox .visual .text{
+  width:200px;
+	height:60px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:48vh;
 	padding:10px;
 	text-align:center;
 	background-color:black;
 	color:white;
 }
+
+
+/*
+.logoanimated:before{
+    content: '-ZEE';
+    font-size: 32px;
+    animation-name: head;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes head {
+    0% {opacity:1; content: '-ZEE'; }
+    30% {opacity:1; content: "-PLAATS"}
+    55% { opacity:1; content: "-WERK"}
+    80% { opacity:1; content: "-LAND"}
+    100% { opacity:1; content: "-ZEE"}
+}
+*/
 
 
 #developerbox
@@ -63,7 +88,7 @@ body
 {
 cursor:hand;
 cursor: pointer;
-} 
+}
 
 #maincontainer
 {

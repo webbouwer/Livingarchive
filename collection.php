@@ -52,6 +52,7 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 					</div>
 
 					<div id="logo">
+            <!-- <div class="logoanimated"></div> -->
 						<?php wp_main_theme_toplogo_html(); ?>
 					</div>
 
