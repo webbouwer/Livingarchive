@@ -36,7 +36,94 @@ body {
 	color:white;
 }
 
+#maincontainer
+{
+  height:100%;
+}
 
+#developerbox
+{
+  display:none;
+  position:fixed;
+  min-width:20%;
+  min-height:80px;
+  right:2%;
+  bottom: 2%;
+  padding:5px;
+  background-color:rgba(255,255,255,0.8);
+  z-index: 999;
+}
+
+/* colors, styling & animation */
+body
+{
+  font-family: "Helvetica", arial, serif;
+  font-size: 15px;
+  color: black;
+	background-color:#ffffff;
+}
+
+img {
+  max-width: 100% !important;
+  height: auto;
+}
+/* tagmenu and selections */
+.tagbutton
+{
+  display:inline-block;
+}
+.selected {
+	/*background-color:red;*/
+}
+
+.button,
+.menubutton,
+.contentswitch,
+.togglebox,
+.itemcatbox .catbutton,
+.itemtagbox .tagbutton,
+.coverimage img,
+.coverimage
+{
+cursor:hand;
+cursor: pointer;
+}
+
+
+
+a {
+  font-family: "Helvetica", arial, serif;
+  text-decoration:none;
+  color: black;
+}
+a:hover
+{
+  text-decoration:underline;
+}
+
+
+
+h3
+{
+  font-size: 21px;
+  line-height:28px;
+}
+
+/* animation */
+#toparea #topcontainer,
+#toparea #topcontainer #topbar,
+#toparea #topcontainer #infocontainer,
+#maincontainer #leftmenu-toggle,
+#maincontainer #rightmenu-toggle,
+#maincontainer #rightmenu-container,
+#maincontainer #leftmenu-container,
+#mainarea #rightcontainer,
+#mainarea #contentswitch,
+#mainarea #leftcontainer,
+#mainarea #leftcontainer .placeholder
+{
+	transition: all linear 0.3s;
+}
 /*
 .logoanimated:before{
     content: '-ZEE';
@@ -56,99 +143,16 @@ body {
 */
 
 
-#developerbox
-{
-  position:fixed;
-  min-width:20%;
-  min-height:80px;
-  right:2%;
-  bottom: 2%;
-  padding:5px;
-  background-color:rgba(255,255,255,0.8);
-  z-index: 999;
-}
 
 
 
 
-/* colors, styling & animation */
-body
-{
-	background-color:#efefef;
-}
-
-.button,
-.menubutton,
-.contentswitch,
-.togglebox,
-.catbutton,
-.tagbutton,
-.coverimage img,
-.coverimage .mediaplaceholder
-{
-cursor:hand;
-cursor: pointer;
-}
-
-#maincontainer
-{
-  height:100%;
-}
-
-/* toparea placeholder */
-#maincontainer #toparea
-{
-	position:absolute;
-	top:0px;
-	width:100%;
-
-	z-index:600;
-
-	/*background-color:grey;*/
-}
-#toparea #topcontainer
-{
-	max-width:880px;
-	margin:0px auto;
-}
-.pagemenu #toparea #topcontainer
-{
-	box-shadow: 0px 2px 15px -4px rgba(18,18,18,1);
-}
-#toparea #topcontainer #topbar
-{
-	height:76px;
-}
-#toparea #topcontainer #topbar .placeholder
-{
-}
-#toparea #topcontainer #infocontainer
-{
-	/*background-color:turquoise;*/
-}
-
-
-/* mainarea content panels*/
+/* mainarea panels positioning */
 #maincontainer #mainarea
 {
 	width:100vw;
 	margin-top:76px;
 	height:calc(100% - 76px);
-
-	background-color: pink;
-}
-#toparea #topcontainer,
-#toparea #topcontainer #infocontainer,
-#maincontainer #leftmenu-toggle,
-#maincontainer #rightmenu-toggle,
-#maincontainer #rightmenu-container,
-#maincontainer #leftmenu-container,
-#mainarea #rightcontainer,
-#mainarea #contentswitch,
-#mainarea #leftcontainer,
-#mainarea #leftcontainer .placeholder
-{
-	transition: all linear 0.3s;
 }
 #mainarea #rightcontainer .placeholder .contentarea,
 #mainarea #leftcontainer .placeholder .contentarea
@@ -157,84 +161,322 @@ cursor: pointer;
 #mainarea #rightcontainer .placeholder .contentarea .itemcontainer,
 #mainarea #leftcontainer .placeholder .contentarea .itemcontainer
 {
-	background-color:silver;
 }
 
 
 /* mainarea content */
 #mainarea #rightcontainer
 {
-	background-color:orange;
-}
-#mainarea #contentswitch
-{
-	background-color:silver;
-}
-#mainarea #contentswitch .placeholder
-{
-	opacity:0.3;
-
-	z-index:500;
-
-	background-color:brown;
 }
 #mainarea #leftcontainer
 {
-	background-color:green;
 }
 
-img {
-  max-width: 100% !important;
-  height: auto;
-}
 
-/* tagmenu and selections */
-.tagbutton
-{
-  display:inline-block;
-}
-.selected{
-	background-color:red;
-}
+
+/* sidebar menu's */
 .menucontainer.rightmenu .tagbutton.selected
 {
   display:none;
 }
-#rightmenu-container #tagmenu .tagbutton.selected
+.itemcontent .itemtagbox .tagbutton.selected
 {
   display:inline-block;
+  font-weight:bold;
 }
 
-
-
-.button
+#rightmenu-container
 {
-  cursor:hand;
-  cursor:pointer;
+  overflow-y:auto;
+  scroll-behavior: smooth;
 }
+#rightmenu-container .placeholder .menucontainer.rightmenu
+{
+  margin:4% 8%;
+}
+#rightmenu-container .tagbutton
+{
+  padding: 0px 3px 3px 0px;
+  font-size: 15px;
+  line-height: 0.96em;
+}
+
+
+
+
+
+.menucontainer.leftmenu .itemcontent
+{
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-top:4%;
+  margin-bottom: 4px;
+}
+.menucontainer.leftmenu .itemcontent .intro .title h3
+{
+  padding:0px;
+  margin: 7px 0px 5px;
+  word-wrap: break-word;
+}
+.menucontainer.leftmenu .itemcontent .intro .title h3 a {
+  font-size: 21px;
+  font-weight: bold;
+  display: inline-block;
+}
+.menucontainer.leftmenu .itemcatbox a.catbutton {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+
+.itemcontent .itemtagbox .tagbutton
+{
+display: inline-block;
+text-decoration: none;
+color: black;
+padding: 0px 2px 2px 0px;
+font-size: 13px;
+line-height: 0.9em;
+}
+
+
+
+
+
+#rightmenu-container #tagmenu
+{
+  margin-bottom:8px;
+}
+#rightmenu-container #tagmenu .tagbutton.selected,
+.itemcontent .itemtagbox .tagbutton.selected
+{
+  display:inline-block;
+  font-weight:bold;
+}
+
+#rightmenu-container
+{
+  overflow-y:auto;
+}
+#rightmenu-container .placeholder .menucontainer.rightmenu
+{
+  margin:4% 8%;
+}
+#rightmenu-container .tagbutton
+{
+  padding: 0px 3px 3px 0px;
+  font-size: 15px;
+  line-height: 0.96em;
+}
+
+
+
 
 
 /* menu panel toggles */
 #maincontainer #rightmenu-toggle
 {
-	background-color:blue;
+	/*background-color:blue;*/
 	z-index:700;
 }
 #maincontainer #rightmenu-container
 {
-	background-color:blue;
+	background-color:white;
 	z-index:400;
 }
 #maincontainer #leftmenu-toggle
 {
-	background-color:blue;
+	/*background-color:blue;*/
 	z-index:700;
 }
 #maincontainer #leftmenu-container
 {
-	background-color:blue;
+	background-color:white;
 	z-index:400;
 }
+
+#leftmenu-toggle.togglebox .placeholder,
+#rightmenu-toggle.togglebox .placeholder
+{
+  margin: 0px;
+  font-size: 23px;
+  font-weight: normal;
+  line-height: 85px;
+  text-transform: uppercase;
+  border-bottom: 5px solid black;
+  background-position: right 30px;
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+}
+
+
+#leftmenu-toggle.togglebox .placeholder{
+  padding-left: 8%;
+  /*margin-right: 8%;*/
+}
+.leftmenu #leftmenu-toggle.togglebox .placeholder
+{
+  padding-left: 0%;
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+#rightmenu-toggle.togglebox .placeholder{
+  margin-left: 8%;
+  text-align:left;
+}
+.rightmenu #rightmenu-toggle.togglebox .placeholder
+{
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+.leftmenu #leftmenu-toggle.togglebox .placeholder,
+.rightmenu #rightmenu-toggle.togglebox .placeholder
+{
+  font-weight:bold;
+  background-image: url('https://zee-plaats-werk-land.nl/devsite/wp-content/themes/Livingarchive/images/kruis.png');
+}
+
+
+/* item */
+#rightcontainer .itemcontent .intro .title h3
+{
+  padding:0px;
+  margin: 7px 0px 5px;
+  word-wrap: break-word;
+}
+#rightcontainer .item .itemcatbox
+{
+  display:none;
+}
+
+
+
+
+
+/* info menu  pages */
+#page-332.active
+{
+overflow:auto !important;
+height:auto !important;
+}
+
+.section-container
+{
+}
+.section-container .section
+{
+float:left;
+height:270px;
+width:31.33%;
+margin-right:2.5%;
+line-height:0.8em;
+margin-bottom:66px;
+}
+.section-container .section:nth-child(3n+3)
+{
+margin-right:0;
+}
+.section-container .section-intro
+{
+line-height: 1em;
+}
+.section-intro img
+{
+display:none;
+}
+
+.section-container .section-intro .imgwrap {
+float: left;
+height:250px;
+width:100%;
+background-size: cover;
+background-position: center;
+margin-right:0px;
+margin-bottom:12px;
+}
+
+
+
+.section-container .section-intro .name
+{
+display: block;
+line-height:0.9em;
+}
+.section-container .section-intro .name,
+.section-container .section-intro .desc
+{
+font-size:13px;
+line-height:0.9em;
+}
+.section-container.active .section-intro .name,
+.section-container.active .section-intro .desc
+{
+display:none;
+}
+.section .section-content
+{
+display:none;
+}
+
+.section-container .section.active
+{
+width:100%;
+float:none;
+}
+.selectedcontentsection
+{
+clear:both;
+}
+
+.section-content a
+{
+color:black;
+}
+
+.section-container.active .section,
+.section-container.active .section:nth-child(3n+3)
+{
+width:10.75%;
+height:76px;
+margin:0%;
+margin-right:2%;
+margin-bottom:18px;
+}
+.section-container.active .section:nth-child(8)
+{
+margin-right:0%;
+}
+.section-container.active .section .section-intro .imgwrap {
+height:90px;
+}
+
+.section-container.active .section .section-intro
+{
+}
+
+
+.section-container .section.active .section-intro
+{
+width:100%;
+}
+.section-container.active .section.active .section-intro .imgwrap {
+width:200px;
+height:200px;
+margin-top:10px;
+margin-right:12px;
+}
+.section.active .section-intro .name,
+.section.active .section-intro .desc
+{
+display:none;
+}
+
+
 
 
 
@@ -243,13 +485,24 @@ img {
 /* Responsive */
 @media screen and (max-width: 960px) {
 
-
 .pagemenu #toparea #topcontainer #infocontainer
 {
 	height:calc(100% - 76px);
 	overflow-y:auto;
   scroll-behavior: smooth;
+
+	background-color:#ffffff;
 }
+.pagemenu #toparea #topcontainer #infocontainer .placeholder
+{
+}
+.pagemenu #toparea #topcontainer #infocontainer .placeholder .contentmenu
+{
+  padding:0px 60px;
+  height:54px;
+}
+
+
 
 #maincontainer #mainarea
 {
@@ -262,11 +515,15 @@ img {
   flex-direction: column;
 }
 
+
+
+
 #mainarea #contentswitch
 {
   -ms-flex: 0;
   -webkit-flex: 0;
 	flex: 0;
+  background-color:white;
 }
 #mainarea #contentswitch .placeholder
 {
@@ -274,7 +531,15 @@ img {
 	margin-top:-25px;
 	width:100%;
 	height:50px;
+  background-color:red !important;
 }
+#mainarea #contentswitch .placeholder #switchbutton
+{
+}
+
+
+
+
 
 #mainarea #rightcontainer
 {
@@ -316,8 +581,6 @@ img {
   scroll-behavior: smooth;
 }
 
-
-
 #leftmenu-toggle,
 #rightmenu-toggle,
 #leftmenu-container,
@@ -345,11 +608,24 @@ img {
 	height:90px;
 }
 
+
+#leftcontainer .item .intro .title h3 {
+  padding: 1% 0px;
+  font-size: 40px;
+}
+#leftcontainer .item .main .textbox {
+  position: relative;
+  padding: 0px 0px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 20px;
+}
+
 .pagemenu #toparea #topcontainer #infocontainer
 {
 	height:auto;
 	min-height:calc(90vh - 90px);
-	background-color:#846320;
+	background-color:#ffffff;
 }
 .pagemenu #toparea #topcontainer #infocontainer .placeholder
 {
@@ -359,6 +635,9 @@ img {
 	padding:0px 60px;
 	height:54px;
 }
+
+
+
 .pagemenu #toparea #topcontainer #infocontainer .placeholder .contentarea
 {
 	padding:0px 60px;
@@ -367,6 +646,11 @@ img {
 	overflow-y:auto;
   scroll-behavior: smooth;
 }
+
+
+
+
+
 #maincontainer #mainarea
 {
   display: -ms-flexbox;
@@ -380,19 +664,52 @@ img {
 	flex-direction: row-reverse; /* row */
 }
 
+
+
 #mainarea #contentswitch
 {
   -ms-flex: 0;
   -webkit-flex: 0;
   flex: 0;
+  background-image: url('images/shadowleft.jpg');
+  background-position: center;
+  background-repeat: repeat-y;
 }
 #mainarea #contentswitch .placeholder
 {
-	position:absolute;
-	top:0px;
-	width:50px;
-	margin-left:-25px;
-	height:100vh;
+  position:relative;
+  margin-top:46vh;
+  cursor: pointer;
+  overflow: visible;
+  z-index:500;
+}  
+#mainarea #contentswitch .placeholder .switchbutton
+{
+}
+
+#mainarea #contentswitch .placeholder .switchbutton .leftswapbutton span,
+#mainarea #contentswitch .placeholder .switchbutton .rightswapbutton span {
+  display: block;
+  height: 26px;
+  width: 200px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+#mainarea #contentswitch .placeholder .switchbutton .leftswapbutton span {
+  margin-left: -24px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+#mainarea #contentswitch .placeholder .switchbutton .rightswapbutton span {
+  margin-right: -14px;
+  margin-top:-26px;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  transform: rotate(90deg);
 }
 
 #mainarea #rightcontainer
@@ -416,7 +733,7 @@ img {
 	position:absolute;
 	left:-50%;
 	width:60%;
-	background-color:#498732;
+	/*background-color:#498732;*/
 	z-index:300;
 }
 .leftview #mainarea #leftcontainer .placeholder

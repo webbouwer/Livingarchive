@@ -48,7 +48,7 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 				<div class="placeholder">
 
 					<div id="infomenutoggle">
-					 menu
+					 <span>menu</span>
 					</div>
 
 					<div id="logo">
@@ -68,13 +68,15 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 
 			</div>
 
+      <!-- <div class="closebutton active"><span>close menu</span></div> --> 
+
 			<div id="infocontainer">
 				<div class="placeholder">
 					<div class="contentmenu">
 					       <?php wp_main_theme_menu_html( 'main' , true ); ?>
 					</div>
 					<div class="contentarea">
-						info pages
+						<!-- info pages -->
 					</div>
 				</div>
 			</div>
@@ -98,7 +100,12 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 
 		<div id="contentswitch">
 				<div class="placeholder">
-					switch
+
+          <div class="switchbutton">
+            <div class="leftswapbutton"><span>Dialoog en Reflectie</span></div>
+            <div class="rightswapbutton"><span>Praktijk- &amp; Veldwerk</span></div>
+          </div>
+
 				</div>
 		</div>
 
@@ -114,7 +121,7 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 
 	<div id="rightmenu-toggle" class="togglebox">
 			<div class="placeholder">
-				right-toggle
+				labels
 			</div>
 	</div>
 
@@ -131,7 +138,7 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 
 	<div id="leftmenu-toggle" class="togglebox">
 			<div class="placeholder">
-				left-toggle
+				notities
 			</div>
 	</div>
 

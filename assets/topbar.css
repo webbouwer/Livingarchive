@@ -3,21 +3,134 @@
 {
   position:relative;
   display:flex;
-  height:85px;
+  height:87px;
 	border-bottom:5px solid black;
 }
+
 #toparea #topcontainer #topbar .placeholder > div
 {
   flex:1 7 7;
 }
 #toparea #topcontainer #topbar .placeholder #infomenutoggle
 {
-  width:50px;
+  width: 58px;
+  height: 38px;
+  background-image: url('https://zee-plaats-werk-land.nl/devsite/wp-content/themes/Livingarchive/images/menu.png');
+  background-position: left center;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+
+  cursor:hand;
+  cursor: pointer;
 }
+
+#topbar .placeholder #infomenutoggle span
+{
+  display:none;
+}
+
+
+
+
+/* topbar shadow */
+.pagemenu #toparea #topcontainer
+{
+	box-shadow: 0px 2px 15px -4px rgba(18,18,18,1);
+}
+/* toparea placeholder */
+#maincontainer #toparea
+{
+	position:absolute;
+	top:0px;
+	width:100%;
+	z-index:600;
+
+  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+}
+
+
+
+#toparea #topcontainer
+{
+	max-width:880px;
+	margin:0px auto;
+}
+#toparea #topcontainer #topbar
+{
+	height:76px;
+}
+.pagemenu #toparea #topcontainer #topbar
+{
+  background-color:white;
+}
+#toparea #topcontainer #topbar .placeholder
+{
+}
+#toparea #topcontainer #infocontainer
+{
+}
+
+
+
+
+
+
+
+
+ul#menu-infomenu
+{
+  margin:0px;
+  padding:0px;
+}
+ul#menu-infomenu li {
+  display: inline-block;
+  width: 27%;
+  margin: 0px;
+  padding: 20px 0px 16px;
+  text-align: center;
+}
+ul#menu-infomenu li:first-child {
+  width: 22%;
+  text-align: left;
+}
+ul#menu-infomenu li:last-child {
+  width: 22%;
+  text-align: right;
+  float:right
+}
+ul#menu-infomenu li a {
+  color: black;
+  font-size: 18px;
+  padding-bottom: 4px;
+  font-weight: bold;
+  text-decoration: none;
+}
+ul#menu-infomenu li a.active {
+  border-bottom: 4px solid black;
+}
+
+#infocontainer .contentarea .contentpage
+{
+  display:none;
+}
+#infocontainer .contentarea .contentpage.active
+{
+  display:block;
+}
+
+
 
 #toparea #topcontainer #topbar .placeholder #logo
 {
   width:45%;
+  min-width: 280px;
+}
+#logo .custom-logo-link img {
+  width: 280px;
+  height: 40px;
 }
 
 #toparea #topcontainer #topbar .placeholder #rightside
@@ -46,7 +159,7 @@
 {
 position:absolute;
 left:0px;
-top:85px;
+top:88px;
 height:auto;
 z-index:999;
 min-width:560px;
@@ -100,6 +213,7 @@ text-decoration:underline;
 #searchhints.active .resultcontent ul li h5
 {
 font-size: 17px;
+padding:5px 0px;
 }
 
 #searchhints.active .resultcontent ul
@@ -168,11 +282,12 @@ text-decoration: none;
   }
   #toparea #topcontainer #topbar
   {
-  	height:76px;
+  	height:56px;
   }
   #toparea #topcontainer #topbar .placeholder
   {
-  	margin:0px;
+  	margin:10px 0px 0px;
+    height:56px;
   }
 
   #topbar #rightside #searchbox
@@ -207,7 +322,8 @@ text-decoration: none;
 #toparea #topcontainer #topbar .placeholder
 {
 	margin:0px 60px;
-	height:85px;
+  padding-top:25px;
+	height:63px;
 }
 #toparea #topcontainer #infocontainer .placeholder .contentmenu,
 #toparea #topcontainer #infocontainer .placeholder .contentarea

@@ -110,11 +110,14 @@ function getWPPostData(){
       $output .= '<div class="itemcontent"><div class="intro">';
 
       $output .= '<div class="coverimage">';
-      if( isset($featuredimage) ){
+
+      if( isset($featuredimage) && $featuredimage != '' ){
         $output .= '<div class="stage '.$imgorient.'" data-url="'.$imageurl.'">'.$featuredimage;
-        $output .= '<div class="optionfullscreen button">[]</div>';
+        if( $type != 'page' ){
+          $output .= '<div class="optionfullscreen button">[]</div>';
+        }
         $output .= '</div>';
-      }else if( $type == 'post' ){
+      }else if( $type == 'post' && $group == 0){
         $output .= '<div class="mediaplaceholder '.$imgorient.'"><h3>'.$title.'</h3><div class="optionfullscreen button">[]</div></div>';
       } //html += '<div class="excerpt">'+obj.excerpt+'</div>';
       $output .= '</div>';
@@ -126,11 +129,20 @@ function getWPPostData(){
         $output .= '</div></div>';
       }
 
-      $output .= '<div class="itemcatbox">'.$catlist.'</div><div class="itemtagbox">'.$taglist.'</div>';
+      $output .= '<div class="itemcatbox">'.$catlist.'</div>';
+      $output .= '<div class="itemtagbox">'.$taglist.'</div>';
       //$output .= '<div class="main"><div class="textbox">'.$content.'</div></div>'; // '.$content.'
-      $output .= '<div class="main"><div class="textbox"></div></div>';
+
+      if( $type != 'page' ){
+        $output .= '<div class="main"><div class="textbox"></div></div>';
+      }else{
+        $output .= '<div class="main"><div class="textbox">'.$htmlbody.'</div></div>';
+      }
+
       $output .= '</div>';
+      if( $type != 'page' ){
       $output .= '<div class="infotoggle button"><span>+</span></div>';
+      }
       $output .= '</div>';
 
       $result[] = array(

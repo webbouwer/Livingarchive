@@ -140,7 +140,7 @@ jQuery( function($) {
                     if( type == 1 ){
                       titlegroup.push( obj.title );
                       articlesearch += '<li><a href="'+obj.link+'" class="titlebutton" ';
-                      articlesearch += 'data-id="'+obj.id+'">'+obj.title+'</a></li>'; 
+                      articlesearch += 'data-id="'+obj.id+'">'+obj.title+'</a></li>';
                     }
                   }
                 }
@@ -152,6 +152,8 @@ jQuery( function($) {
       }
       return related;
     }
+
+
 
     /*
     //Search box prefetch titles & tags

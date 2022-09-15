@@ -21,7 +21,11 @@
   display:block;
 }
 
-/* item global size */
+
+
+
+
+
 #rightcontainer .itemcontainer .item
 {
 	position:relative;
@@ -70,7 +74,36 @@
 
 
 
-/* active item buttons */
+
+
+
+
+
+#rightcontainer .mediaplaceholder
+{
+text-align: left;
+color:black;
+min-height:110px;
+max-width:100%;
+background-color:white;
+}
+#rightcontainer .item .mediaplaceholder h3
+{
+padding:1% 0px;
+font-size:40px;
+}
+#rightcontainer .item .mediaplaceholder
+{
+min-height:320px;
+}
+
+#rightcontainer .item.selected .mediaplaceholder h3
+{
+padding:5% 0px;
+font-size:64px;
+}
+
+
 #rightcontainer .itemcontainer .item.selected .infotoggle.button
 {
   display:block;
@@ -145,7 +178,12 @@ font-weight:bold;
 line-height:20px;
 }
 
-/* item iframes (video )*/
+
+
+
+
+
+
 .item iframe
 {
 max-width:100% !important;
@@ -161,20 +199,26 @@ min-height: 460px;
 padding:8px 0px 0px;
 }
 
-/* item image slides gallery */
+
+
+
+
+
+
+
 .item .imageslides
 {
 display:none;
 }
-#rightcontainer .itemcontainer .item.selected .imageslides
+.item.selected .imageslides
 {
 display:none;
 }
-
 .item .intro .imagenav
 {
 display:none;
 }
+
 #rightcontainer .itemcontainer .item.selected .intro
 {
 position:relative;
@@ -184,26 +228,26 @@ position:relative;
 position:relative;
 display:block;
 }
-.item.selected .intro .imagenav .navleft,
-.item.selected .intro .imagenav .navright
+#rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft,
+#rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
 position: absolute;
 margin-top:30%;
 z-index:999;
 transition: margin-top linear .3s;
 }
-.item.selected .intro .imagenav .navleft
+#rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft
 {
 left:-10px;
 }
-.item.selected .intro .imagenav .navright
+#rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
 right:0px;
 margin-right:-10px;
 }
 
-.item.selected .intro .imagenav .navleft,
-.item.selected .intro .imagenav .navright
+#rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft,
+#rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
 width:40px;
 height:40px;
@@ -214,34 +258,34 @@ background-repeat: no-repeat;
 cursor:hand;
 cursor:pointer;
 }
-.item.selected .intro .imagenav .navright
+#rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
 background-image:url('../images/pijl_rechts.png');
 right:10px;
 }
-.item.selected.gallery .coverimage,
-.item.selected.gallery .title,
-.item.selected.gallery .itemcatbox,
-.item.selected.gallery .itemtagbox
+#rightcontainer .itemcontainer .item.selected.gallery .coverimage,
+#rightcontainer .itemcontainer .item.selected.gallery .title,
+#rightcontainer .itemcontainer .item.selected.gallery .itemcatbox,
+#rightcontainer .itemcontainer .item.selected.gallery .itemtagbox
 {
 margin-left:4%;
 }
 
-.rightcontainer .itemcontainer .item .itemcontent .intro h3
+#rightcontainer .itemcontainer .item .itemcontent .intro h3
 {
 margin:7px 0px 5px;
 word-wrap:break-word;
 }
-.rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage
+#rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage
 {
 position: relative;
 }
-.rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage img
+#rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage img
 {
 width:100%;
 }
-.item.selected .stage,
-.item.selected .mediaplaceholder
+#rightcontainer .itemcontainer .item.selected .stage,
+#rightcontainer .itemcontainer .item.selected .mediaplaceholder
 {
 position: relative;
 width:94%;
@@ -252,7 +296,7 @@ width:94%;
 border-bottom:5px solid black;
 }
 
-.item.selected .itemtagbox
+.rightcontainer .itemcontainer .item.selected .itemtagbox
 {
 margin-right:4.5%;
 }
@@ -262,7 +306,8 @@ margin-right:4.5%;
 
 
 
-/* Responsive */
+
+
 @media screen and (max-width: 960px) {
 
 
