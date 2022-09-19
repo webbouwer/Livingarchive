@@ -80,7 +80,7 @@ jQuery( function($) {
       if( unspaced.length > 0 ){ // separated strings check
 
         related = '<ul class="tagresults">';
-        related += '<li class="listheader"><h5>Labels<h5></li>';
+        related += '<li class="listheader"><h5>Labels</h5></li>';
         //alert( JSON.stringify(searchtags));
         $.each( searchtags, function( idx, tag ){
           let tagstring = tag.name;
@@ -103,11 +103,11 @@ jQuery( function($) {
 
         // match titles
         related += '<ul class="titleresults">';
-        related += '<li class="listheader"><h5>Praktijk- & Veldwerk<h5></li>';
+        related += '<li class="listheader"><h5>Praktijk- & Veldwerk</h5></li>';
 
         var articlesearch = '';
         articlesearch += '<ul class="articleresults">';
-        articlesearch += '<li class="listheader"><h5>Dialoog en Reflectie<h5></li>';
+        articlesearch += '<li class="listheader"><h5>Dialoog en Reflectie</h5></li>';
 
         var itemlist = postdata;
 

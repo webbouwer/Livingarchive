@@ -233,7 +233,7 @@ display:block;
 {
 position: absolute;
 margin-top:30%;
-z-index:999;
+z-index:500;
 transition: margin-top linear .3s;
 }
 #rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft
@@ -310,7 +310,44 @@ margin-right:4.5%;
 
 @media screen and (max-width: 960px) {
 
+  #rightcontainer .itemcontainer .item
+  {
+  	position:relative;
+    width: 86%; /*:42%;*/
+    min-height:240px;
+    font-size:13px;
+  }
+  #rightcontainer .itemcontainer .item.size-l
+  {
+  	width:42%;
+  }
+  #rightcontainer .itemcontainer .item.portrait.size-l
+  {
+  	width:42%;
+  }
+  #rightcontainer .itemcontainer .item.size-m
+  {
+  	width: 42%;
+  }
+  #rightcontainer .itemcontainer .item.size-s
+  {
+  	width: 42%;
+  }
+  #rightcontainer .itemcontainer .item.selected
+  {
+    width: 86%;
+  }
+  #rightcontainer .itemcontainer .item.portrait.selected.fullscreen,
+  #rightcontainer .itemcontainer .item.selected.fullscreen
+  {
+      width: 98%;
+  }
 
+  #rightcontainer .itemcontainer .item .itemcontent .intro h3
+  {
+    font-size:17px;
+    line-height: 19px;
+  }
 
 }
 

@@ -39,6 +39,7 @@ jQuery( function($) {
 
 
 	$(document).ready(function(){
+  //$(window).load(function(){
 
     // load content
     if( postdata && postdata.length > 0 ){
@@ -60,7 +61,9 @@ jQuery( function($) {
     let startid = pagebox.data('item');
     let startTags = pagebox.data('tags');
     let startCats = pagebox.data('cats');
+
     if( startTags == '' && startCats == '' && startid == ''){
+
         startTags = defaulttags;
         tagfilter = startTags.split(',');
         pagebox.attr('data-tags', startTags);
@@ -112,8 +115,8 @@ jQuery( function($) {
 
     var setLeftContent = function(item){
       item.find('.title').each( function( ){
-          $(this).parent().parent().find('.main').css({ 'top': '40px' }).appendTo( $(this).parent() );
-          $(this).height('40px').prependTo( $(this).parent() );
+          $(this).parent().parent().find('.main').appendTo( $(this).parent() ); // .css({ 'top': '40px' })
+          $(this).prependTo( $(this).parent() ); // .height('40px')
         });
     }
 
@@ -179,7 +182,7 @@ jQuery( function($) {
           $('#leftcontainer .itemcontainer').html( leftitemselected );
           $('#maincontainer').removeClass('rightview,rightmenu').addClass('leftview');
           setLeftContent(leftitemselected);
-          pagebox.removeClass("rightmenu"); 
+          pagebox.removeClass("rightmenu");
         }
         taglist = item.data('tags').split(','); //alert( item.data('tags') );
       }else{
@@ -201,6 +204,9 @@ jQuery( function($) {
 
       stopVideo();
       tagSelect();
+
+      let url = item.find('.title h3 a').attr('href');
+      window.history.pushState('', '', url);
 
     });
 
@@ -715,6 +721,10 @@ jQuery( function($) {
     function scrollPanelsTop(){
 
       $('#rightcontainer .itemcontainer').parent().animate({
+         scrollTop: 0
+      }, 'slow');
+
+      $('#rightcontainer').animate({
          scrollTop: 0
       }, 'slow');
 

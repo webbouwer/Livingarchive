@@ -4,29 +4,48 @@
  */
 require_once ('functions.php');
 
-global $wp; //print_r($wp->query_vars);
-
 get_header();
 
+global $wp; //print_r($wp->query_vars);
 $q = $wp->query_vars;
-
 $tgs = '';
 $cts = '';
-
-if( isset( $q['cats'] ) ){
-    $cts = $q['cats'];
-}
-if( isset( $q['p'] ) && $q['p'] == 'cats'){
-    $cts = $q['tags'];
-}else{
-  if( isset( $q['tags'] ) || $q['p'] == 'tags'){
-    $tgs = $q['tags'];
-  }
-}
 $pageid = '';
-if( is_single() || is_page() ){
-  $pageid = get_the_ID();
-}
+
+
+
+    $tgs = '';
+    $cts = '';
+
+    if( isset( $q['cats'] ) ){
+      $cts = $q['cats'];
+    }
+    if( isset( $q['tags'] ) ){
+      $tgs = $q['tags'];
+    }
+
+    if( isset( $q['p'] ) && $q['p'] == 'cats'){
+        $cts = $q['tags'];
+    }else{
+      if( isset( $q['tags'] ) || $q['p'] == 'tags'){
+        $tgs = $q['tags'];
+      }
+    }
+
+  if (have_posts()) :
+    while (have_posts()) : the_post();
+
+      if( is_single() || is_page() ){
+        $pageid = get_the_ID();
+      }
+
+    endwhile;
+  endif;
+  wp_reset_query();
+
+
+
+
 echo '<div id="developerbox">page: '.json_encode( $q ).'<br /><div class="query"></div></div>';
 
 echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.$tgs.'" data-cats="'.$cts.'">';
@@ -68,7 +87,7 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 
 			</div>
 
-      <!-- <div class="closebutton active"><span>close menu</span></div> --> 
+      <!-- <div class="closebutton active"><span>close menu</span></div> -->
 
 			<div id="infocontainer">
 				<div class="placeholder">

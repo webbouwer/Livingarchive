@@ -192,13 +192,6 @@ position: relative;
 display:block;
 width:100%;
 height:auto;
-
-
-
-}
-#searchhints .resultcontent ul
-{
-border:none;
 }
 
 
@@ -214,6 +207,7 @@ text-decoration:underline;
 {
 font-size: 17px;
 padding:5px 0px;
+margin:0;
 }
 
 #searchhints.active .resultcontent ul
@@ -226,7 +220,8 @@ width:33.33%;
 max-height:560px;
 overflow-y:auto;
 margin:0px;
-padding:5px 0px;
+padding:0px 0px 5px;
+border:none;
 }
 #searchhints.active .resultcontent ul li
 {
@@ -234,23 +229,22 @@ display: inline-block;
 padding:3px 5px 2px 3px;
 }
 
-#searchhints.active .resultcontent ul li:last-child
-{
-}
-/*
 #searchhints.active .resultcontent ul li.listheader
 {
-    position:fixed;
-    background-color:white;
-    display:block;
-    padding:3px 0px;
+  display:block;
+  position:fixed;
+  margin-top:-20px;
+  height:30px;
+  width:100%;
 }
-#searchhints.active .resultcontent ul.titleresults
+
+
+#searchhints.active .resultcontent ul li:nth-child(2)
 {
-    padding-top:40px;
+  margin-top:10px;
 }
-*/
-#searchhints.active .resultcontent ul li.listheader,
+
+
 #searchhints.active .resultcontent ul.titleresults li
 {
 display: block;
@@ -273,6 +267,11 @@ text-decoration: none;
 }
 
 
+
+
+
+
+
 @media screen and (max-width: 960px) {
 
   #toparea #topcontainer
@@ -282,29 +281,174 @@ text-decoration: none;
   }
   #toparea #topcontainer #topbar
   {
-  	height:56px;
+  	height:46px;
   }
   #toparea #topcontainer #topbar .placeholder
   {
-  	margin:10px 0px 0px;
-    height:56px;
+  	margin:10px 10px 0px;
+    height:46px;
+  }
+
+  #toparea #topcontainer #topbar .placeholder #infomenutoggle
+  {
+    width: 48px;
+    height: 35px;
+    margin-left:0px;
+    flex: 2;
+  }
+  #toparea #topcontainer #topbar .placeholder #logo {
+    width: 45%;
+    min-width: 180px;
+    flex: 5;
+  }
+
+  #logo .custom-logo-link img {
+    width: auto;
+    height: 36px;
+  }
+
+
+  #toparea #topcontainer #topbar .placeholder #rightside
+  {
+
+    display: block;
+    width:55%;
+  	text-align:right;
+    height:46px;
+    flex: 5;
   }
 
   #topbar #rightside #searchbox
   {
     max-width:200px;
     padding:2px 5px;
+    text-align:left;
+    width:85%;
+    border:2px solid grey;
+    padding: 4px 6px;
+    font-size:20px;
+    font-weight:bold;
+    text-transform:uppercase;
   }
+
+  #searchhints
+  {
+  position:absolute;
+  left:0px;
+  top:46px;
+  height:auto;
+  z-index:999;
+  min-width:560px;
+  /*max-width:80%;*/
+  width:84%;
+
+  border-top:none;
+  visibility: hidden;
+  }
+
 
   #toparea #topcontainer #infocontainer
   {
-  	width:100%;
+    width:100%;
+    height:0;
+    overflow:hidden;
   }
+  #infocontainer .contentarea .contentpage
+  {
+    display:none;
+  }
+
+  #toparea #topcontainer #infocontainer .placeholder .contentmenu {
+    padding: 0px 10px;
+  }
+
+  .pagemenu #toparea #topcontainer #infocontainer .placeholder .contentmenu {
+    padding: 0px 10px;
+    height: 40px;
+  }
+
+  ul#menu-infomenu li {
+    display: inline-block;
+    width: 26%;
+    margin: 0px;
+    padding: 10px 0px 10px;
+    text-align: center;
+  }
+  ul#menu-infomenu li:first-child {
+    width: 22%;
+    text-align: left;
+  }
+  ul#menu-infomenu li:last-child {
+    width: 22%;
+    text-align: right;
+    float:right
+  }
+  ul#menu-infomenu li a {
+    color: black;
+    font-size: 18px;
+    padding-bottom: 4px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  ul#menu-infomenu li a.active {
+    border-bottom: 4px solid black;
+  }
+
+
+
+  .pagemenu #toparea #topcontainer #infocontainer .placeholder
+  {
+    display:block;
+  }
+  #toparea #topcontainer #infocontainer .placeholder .contentarea .contentpage,
+  .pagemenu #toparea #topcontainer #infocontainer .placeholder .contentarea .contentpage.active
+  {
+    margin:10px;
+  }
+
+  .pagemenu #toparea #topcontainer #infocontainer .placeholder .contentarea .contentpage.active .itemcontent
+  {
+    height: calc(100vh - 106px);
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+  .pagemenu #toparea #topcontainer {
+    box-shadow: none;
+    background:none;
+    background-color:#fff;
+  }
+
+  #infocontainer .placeholder .itemcontent .textbox h1 {
+    font-size: 54px;
+    line-height: 56px;
+    margin:0px 0px;
+    padding:0px;
+  }
+
+
+
+/*
   #toparea #topcontainer #infocontainer
   {
-  	height:0;
-  	overflow:hidden;
+    width:100%;
+    height:0;
+    overflow:hidden;
   }
+
+
+
+  #infocontainer .contentarea .contentpage.active
+  {
+    background-color:blue;
+  }
+
+  #infocontainer .contentarea .contentpage.active .itemcontent
+  {
+    	margin:10px 10px 10px;
+    	width:calc(100% - 20px);
+  }
+
+  */
 
 }
 
@@ -331,5 +475,15 @@ text-decoration: none;
 	height:0;
 	overflow:hidden;
 }
+
+#infocontainer .placeholder .itemcontent .textbox h1 {
+  font-size: 74px;
+  line-height: 76px;
+  margin:0px 0px;
+  padding:0px;
+}
+
+
+
 
 }
