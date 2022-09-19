@@ -15,7 +15,7 @@
 {
   width: 58px;
   height: 38px;
-  background-image: url('https://zee-plaats-werk-land.nl/devsite/wp-content/themes/Livingarchive/images/menu.png');
+  background-image: url('../images/menu.png');
   background-position: left center;
   background-size: auto 100%;
   background-repeat: no-repeat;
@@ -24,7 +24,8 @@
   cursor: pointer;
 }
 
-#topbar .placeholder #infomenutoggle span
+#topbar .placeholder #infomenutoggle span,
+#topbar .placeholder #infomenuclose span
 {
   display:none;
 }
@@ -425,6 +426,12 @@ text-decoration: none;
     padding:0px;
   }
 
+  .pagemenu #toparea #topcontainer #topbar .placeholder #infomenutoggle
+  {
+      background-image: url('../images/kruis.png');
+  }
+
+
 
 
 /*
@@ -482,7 +489,30 @@ text-decoration: none;
   margin:0px 0px;
   padding:0px;
 }
+#toparea #topcontainer #topbar .placeholder #infomenuclose
+{
+  position:absolute;
+  display:none;
+  top:30px;
+  right:-64px;
+  width: 48px;
+  height: 48px;
+  display: none
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  background-image: url('../images/kruis.png');
+  background-repeat: no-repeat;
 
+  cursor:hand;
+  cursor: pointer;
+}
+
+.pagemenu #toparea #topcontainer #topbar .placeholder #infomenuclose
+{
+    display:block;
+    background-image: url('../images/kruis.png');
+}
 
 
 

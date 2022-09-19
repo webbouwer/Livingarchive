@@ -7,8 +7,11 @@ var itemfilter = ''; // item classes
 var selectedCat = '';
 var itemid = '';
 
+
 jQuery( function($) {
 
+
+  var siteurl = $(location).attr("origin") + '/devsite/';
 
   // loading
   setPageLoader();
@@ -20,7 +23,7 @@ jQuery( function($) {
   var tagmenu =   $('#rightmenu-container #tagmenu');
 
   // defaults
-  var defaulttags = 'zee,plaats,werk,land';
+  var defaulttags = 'land,plaats,werk,zee';
 
   // global view loaderbox
   function setPageLoader(){
@@ -33,9 +36,45 @@ jQuery( function($) {
     }
     box.show();
   }
+
   function unsetPageLoader(){
+
     $('#pageloadbox').fadeOut();
+
+    if(pagebox.data('tags') == 'land,plaats,werk,zee'){
+
+      $('body').find('#infomenutoggle').trigger('click');
+
+    }
+
+
+        $('#menu-infomenu li a').each( function(){
+          if( $(this).attr("href") ==  $(location).attr("href") ){
+            $(this).trigger('click');
+            $('body').find('#infomenutoggle').trigger('click');
+            //alert( $(this).attr("href")+ ' ? ' + $(location).attr("href")  );
+          }
+          //console.log( $(location).attr("href") );
+        });
+
   }
+
+  /*
+  function setTempLoader(){
+    var box;
+    if( $('body').find('#temploadbox').length < 1 ){
+      box = $('<div id="temploadbox"><div class="visual"><div class="text">...</div></div></div>').hide();
+      $('body').append( box );
+    }else{
+      box = $('#temploadbox');
+    }
+    box.show();
+  }
+
+  function unsetTempLoader(){
+    $('#temploadbox').fadeOut();
+  }
+  */
 
 
 	$(document).ready(function(){
@@ -64,16 +103,20 @@ jQuery( function($) {
 
     if( startTags == '' && startCats == '' && startid == ''){
 
-        startTags = defaulttags;
-        tagfilter = startTags.split(',');
-        pagebox.attr('data-tags', startTags);
+        tagfilter = defaulttags.split(',');
+        pagebox.attr('data-tags', defaulttags);
 
-        $.each(tagfilter, function (n,tag){
-          $('body').find('.tagbutton.'+tag).addClass('selected');
-          rightmenu.find('.tagbutton.'+tag).addClass('selected');
-        });
+    }
+    if( startTags != '' ){
+      tagfilter = startTags.split(',');
     }
 
+    if( tagfilter.length > 0 ){
+      $.each(tagfilter, function (n,tag){
+        $('body').find('.tagbutton.'+tag).addClass('selected');
+        rightmenu.find('.tagbutton.'+tag).addClass('selected');
+      });
+    }
 
     // ACTIONS PAGE
 
@@ -82,6 +125,12 @@ jQuery( function($) {
       pagebox.toggleClass("pagemenu");//pagebox.removeClass("leftview");
       stopVideo();
 		});
+
+    $('#infomenuclose').on('click', function() {
+      pagebox.removeClass("pagemenu");//pagebox.removeClass("leftview");
+      stopVideo();
+		});
+
 
     // switch content
 		$('#contentswitch .placeholder').on('click', function() {
@@ -98,8 +147,6 @@ jQuery( function($) {
 			}else if( pagebox.hasClass('leftview') && pagebox.hasClass('leftmenu') ){
 				pagebox.removeClass("leftmenu"); // switch right
 			}
-
-
 
       pagebox.toggleClass("leftview");
 			pagebox.removeClass("pagemenu");
@@ -159,6 +206,8 @@ jQuery( function($) {
         e.returnValue = false;
       }
 
+      //setTempLoader();
+
 
       prevtags = tagfilter;
       prevcats = catfilter;
@@ -205,9 +254,6 @@ jQuery( function($) {
       stopVideo();
       tagSelect();
 
-      let url = item.find('.title h3 a').attr('href');
-      window.history.pushState('', '', url);
-
     });
 
     $('body').on('click', '.selected .infotoggle.button', function(e){
@@ -231,7 +277,7 @@ jQuery( function($) {
       setTimeout(function(){
         setImageSlideArrowHeight( fscrobj );
         $('#rightcontainer .itemcontainer').isotope('layout');
-      }, 400 );
+      }, 100 );
     });
 
 
@@ -249,6 +295,7 @@ jQuery( function($) {
       $('#post-'+selecteditem+' .intro').trigger('click');
       //$('#post-'+ $(this).data('id') ).trigger('click');
       stopVideo();
+
     });
 
 
@@ -301,6 +348,8 @@ jQuery( function($) {
         e.returnValue = false;
       }
 
+      //setTempLoader();
+
       stopVideo();
 
       prevtags = tagfilter;
@@ -333,6 +382,7 @@ jQuery( function($) {
         pagebox.addClass("rightview");
       }
       tagSelect();
+
     });
 
     $('body').on('click','.catbutton', function( e ){
@@ -342,6 +392,8 @@ jQuery( function($) {
       }else{
         e.returnValue = false;
       }
+
+      //setTempLoader();
 
       stopVideo();
 
@@ -377,6 +429,7 @@ jQuery( function($) {
         pagebox.addClass("rightview");
       }
       tagSelect();
+
     });
 
     $('body').on('click', '#tagmenu .cleartags', function( event ){
@@ -431,13 +484,16 @@ jQuery( function($) {
       }
       taglist = tagfilter.join(',');
 
-      pagebox.attr('data-tags', taglist);
+      pagebox.data('tags', taglist);
 
       catSelect();
       checkSelected();
       applyTagWeight();
       reorderIsotope();
+
+
       //console.log(JSON.stringify(tagfilter));
+
     }
 
     function catSelect(){
@@ -463,6 +519,7 @@ jQuery( function($) {
 
       }
 
+
     }
 
 
@@ -483,6 +540,7 @@ jQuery( function($) {
       itemfilter = '';
       if( tagfilter.length > 0 ){
         itemfilter = '.'+tagfilter.join(',.');
+        pagebox.data('tags', tagfilter.join(',') );
       }
       if( catfilter.length > 0 ){
         if( itemfilter != '' ){
@@ -491,8 +549,12 @@ jQuery( function($) {
         itemfilter += '.'+catfilter.join(',.');
       }
 
+
+
+      let url = siteurl;
       // check selected item and retrieve the item gallery and html content
       if( $('.item.selected').length > 0 ){
+        // item
         let item = $('.item.selected');
         let slcid = item.data('id');
         let content = '';
@@ -502,10 +564,25 @@ jQuery( function($) {
           }
         }
         $('.item.selected').find('.main .textbox').html( content );
-
+        url = item.find('.title h3 a').attr('href');
         getItemGallery( item, content );
+
+      }else{
+        // tags and cats
+        if( catfilter.length > 0 ){
+          url += 'cats/'+catfilter.join(',')+'/';
+        }
+        if( tagfilter.length > 0 ){
+          url += 'tags/'+tagfilter.join(',');
+        }
       }
 
+        //$(location).attr("href")
+
+      if( document.referer != url ){
+        window.history.pushState( {href: url}, '', url);
+      }
+      //unsetTempLoader();
       console.log( itemfilter );
 
     }
@@ -550,7 +627,31 @@ jQuery( function($) {
 
       markupInfoPages();
 
+      //window.history.pushState( href:  $(this).attr("href") }, '', $(this).attr('href') );
+      if( document.referer != $(this).attr('href') ){
+      window.history.pushState( {href:  $(this).attr("href")}, '', $(this).attr('href') );
+      }
+
     });
+
+
+    window.addEventListener('popstate', function(e){
+
+      if(e.state){
+        //window.location.href = location.pathname;
+        //window.location.href = e.state.href;
+
+        if( location.pathname != e.state.href && location.pathname != e.state.href+'/' ){
+          window.location.replace(e.state.href);
+        }else{
+          window.history.go(-2);
+        }
+        //window.history.back();
+        //location.reload();
+      }
+
+    });
+
 
     function markupInfoPages(){
 
@@ -741,19 +842,12 @@ jQuery( function($) {
 
 
     function setDevBox(){
-
       let t = '<div class="tags">Labels: '+pagebox.attr('data-tags')+'</div>';
       let c = '<div class="cats">Categories: '+pagebox.attr('data-cats')+'</div>';
       $('#developerbox .query').html( t + c );
-
     }
 
-
-
-    // TOP SEARCHBOX
-
-
-
+    // TOP BOX
 
 
     var resizeId;
@@ -780,10 +874,11 @@ jQuery( function($) {
 
     $('body').imagesLoaded( function( instance ) {
 
-          checkSelected();
-          applyTagWeight();
+
+
           initIsotope();
           doneGlobalResizing();
+
           let selecteditem = pagebox.data('item');
           if( selecteditem != ''){
 
@@ -794,6 +889,8 @@ jQuery( function($) {
           }else{
 
             tagSelect();
+            checkSelected();
+            applyTagWeight();
 
           }
           unsetPageLoader();
@@ -802,9 +899,10 @@ jQuery( function($) {
 
   });
 
-  /*
+
   $(window).load(function(){
-    var nice= $('.itemcontainer').niceScroll({cursorborder:"",cursorcolor:"#333333",cursorwidth:"8px", boxzoom:true, autohidemode:false});
+    //ar nice= $('.itemcontainer').niceScroll({cursorborder:"",cursorcolor:"#333333",cursorwidth:"8px", boxzoom:true, autohidemode:false});
+
   });
-  */
+
 });

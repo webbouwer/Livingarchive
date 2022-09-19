@@ -9,7 +9,8 @@ body {
 	overflow:hidden;
 }
 
-#pageloadbox
+#pageloadbox,
+#temploadbox
 {
 	position:fixed;
   top:0px;
@@ -18,6 +19,10 @@ body {
   height:100vh;
 	z-index:900;
   background-color:white;
+}
+#temploadbox
+{
+  background-color:rgba(255,255,255, 0.3);
 }
 #pageloadbox .visual{
   position:relative;
@@ -29,7 +34,7 @@ body {
 	height:60px;
 	margin-left:auto;
 	margin-right:auto;
-	margin-top:44vh;
+	margin-top:40vh; 
 	padding:0px;
 	text-align:center;
 	background-color:white;
@@ -45,14 +50,14 @@ body {
 
 #developerbox
 {
-  display:block;
+  display:none;
   position:fixed;
   min-width:20%;
   min-height:80px;
   right:2%;
   bottom: 2%;
   padding:5px;
-  background-color:rgba(255,255,255,0.8); 
+  background-color:rgba(255,255,255,0.8);
   z-index: 999;
 }
 
@@ -115,6 +120,7 @@ h3
 #toparea #topcontainer,
 #toparea #topcontainer #topbar,
 #toparea #topcontainer #infocontainer,
+#topbar .placeholder #infomenuclose,
 #maincontainer #leftmenu-toggle,
 #maincontainer #rightmenu-toggle,
 #maincontainer #rightmenu-container,
@@ -151,6 +157,18 @@ h3
   font-size: 18px;
   font-weight: bold;
   line-height: 20px;
+}
+
+
+#infocontainer .itemcontent .section-content a.catbutton
+{
+  text-decoration: underline;
+  font-size:15px;
+}
+
+#infocontainer .itemcontent .section-content p
+{
+  padding:3px 0px 6px;
 }
 
 
@@ -729,6 +747,9 @@ margin-bottom: 8px;
   font-size: 40px;
   line-height: 44px;
 }
+
+
+
 #leftcontainer .item .main .textbox {
   position: relative;
   padding: 0px 0px 24px;
@@ -872,6 +893,10 @@ margin-bottom: 8px;
 	height:calc(100vh - 90px);
 	overflow-y:auto;
   scroll-behavior: smooth;
+}
+#mainarea #leftcontainer .placeholder .contentarea .itemcontainer .item
+{
+  	padding-bottom:20px;
 }
 
 

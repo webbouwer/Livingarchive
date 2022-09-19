@@ -89,17 +89,16 @@ background-color:white;
 }
 #rightcontainer .item .mediaplaceholder h3
 {
-padding:1% 0px;
+padding:20% 0px;
 font-size:40px;
 }
 #rightcontainer .item .mediaplaceholder
 {
-min-height:320px;
 }
 
 #rightcontainer .item.selected .mediaplaceholder h3
 {
-padding:5% 0px;
+padding:35% 0px;
 font-size:64px;
 }
 
