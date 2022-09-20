@@ -1,4 +1,5 @@
 // global reference variables
+
 var tagfilter = [];
 var prevtags = [];
 var catfilter = [];
@@ -11,7 +12,7 @@ var itemid = '';
 jQuery( function($) {
 
 
-  var siteurl = $(location).attr("origin") + '/devsite/';
+  var siteurl = 'https://zee-plaats-werk-land.nl/'; //$(location).attr("origin"); // + '/devsite/';
 
   // loading
   setPageLoader();
@@ -41,9 +42,11 @@ jQuery( function($) {
 
     $('#pageloadbox').fadeOut();
 
-    if(pagebox.data('tags') == 'land,plaats,werk,zee'){
 
-      $('body').find('#infomenutoggle').trigger('click');
+    if( pagebox.data('tags') == 'land,plaats,werk,zee' ){
+
+      //$('body').find('#infomenutoggle').trigger('click');
+      $('#menu-infomenu li a').first().trigger('click');
 
     }
 
@@ -56,6 +59,8 @@ jQuery( function($) {
           }
           //console.log( $(location).attr("href") );
         });
+
+
 
   }
 
@@ -104,7 +109,7 @@ jQuery( function($) {
     if( startTags == '' && startCats == '' && startid == ''){
 
         tagfilter = defaulttags.split(',');
-        pagebox.attr('data-tags', defaulttags);
+        pagebox.data('tags', defaulttags);
 
     }
     if( startTags != '' ){
@@ -581,6 +586,7 @@ jQuery( function($) {
 
       if( document.referer != url ){
         window.history.pushState( {href: url}, '', url);
+        //window.history.pushState( '', '', url);
       }
       //unsetTempLoader();
       console.log( itemfilter );
@@ -875,9 +881,9 @@ jQuery( function($) {
     $('body').imagesLoaded( function( instance ) {
 
 
-
           initIsotope();
           doneGlobalResizing();
+          tagSelect();
 
           let selecteditem = pagebox.data('item');
           if( selecteditem != ''){
@@ -888,9 +894,6 @@ jQuery( function($) {
 
           }else{
 
-            tagSelect();
-            checkSelected();
-            applyTagWeight();
 
           }
           unsetPageLoader();
