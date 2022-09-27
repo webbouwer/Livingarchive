@@ -75,12 +75,15 @@ jQuery( function($) {
 
       // get tags by letter/word
       var taggroup = Array();
-      var titlegroup = Array(); 
+      var titlegroup = Array();
 
       if( unspaced.length > 0 ){ // separated strings check
 
-        related = '<ul class="tagresults">';
-        related += '<li class="listheader"><h5>Labels</h5></li>';
+        related = '';
+
+        let taghtml = '';
+        taghtml = '<ul class="tagresults">';
+        taghtml += '<li class="listheader"><h5>Labels</h5></li>';
         //alert( JSON.stringify(searchtags));
         $.each( searchtags, function( idx, tag ){
           let tagstring = tag.name;
@@ -90,18 +93,20 @@ jQuery( function($) {
             //console.log( tag +' vs '+ str );
               if( $.inArray( tag.name , taggroup ) < 0 ){ // no double
                 taggroup.push( tag.name );
-                related += '<li><a href="/tags/'+tag.slug+'" class="tagbutton ';
+                taghtml += '<li><a href="/tags/'+tag.slug+'" class="tagbutton ';
                 if( $.inArray( tag.name , tagfilter ) > -1 ){
-                  related += 'selected ';
+                  taghtml += 'selected ';
                 }
-                related += ''+tag.slug+'" data-tag="'+tag.slug+'">'+tag.name+'</a></li>';
+                taghtml += ''+tag.slug+'" data-tag="'+tag.slug+'">'+tag.name+'</a></li>';
               }
             }
           });
         });
-        related += '</ul>';
-        if(taggroup.length < 1){
-
+        taghtml += '</ul>';
+        if(taggroup.length > 0){
+          related += taghtml;
+        }else{
+          related += '<ul class="tagresults"><li class="listheader"><h5>Labels</h5></li><li>No related labels</li></ul>';
         }
 
         // match titles
@@ -113,6 +118,8 @@ jQuery( function($) {
         articlesearch += '<li class="listheader"><h5>Dialoog en Reflectie</h5></li>';
 
         var itemlist = postdata;
+        var tca = 0; // type a count
+        var tcb = 0; // type b count
 
         $.each( itemlist, function( idx, obj ){
 
@@ -139,11 +146,13 @@ jQuery( function($) {
                       titlegroup.push( obj.title );
                       related += '<li><a href="'+obj.link+'" class="titlebutton" ';
                       related += 'data-id="'+obj.id+'">'+obj.title+'</a></li>';
+                      tca++;
                     }
                     if( type == 1 ){
                       titlegroup.push( obj.title );
                       articlesearch += '<li><a href="'+obj.link+'" class="titlebutton" ';
                       articlesearch += 'data-id="'+obj.id+'">'+obj.title+'</a></li>';
+                      tcb++;
                     }
                   }
                 }
@@ -151,7 +160,15 @@ jQuery( function($) {
             });
           });
         });
-        related += '</ul>' + articlesearch + '</ul><div class="clr"></div>';
+        if( tca == 0 ){
+          related += '<li class="listheader"><h5>Praktijk- & Veldwerk</h5></li><li>No related titels</li>';
+        }
+        related += '</ul>';
+        if( tcb == 0 ){
+          articlesearch += '<li class="listheader"><h5>Praktijk- & Veldwerk</h5></li><li>No related titels</li>';
+        }
+        related += articlesearch + '</ul>';
+        related += '<div class="clr"></div>';
       }
       return related;
     }

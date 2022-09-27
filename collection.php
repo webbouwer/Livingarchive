@@ -31,6 +31,9 @@ $pageid = '';
         $tgs = $q['tags'];
       }
     }
+    if( !isset( $q['p'] ) ){
+      $tgs = 'land,plaats,werk,zee';
+    }
 
   if (have_posts()) :
     while (have_posts()) : the_post();
