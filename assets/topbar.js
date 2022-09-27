@@ -75,7 +75,7 @@ jQuery( function($) {
 
       // get tags by letter/word
       var taggroup = Array();
-      var titlegroup = Array();
+      var titlegroup = Array(); 
 
       if( unspaced.length > 0 ){ // separated strings check
 
@@ -100,6 +100,9 @@ jQuery( function($) {
           });
         });
         related += '</ul>';
+        if(taggroup.length < 1){
+
+        }
 
         // match titles
         related += '<ul class="titleresults">';
