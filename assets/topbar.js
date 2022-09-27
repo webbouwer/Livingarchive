@@ -1,3 +1,4 @@
+
 jQuery( function($) {
 
   var emptyhinttext = '';
@@ -161,11 +162,11 @@ jQuery( function($) {
           });
         });
         if( tca == 0 ){
-          related += '<li class="listheader"><h5>Praktijk- & Veldwerk</h5></li><li>No related titels</li>';
+          related += '<li>No related titels</li>';
         }
         related += '</ul>';
         if( tcb == 0 ){
-          articlesearch += '<li class="listheader"><h5>Praktijk- & Veldwerk</h5></li><li>No related titels</li>';
+          articlesearch += '<li>No related titels</li>';
         }
         related += articlesearch + '</ul>';
         related += '<div class="clr"></div>';

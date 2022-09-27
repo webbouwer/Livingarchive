@@ -1,5 +1,5 @@
-// global reference variables
 
+// global reference variables
 var tagfilter = [];
 var prevtags = [];
 var catfilter = [];
@@ -10,20 +10,7 @@ var itemid = '';
 
 
 
-<<<<<<< HEAD
 jQuery( function($) {
-=======
-  var siteurl = 'https://zee-plaats-werk-land.nl/'; //$(location).attr("origin"); // + '/devsite/';
-
-  // loading
-  setPageLoader();
-
-  // set content panels
-  var pagebox = $('#maincontainer');
-  var leftmenu = $('#leftmenu-container');
-  var rightmenu = $('#rightmenu-container');
-  var tagmenu =   $('#rightmenu-container #tagmenu');
->>>>>>> 7d04dd9bde8cc1ecf96eaf3ca73128e0d63b2046
 
 
   var siteurl = $(location).attr("origin"); // + '/devsite/';
@@ -42,11 +29,9 @@ jQuery( function($) {
 
     $('#pageloadbox').fadeOut();
 
+    if(pagebox.data('tags') == 'land,plaats,werk,zee'){
 
-    if( pagebox.data('tags') == 'land,plaats,werk,zee' ){
-
-      //$('body').find('#infomenutoggle').trigger('click');
-      $('#menu-infomenu li a').first().trigger('click');
+      $('body').find('#infomenutoggle').trigger('click');
 
     }
 
@@ -59,8 +44,6 @@ jQuery( function($) {
           }
           //console.log( $(location).attr("href") );
         });
-
-
 
   }
 
@@ -146,7 +129,7 @@ jQuery( function($) {
     if( startTags == '' && startCats == '' && startid == ''){
 
         tagfilter = defaulttags.split(',');
-        pagebox.data('tags', defaulttags);
+        pagebox.attr('data-tags', defaulttags);
 
     }
     if( startTags != '' ){
@@ -689,16 +672,9 @@ jQuery( function($) {
 
         //$(location).attr("href")
 
-<<<<<<< HEAD
       //if( document.referer != url ){
         //window.history.pushState( {href: url}, '', url);
       //}
-=======
-      if( document.referer != url ){
-        window.history.pushState( {href: url}, '', url);
-        //window.history.pushState( '', '', url);
-      }
->>>>>>> 7d04dd9bde8cc1ecf96eaf3ca73128e0d63b2046
       //unsetTempLoader();
       console.log( itemfilter );
 
@@ -996,9 +972,9 @@ jQuery( function($) {
     $('body').imagesLoaded( function( instance ) {
 
 
+
           initIsotope();
           doneGlobalResizing();
-          tagSelect();
 
           let selecteditem = pagebox.data('item');
           if( selecteditem != ''){
@@ -1009,6 +985,9 @@ jQuery( function($) {
 
           }else{
 
+            tagSelect();
+            checkSelected();
+            applyTagWeight();
 
           }
           unsetPageLoader();
