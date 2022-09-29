@@ -342,10 +342,20 @@ margin-right:4.5%;
       width: 98%;
   }
 
-  #rightcontainer .itemcontainer .item .itemcontent .intro h3
+
+  #rightcontainer .itemcontainer .item .itemcontent .intro h3 {
+    font-size: 15px;
+    line-height: 16px;
+    margin: 2px 0px 1px;
+  }
+  .itemcontent .itemtagbox .tagbutton
   {
-    font-size:17px;
-    line-height: 19px;
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  padding: 0px 0px 1px 0px;
+  font-size: 11px;
+  line-height: 0.6em;
   }
 
 }
