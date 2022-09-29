@@ -13,7 +13,19 @@ var itemid = '';
 jQuery( function($) {
 
 
-  var siteurl = $(location).attr("origin"); // + '/devsite/';
+    var siteurl = 'https://zee-plaats-werk-land.nl/'; //$(location).attr("origin")+'/'; // + '/devsite/';
+
+    // set content panels
+    var pagebox = $('#maincontainer');
+    var leftmenu = $('#leftmenu-container');
+    var rightmenu = $('#rightmenu-container');
+    var tagmenu =   $('#rightmenu-container #tagmenu');
+
+    // defaults
+    var defaulttags = 'land,plaats,werk,zee';
+
+
+
   function setPageLoader(){
     var box;
     if( $('body').find('#pageloadbox').length < 1 ){
@@ -29,12 +41,11 @@ jQuery( function($) {
 
     $('#pageloadbox').fadeOut();
 
+    /*
     if(pagebox.data('tags') == 'land,plaats,werk,zee'){
-
       $('body').find('#infomenutoggle').trigger('click');
-
     }
-
+    */
 
         $('#menu-infomenu li a').each( function(){
           if( $(this).attr("href") ==  $(location).attr("href") ){
@@ -44,6 +55,18 @@ jQuery( function($) {
           }
           //console.log( $(location).attr("href") );
         });
+
+        /*
+        $('.item .title a').each( function(){
+          if( $(this).attr("href") ==  $(location).attr("href")  ){
+            $(this).closest('.intro').trigger('click');
+            //$('body').find('#infomenutoggle').trigger('click');
+            //alert( $(this).attr("href")+ ' ? ' + $(location).attr("href")  );
+          }
+          //console.log( $(location).attr("href") );
+          //console.log( $(this).attr("href") );
+        });
+        */
 
   }
 
@@ -221,7 +244,7 @@ jQuery( function($) {
 
 
     // ACTIONS ITEM
-
+    /*
     $('body').on('click','#rightcontainer .item .intro', function( e ){
 
       e.stopPropagation();
@@ -282,9 +305,9 @@ jQuery( function($) {
       }
 
     });
+    */
 
-
-    $('body').on('click','#leftmenu-container .item .intro, #leftcontainer .leftmenu .item .intro', function( e ){
+    $('body').on('click','#rightcontainer .item .intro, #leftmenu-container .item .intro, #leftcontainer .leftmenu .item .intro', function( e ){
 
       e.stopPropagation();
       if(e.preventDefault){
@@ -344,6 +367,8 @@ jQuery( function($) {
 
 
     });
+
+
 
     $('body').on('click', '.selected .infotoggle.button', function(e){
       e.stopPropagation();
@@ -673,7 +698,7 @@ jQuery( function($) {
         //$(location).attr("href")
 
       //if( document.referer != url ){
-        //window.history.pushState( {href: url}, '', url);
+      window.history.pushState( { 'url': url }, '', url);
       //}
       //unsetTempLoader();
       console.log( itemfilter );
@@ -721,9 +746,11 @@ jQuery( function($) {
       markupInfoPages();
 
       //window.history.pushState( href:  $(this).attr("href") }, '', $(this).attr('href') );
-      if( document.referer != $(this).attr('href') ){
-      window.history.pushState( {href:  $(this).attr("href")}, '', $(this).attr('href') );
-      }
+      //if( document.referer != $(this).attr('href') ){
+      //window.history.pushState( {href:  $(this).attr("href")}, '', $(this).attr('href') );
+      //}
+      window.history.pushState( '', '', $(this).attr("href"));
+
 
     });
 
@@ -883,11 +910,9 @@ jQuery( function($) {
       container
            .isotope('reloadItems')
            .isotope('updateSortData')
-           .isotope({ masonry: { columnWidth: w } });
-           //if( itemfilter != '' ){
-             container.isotope({ filter: itemfilter });
-          // }
-           container.isotope({
+           .isotope({ masonry: { columnWidth: w } })
+           .isotope({ filter: itemfilter })
+           .isotope({
                sortBy : 'byTagWeight', //[ 'byCategory', 'byTagWeight' ], //
                sortAscending: {
                    //byCategory: true, // name ascendingly
@@ -976,13 +1001,14 @@ jQuery( function($) {
           initIsotope();
           doneGlobalResizing();
 
-          let selecteditem = pagebox.data('item');
-          if( selecteditem != ''){
+          //let selecteditem = pagebox.attr('data-item'); //.data('item');
+          if( startid != ''){
 
-            $('#post-'+selecteditem+' .intro').trigger('click');
+            $('body').find('#post-'+startid+' .intro').trigger('click');
             pagebox.attr('data-item', '');
-            selecteditem = '';
-
+            //selecteditem = '';
+            //alert(startid);
+ 
           }else{
 
             tagSelect();

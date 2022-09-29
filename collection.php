@@ -31,7 +31,7 @@ $pageid = '';
         $tgs = $q['tags'];
       }
     }
-    if( !isset( $q['p'] ) ){
+    if( !isset( $q['p'] ) && !isset( $q['tags'] )){
       $tgs = 'land,plaats,werk,zee';
     }
 
@@ -42,15 +42,16 @@ $pageid = '';
         $pageid = get_the_ID();
       }
 
+
     endwhile;
   endif;
   wp_reset_query();
 
 
 
-
+if(is_admin()){
 echo '<div id="developerbox">page: '.json_encode( $q ).'<br /><div class="query"></div></div>';
-
+}
 echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.$tgs.'" data-cats="'.$cts.'">';
 
 //print_r( $wp->query_vars);

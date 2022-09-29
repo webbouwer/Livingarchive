@@ -34,7 +34,7 @@ body {
 	height:60px;
 	margin-left:auto;
 	margin-right:auto;
-	margin-top:40vh; 
+	margin-top:40vh;
 	padding:0px;
 	text-align:center;
 	background-color:white;
@@ -50,7 +50,7 @@ body {
 
 #developerbox
 {
-  display:none;
+  display:block;
   position:fixed;
   min-width:20%;
   min-height:80px;
