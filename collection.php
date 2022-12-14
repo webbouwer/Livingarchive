@@ -130,7 +130,7 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 
           <div class="switchbutton">
             <div class="leftswapbutton"><span>Dialoog en Reflectie</span></div>
-            <div class="rightswapbutton"><span>Praktijk- &amp; Veldwerk</span></div>
+            <div class="rightswapbutton"><span>Praktijk en Veldwerk</span></div>
           </div>
 
 				</div>

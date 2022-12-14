@@ -267,7 +267,7 @@ right:10px;
 #rightcontainer .itemcontainer .item.selected.gallery .itemcatbox,
 #rightcontainer .itemcontainer .item.selected.gallery .itemtagbox
 {
-margin-left:4%;
+margin-left:0%; /* 4%; */
 }
 
 #rightcontainer .itemcontainer .item .itemcontent .intro h3
