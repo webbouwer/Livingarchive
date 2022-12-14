@@ -24,11 +24,12 @@ add_action( 'init',  function() {
     add_rewrite_rule( 'cats/([^/]*)[/]tags[/]?$', 'index.php?cats=$matches[1]&tags=all', 'top' );
     add_rewrite_rule( 'cats/([^/]*)[/]([^/]*)[/]?$', 'index.php?cats=$matches[1]&tags=$matches[2]', 'top' );
     add_rewrite_rule( 'cats/([^/]*)[/]?$', 'index.php?cats=$matches[1]&tags=all', 'top' );
+
     add_rewrite_rule( 'cats/([^/]*)/tags/([^/]*)?$','index.php?cats=$matches[1]&tags=$matches[2]','top');
 
     add_rewrite_tag('%cats%', '([^&]+)');
     add_rewrite_tag('%tags%', '([^&]+)');
-
+ 
 });
 
 add_filter( 'query_vars', function( $query_vars ) {

@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js no-svg">
 <head>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QE2B2TWWCE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QE2B2TWWCE');
+</script>
+
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="google-site-verification" content="4yAlEKMfDiQMJlPEBW0HPMlPUIZABga7kfDEEjwkwxE" />
+
+    
 <?php
     echo '<title>'.get_the_title().' | '.get_bloginfo( 'name' ).'</title>';
     echo '<meta name="description" content="'.get_bloginfo( 'description' ).'">';
