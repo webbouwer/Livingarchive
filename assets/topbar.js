@@ -58,6 +58,7 @@ jQuery( function($) {
         searchresult = emptyhinttext;
       }else{
         searchresult = getSearchResult( searchstring );
+        alert(searchstring);
       }
       $('#searchhints .resultcontent').html( searchresult );
     }

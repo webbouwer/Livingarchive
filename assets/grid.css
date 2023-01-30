@@ -222,6 +222,7 @@ display:none;
 {
 position:relative;
 }
+
 #rightcontainer .itemcontainer .item.selected .intro .imagenav
 {
 position:relative;
@@ -237,7 +238,8 @@ transition: margin-top linear .3s;
 }
 #rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft
 {
-left:-10px;
+left:0px;
+margin-left:-30px;
 }
 #rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
@@ -268,6 +270,10 @@ right:10px;
 #rightcontainer .itemcontainer .item.selected.gallery .itemtagbox
 {
 margin-left:0%; /* 4%; */
+}
+
+#rightcontainer .itemcontainer .item.selected.gallery .coverimage
+{
 }
 
 #rightcontainer .itemcontainer .item .itemcontent .intro h3

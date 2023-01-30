@@ -13,7 +13,7 @@
 </script>
 
     <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <!-- <link rel="profile" href="http://gmpg.org/xfn/11"> -->
     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
@@ -36,8 +36,10 @@
         $json = json_encode( $data );
 ?>
     <script>
+
       const postdata = <?php echo $json; ?>;
       const alltags = <?php echo wp_main_theme_get_all_tags(); ?>;
+
     </script>
 <?php
 

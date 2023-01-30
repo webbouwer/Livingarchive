@@ -84,7 +84,7 @@ echo '<div id="maincontainer" class="site" data-item="'.$pageid.'" data-tags="'.
 					</div>
 
 					<div id="rightside">
-            <input id="searchbox" class="basic-search" placeholder="Zoek" size="24">
+            <input id="searchbox" class="basic-search" autocapitalize="none" placeholder="Zoek" size="24">
           </div>
 
           <div id="searchhints">
