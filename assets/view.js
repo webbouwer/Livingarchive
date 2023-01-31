@@ -761,7 +761,7 @@ jQuery(function($) {
         'path': location.pathname
       }, null, $(this).attr("href"));
 
-      document.title = activeitem.data('title') + '-zee-plaats-werk-land';
+      document.title = 'zee-plaats-werk-land | ' + activeitem.data('title');
 
       markupInfoPages();
 
@@ -791,6 +791,76 @@ jQuery(function($) {
 
     function markupInfoPages() {
 
+      if( $('#page-332').hasClass('active')  ){
+
+        var el = '#page-332 .section-container'; //'#profilesection';
+
+        $(el).html('');
+
+        var slccatid = 378;
+        var posts;
+        
+        var url = 'https://zee-plaats-werk-land.nl/devsite';
+        var reqcats = url+'/wp-json/wp/v2/categories?_embed=true';
+        var reqpostsbycatid = url+'/wp-json/wp/v2/posts?categories='+slccatid+'&per_page=50&orderby=modified&order=desc&_embed=true';
+        
+        $.ajax({
+          url: reqpostsbycatid, // json data
+          contentType: 'application/json',
+          dataType: 'json', // ? change this to jsonp if it is a cross org. req.
+          contentType: 'json',
+          success: function(json) {
+            //console.log(json);
+            if(json.data){
+              posts = json.data;
+            }else if(json.list){
+               posts = json.list;
+            }else{
+               posts = json;
+            }
+            createList();
+          }
+        });
+          
+          
+        var createList = function() {
+        
+          $.each(posts, function(index, value) { //var data = JSON.stringify(value);
+            
+            let item = $('<div id="'+value.id+'" class="post profile"></div>');
+            
+        
+            
+            if( value.featured_media != 0 && value._embedded){
+              item.append('<img src="'+value._embedded['wp:featuredmedia']['0'].source_url+'" alt="'+value.title.rendered+' portret"/>');
+            }
+            item.append( '<h3 class="name">'+value.title.rendered+'</h3>' );
+            item.append( '<div class="intro">'+value.excerpt.rendered+'</div>' );
+            item.append( '<div class="content">'+value.content.rendered+'</div>' );
+            
+            if( value._embedded['wp:term']['0'].length > 0 && value._embedded){
+             $.each( value._embedded['wp:term']['0'], function( idx, category){
+               if(category.id != slccatid){
+                //item.append( '<h3>'+value.title.rendered+'</h3>' );
+                item.append( '<a class="catbutton" href="'+url+'/#cats='+category.id+'" data-cats="'+category.id+'">'+category.name+'</a>' );
+              }
+             });
+            }
+            
+            $(el).append( item );
+            
+          });
+        
+        };
+
+
+
+
+      }
+
+      $('#infocontainer .contentarea').scrollTop(0);
+
+      /*
       if ($('body').find('.section-intro .imgwrap').length < 1) {
 
         //$('.section-intro img').each( function( x , obj ){
@@ -829,11 +899,11 @@ jQuery(function($) {
           }, 2000);
 
         });
-
+       
 
 
       }
-
+       */
 
 
     }
