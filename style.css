@@ -671,7 +671,7 @@ display:none;
 
 #leftcontainer .itemcontent .main
 {
-  max-height:50vh;
+  max-height:46vh;
   overflow-y:auto;
   margin-bottom:10px;
 }
@@ -1165,8 +1165,8 @@ margin-bottom: 8px;
 }
 #maincontainer.rightmenu #rightmenu-toggle
 {
-	width:21%;
-	max-width:400px;
+	width:22%;
+	max-width:470px;
 }
 #maincontainer #rightmenu-toggle .placeholder
 {
@@ -1178,8 +1178,8 @@ margin-bottom: 8px;
 	position:absolute;
 	top:90px;
 	right:-400px;
-	width:21%;
-	max-width:400px;
+	width:22%;
+	max-width:470px;
 	height:calc(100vh - 90px);
 }
 #maincontainer.rightmenu #rightmenu-container
