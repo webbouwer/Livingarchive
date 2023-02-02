@@ -11,7 +11,7 @@ var itemid = '';
 
 jQuery(function($) {
 
-  var siteurl = 'https://zee-plaats-werk-land.nl/devsite'; //$(location).attr("origin")+'/'; // + '/devsite/';
+  var siteurl = 'https://zee-plaats-werk-land.nl/devsite/'; //$(location).attr("origin")+'/'; // + '/devsite/'; 
 
   // set content panels
 
@@ -319,112 +319,70 @@ jQuery(function($) {
 
 
     $('body').on('click', '.item .optionfullscreen', function(e) {
-
       e.stopPropagation();
-
       var fscrobj = $(this).closest('.item');
       fscrobj.toggleClass('fullscreen');
       setTimeout(function() {
-
-        setImageSlideArrowHeight(fscrobj);
+        //setImageSlideArrowHeight(fscrobj);
         $('#rightcontainer .itemcontainer').isotope('layout');
-
       }, 300);
-
     });
 
 
 
     /* Postlinks */
-
     $('body').on('click', '.titlebutton', function(e) {
-
       e.stopPropagation();
-
       if (e.preventDefault) {
-
         e.preventDefault();
-
       } else {
-
         e.returnValue = false;
-
       }
-
       moved = false;
-
       let selecteditem = $(this).data('id');
-
       $('#post-' + selecteditem + ' .intro').trigger('click');
-
       //$('#post-'+ $(this).data('id') ).trigger('click');
-
       $('#searchhints').removeClass('active');
-
       stopVideo();
-
     });
-
-
 
     /**
     ACTIONS ITEM SLIDES
     **/
-
     $('body').on('click', '.navleft, .navright', function(event) {
 
       event.stopPropagation();
-
       var currentActive = $(this).parent().parent().find('.imageslides img.active').removeClass('active');
-
       if ($(this).hasClass('.navleft')) {
-
         var nextTarget = currentActive.prev('img');
         if (nextTarget.length == 0) {
           nextTarget = $(this).parent().parent().find('.imageslides img:last');
         }
-
         if (nextTarget.attr('src') == $(this).parent().parent().find('.coverimage .stage img').attr('src')) {
           var nextTarget = nextTarget.prev('img');
         }
-
       } else {
-
         var nextTarget = currentActive.next('img');
         if (nextTarget.length == 0) {
           nextTarget = $(this).parent().parent().find('.imageslides img:first');
         }
-
         if (nextTarget.attr('src') == $(this).parent().parent().find('.coverimage .stage img').attr('src')) {
           var nextTarget = nextTarget.next('img');
         }
-
       }
 
       nextTarget.addClass('active');
       var imgurl = nextTarget.attr('src');
-
       //console.log(imgurl);
-      $(this).parent().parent().find('.coverimage .stage').fadeOut(300, function() {
-
+      $(this).parent().parent().find('.coverimage .stage').fadeOut(200, function() {
         $(this).parent().parent().find('.coverimage .stage img').replaceWith('<img src="' + imgurl + '" />');
-
       }).fadeIn(200, function() {
-
-        setImageSlideArrowHeight($(this).parent().parent());
-
+        //setImageSlideArrowHeight($(this).parent().parent());
         $('#rightcontentcontainer .contentbox').isotope('layout');
-
       });
-
     });
 
-
-
-
-
     // ACTIONS TAGS
-
     $('body').on('click', '.tagbutton', function(e) {
 
       e.stopPropagation();
@@ -676,12 +634,12 @@ jQuery(function($) {
 
         // tags and cats
         if (catfilter.length > 0) {
-          url += 'cats/' + catfilter.join(',') + '/';
+          url += '/cats/' + catfilter.join(',') + '/';
           newpagetitle = catfilter.join(',') + ' | ' + newpagetitle;
         }
 
         if (tagfilter.length > 0) {
-          url += 'tags/' + tagfilter.join(',');
+          url += '/tags/' + tagfilter.join(',');
           newpagetitle = tagfilter.join(',') + ' | ' + newpagetitle;
         }
 
@@ -726,13 +684,12 @@ jQuery(function($) {
         item.addClass('gallery');
         item.find('.imageslides').prependTo(item.find('.intro'));
         item.find('.intro').prepend(nav);
-        setImageSlideArrowHeight(item);
+        //setImageSlideArrowHeight(item);
       }
 
       //console.log('Gallery intro check');
 
     }
-
 
 
     $('body').on('click', '#menu-infomenu li a', function(event) {
@@ -745,45 +702,31 @@ jQuery(function($) {
 
       event.stopPropagation();
 
-
-
       $('#infocontainer .contentarea .contentpage, #menu-infomenu li a').removeClass('active');
+      
+      $('#page-332 .section-container .profile.active').removeClass('active');
+      $('#page-332 .section-container').removeClass('selectview');
 
       $(this).addClass('active');
       let activeitem = $('#infocontainer .contentarea .contentpage[data-link="' + $(this).attr('href') + '"]').addClass('active');
-
-      //window.history.pushState( href:  $(this).attr("href") }, '', $(this).attr('href') );
-      //if( document.referer != $(this).attr('href') ){
-      //window.history.pushState( {href:  $(this).attr("href")}, '', $(this).attr('href') );
-      //}
 
       window.history.pushState({
         'path': location.pathname
       }, null, $(this).attr("href"));
 
       document.title = 'zee-plaats-werk-land | ' + activeitem.data('title');
-
       markupInfoPages();
-
 
     });
 
     window.addEventListener('popstate', function(e) {
 
       if (e.state) {
-
-        //window.location.href = location.pathname;
-        //window.location.href = e.state.href;
-        //window.history.go(-1);
-
         if (location.pathname != e.state.href && location.pathname != e.state.href + '/') {
           window.location.replace(e.state.href);
         } else {
           window.history.go(-1);
         }
-        //window.history.back();
-        //location.reload(); 
-
       }
 
     });
@@ -791,17 +734,16 @@ jQuery(function($) {
 
     function markupInfoPages() {
 
+      // profile page
       if( $('#page-332').hasClass('active')  ){
 
-        var el = '#page-332 .section-container'; //'#profilesection';
-
+        var el = '#page-332 .section-container'; 
         $(el).html('');
 
         var slccatid = 378;
         var posts;
-        
         var url = 'https://zee-plaats-werk-land.nl/devsite';
-        var reqcats = url+'/wp-json/wp/v2/categories?_embed=true';
+        //var reqcats = url+'/wp-json/wp/v2/categories?_embed=true';
         var reqpostsbycatid = url+'/wp-json/wp/v2/posts?categories='+slccatid+'&per_page=50&orderby=modified&order=desc&_embed=true';
         
         $.ajax({
@@ -829,11 +771,11 @@ jQuery(function($) {
             
             let item = $('<div id="'+value.id+'" class="post profile"></div>');
             
-        
-            
             if( value.featured_media != 0 && value._embedded){
+              item.append('<div class="imgwrap" style="background-image: url('+value._embedded['wp:featuredmedia']['0'].source_url+');"></div>');
               item.append('<img src="'+value._embedded['wp:featuredmedia']['0'].source_url+'" alt="'+value.title.rendered+' portret"/>');
             }
+
             item.append( '<h3 class="name">'+value.title.rendered+'</h3>' );
             item.append( '<div class="intro">'+value.excerpt.rendered+'</div>' );
             item.append( '<div class="content">'+value.content.rendered+'</div>' );
@@ -850,76 +792,45 @@ jQuery(function($) {
             $(el).append( item );
             
           });
+
+          
+          $(el).prepend( '<div class="backbutton"><span>terug</span></div>' );
         
         };
 
 
+        $('body').on('click', '#page-332 .section-container .profile', function(ev) {
 
+          var pro = $(this);
+          //alert( pro.attr('id') );
+          pro.parent().addClass('selectview');
+          pro.addClass('active'); 
+          $('#infocontainer .contentarea, #infocontainer .contentarea .itemcontent').scrollTop(0); 
+
+        });
+
+        $('body').on('click', '#page-332 .section-container .backbutton', function(ev) {
+
+          $('#page-332 .section-container .profile.active').removeClass('active');
+          $('#page-332 .section-container').removeClass('selectview');
+          
+        });
 
       }
 
       $('#infocontainer .contentarea').scrollTop(0);
 
-      /*
-      if ($('body').find('.section-intro .imgwrap').length < 1) {
-
-        //$('.section-intro img').each( function( x , obj ){
-
-        $('#infocontainer .contentpage.active .section-intro img').each(function() {
-
-          var url = $(this).attr('src');
-          var img = $('<div class="imgwrap"></div>').css({
-            'background-image': 'url("' + url + '")'
-          });
-
-          $(this).parent().prepend(img);
-
-        });
-
-
-
-        $('.section-container .section').on('click', function(ev) {
-
-          var el = $(this);
-          var speed = 100;
-          $('.section-container').addClass('active'); // main active
-          $('.section-container .section').removeClass('active');
-          el.addClass('active').appendTo(el.parent()); // section active
-          var c = el.find('.section-content').clone();
-          el.parent().parent().find('.selectedcontentsection').slideUp(speed, function() {
-
-            $(this).html(c).slideDown(speed);
-
-          });
-
-          el.parent().parent().parent().parent().parent().animate({
-
-            scrollTop: el.offset().top
-
-          }, 2000);
-
-        });
-       
-
-
-      }
-       */
-
-
     }
 
+    /*
     function setImageSlideArrowHeight(obj) {
-
-      var arrowpos = obj.find('.coverimage img').height() / 2;
-
+      var arrowpos = obj.find('.coverimage').height() / 2;
       obj.find(".navleft,.navright").css({
         'margin-top': arrowpos + 'px'
       });
-
       //$(".item.active .intro .imagenav .navleft, .item.active .intro .imagenav .navright").css({ 'margin-top' : arrowpos+'px' });
-
     }
-
+    */
 
     function calculateTagWeight(obj) {
 
@@ -965,48 +876,30 @@ jQuery(function($) {
     function applyTagWeight() {
 
       // calc match weight
-
       $('.item').each(function(idx, obj) {
-
         calculateTagWeight(obj);
 
       });
 
       var menu = $('#leftmenu-container .menucontainer.leftmenu');
-
       var options = $.makeArray(menu.children(".menubutton"));
-
       options.sort(function(a, b) {
-
         var textA = +$(a).find('.matchweight').text();
-
         var textB = +$(b).find('.matchweight').text();
-
         if (textA < textB) return 1;
-
         if (textA > textB) return -1;
-
         return 0;
-
       });
 
       menu.html('');
-
       $.each(options, function(idx, obj) {
-
         menu.append(obj);
-
       });
-
       reorderIsotope();
-
     }
 
-
     function initIsotope() {
-
       var container = $('#rightcontainer .itemcontainer');
-
       container.isotope({
 
         itemSelector: '.item',
@@ -1014,44 +907,28 @@ jQuery(function($) {
         animationEngine: 'best-available',
         transitionDuration: '0.9s',
         masonry: {
-
           //isFitWidth: true,
-
           columnWidth: container.innerWidth() / 4,
-
           gutter: 0,
-
         },
         getSortData: {
-
           byCategory: function(elem) { // sort randomly
-
             return $(elem).data('category') === selectedCat ? 0 : 1;
-
           },
           byTagWeight: '.matchweight parseInt',
-
         },
         sortBy: ['byCategory', 'byTagWeight'], //'byTagWeight', //
         sortAscending: {
-
           byCategory: true, // name ascendingly
           byTagWeight: false, // weight descendingly
-
         },
-
       });
-
       reorderIsotope();
-
-
 
     }
 
 
-
     function reorderIsotope() {
-
       var container = $('#rightcontainer .itemcontainer');
       var w = container.innerWidth() / 4;
       container
@@ -1072,20 +949,15 @@ jQuery(function($) {
             byTagWeight: false, // weight descendingly
           },
         }).isotope('layout');
-
       layoutIsotope();
-
     }
 
 
     function layoutIsotope() {
 
       var box = $('#rightcontainer');
-
       box.one('webkitTransitionEnd otransitionend oTransitionEnd msTransisitonEnd transitionend', function(e) {
-
         var container = $('#rightcontainer .itemcontainer');
-
         var w = container.innerWidth() / 4; //container.isotope('updateSortData')
         container.isotope({
           masonry: {
@@ -1109,49 +981,36 @@ jQuery(function($) {
       $('#rightcontainer .itemcontainer').parent().animate({
         scrollTop: 0
       }, 'slow');
-
       $('#rightcontainer').animate({
         scrollTop: 0
       }, 'slow');
-
       $('.menucontainer.leftmenu').parent().animate({
         scrollTop: 0
       }, 'slow');
-
       $('#leftcontainer').animate({
         scrollTop: 0
       }, 'slow');
-
 
     }
 
 
     function setDevBox() {
-
       let t = '<div class="tags">Labels: ' + pagebox.attr('data-tags') + '</div>';
       let c = '<div class="cats">Categories: ' + pagebox.attr('data-cats') + '</div>';
       $('#developerbox .query').html(t + c);
-
     }
 
 
     // TOP BOX
     var resizeId;
-
     $(window).resize(function() {
-
       clearTimeout(resizeId);
       resizeId = setTimeout(doneGlobalResizing, 20);
-
     });
 
-
-
     function doneGlobalResizing() {
-
       // swap left menu
       let leftmenu = $('#leftmenu-container .menucontainer.leftmenu').clone();
-
       if ($(window).width() < 960) {
         if ($('#leftcontainer .contentarea .menucontainer.leftmenu').length < 1) {
           $('#leftcontainer .contentarea').append(leftmenu);
@@ -1160,38 +1019,26 @@ jQuery(function($) {
         $('#leftcontainer .contentarea .menucontainer.leftmenu').remove();
       }
       layoutIsotope();
-
     }
 
     $('body').imagesLoaded(function(instance) {
-
       initIsotope();
       doneGlobalResizing();
-
       //let selecteditem = pagebox.attr('data-item'); //.data('item');
       if (startid != '') {
-
         $('body').find('#post-' + startid + ' .intro').trigger('click');
-
         pagebox.attr('data-item', '');
-
         //$('body').find('#leftmenu-toggle .placeholder').trigger('click');
-
         //pagebox.addClass("leftmenu");
         //selecteditem = '';
         //alert(startid);
-
       } else {
-
         tagSelect();
         checkSelected();
         applyTagWeight()
-
       }
       unsetPageLoader();
-
     });
-
   });
 
   /*$(window).load(function() {

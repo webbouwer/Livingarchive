@@ -100,7 +100,7 @@ jQuery( function($) {
                 if( $.inArray( tag.name , tagfilter ) > -1 ){
                   taghtml += 'selected ';
                 }
-                taghtml += ''+tag.slug+'" data-tag="'+tag.slug+'">'+tag.name+'</a></li>';
+                taghtml += ''+tag.slug+'" data-tag="'+tag.slug+'">#'+tag.name+'</a></li>';
               }
             }
           });
@@ -114,7 +114,7 @@ jQuery( function($) {
 
         // match titles
         related += '<ul class="titleresults">';
-        related += '<li class="listheader"><h5>Praktijk- & Veldwerk</h5></li>';
+        related += '<li class="listheader"><h5>Praktijk- en Veldwerk</h5></li>';
 
         var articlesearch = '';
         articlesearch += '<ul class="articleresults">';

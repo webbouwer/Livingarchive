@@ -38,7 +38,7 @@
 }
 #rightcontainer .itemcontainer .item.size-l
 {
-	width:42%;
+	width:48%; 
 }
 #rightcontainer .itemcontainer .item.portrait.size-l
 {
@@ -89,8 +89,9 @@ background-color:white;
 }
 #rightcontainer .item .mediaplaceholder h3
 {
-padding:20% 0px;
-font-size:40px;
+  padding: 24% 0px 24%;
+  font-size: 40px;
+  line-height: 40px;
 }
 #rightcontainer .item .mediaplaceholder
 {
@@ -99,7 +100,8 @@ font-size:40px;
 #rightcontainer .item.selected .mediaplaceholder h3
 {
 padding:35% 0px;
-font-size:64px;
+font-size:58px;
+line-height:60px;
 }
 
 
@@ -115,8 +117,9 @@ font-size:64px;
   height:48px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 24px 24px;
+  background-size: 26px 26px;
   background-image: url('../images/plus.png');
+  z-index: 400;
 }
 #rightcontainer .itemcontainer .item.selected .infotoggle.button.active
 {
@@ -171,8 +174,8 @@ height:auto;
 #rightcontainer .itemcontainer .item .main .textbox
 {
 position: relative;
-padding:0px 0px 24px;
-font-size:18px;
+padding:0px 18px 24px 0px;
+font-size:15px;
 font-weight:bold;
 line-height:20px;
 }
@@ -213,16 +216,20 @@ display:none;
 {
 display:none;
 }
-.item .intro .imagenav
-{
-display:none;
-}
+
+
 
 #rightcontainer .itemcontainer .item.selected .intro
 {
 position:relative;
 }
 
+
+
+.item .intro .imagenav
+{
+display:none;
+}
 #rightcontainer .itemcontainer .item.selected .intro .imagenav
 {
 position:relative;
@@ -232,19 +239,9 @@ display:block;
 #rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
 position: absolute;
-margin-top:30%;
+margin-top:42%;
 z-index:500;
 transition: margin-top linear .3s;
-}
-#rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft
-{
-left:0px;
-margin-left:-30px;
-}
-#rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
-{
-right:0px;
-margin-right:-10px;
 }
 
 #rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft,
@@ -262,8 +259,17 @@ cursor:pointer;
 #rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
 {
 background-image:url('../images/pijl_rechts.png');
-right:10px;
+right:-2px;
 }
+#rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft
+{
+left:-8px;
+}
+
+
+
+
+
 #rightcontainer .itemcontainer .item.selected.gallery .coverimage,
 #rightcontainer .itemcontainer .item.selected.gallery .title,
 #rightcontainer .itemcontainer .item.selected.gallery .itemcatbox,
@@ -272,13 +278,18 @@ right:10px;
 margin-left:0%; /* 4%; */
 }
 
+#rightcontainer .itemcontainer .item .itemtagbox
+{
+  min-height:45px;
+}
+
 #rightcontainer .itemcontainer .item.selected.gallery .coverimage
 {
 }
 
 #rightcontainer .itemcontainer .item .itemcontent .intro h3
 {
-margin:7px 0px 5px;
+margin:8px 0px 5px;
 word-wrap:break-word;
 }
 #rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage
@@ -293,21 +304,20 @@ width:100%;
 #rightcontainer .itemcontainer .item.selected .mediaplaceholder
 {
 position: relative;
-width:94%;
+width:100%;
 }
 
 .rightcontainer .itemcontainer .item.active .itemcontent .intro .coverimage .stage img
 {
 border-bottom:5px solid black;
 }
-
-.rightcontainer .itemcontainer .item.selected .itemtagbox
-{
-margin-right:4.5%;
+#rightcontainer .itemcontainer .item.selected .title,
+#rightcontainer .itemcontainer .item.selected.gallery .title,
+#rightcontainer .itemcontainer .item.selected .itemtagbox,
+#rightcontainer .itemcontainer .item.selected.gallery .itemtagbox {
+  margin-right: 4.5%;
+  margin-left: 5.6%;
 }
-
-
-
 
 
 
@@ -315,38 +325,81 @@ margin-right:4.5%;
 
 @media screen and (max-width: 960px) {
 
+ #mainarea #rightcontainer .placeholder .contentarea .itemcontainer {
+      margin: 10px 0px 10px 1%;
+      width: 98%;
+  }
   #rightcontainer .itemcontainer .item
   {
   	position:relative;
-    width: 86%; /*:42%;*/
-    min-height:240px;
+    width: 96%; /*:42%;*/
+    min-height:220px;
     font-size:13px;
+    padding-bottom:10px;
+    margin-left: 2%;
   }
-  #rightcontainer .itemcontainer .item.size-l
-  {
-  	width:42%;
+
+  #rightcontainer .itemcontainer .item .main .textbox {
+    font-size: 13px;
+    font-weight: none;
+    line-height: 17px;
   }
-  #rightcontainer .itemcontainer .item.portrait.size-l
-  {
-  	width:42%;
-  }
-  #rightcontainer .itemcontainer .item.size-m
-  {
-  	width: 42%;
-  }
+
+  #rightcontainer .itemcontainer .item.size-l,
+  #rightcontainer .itemcontainer .item.portrait.size-l,
+  #rightcontainer .itemcontainer .item.size-m,
   #rightcontainer .itemcontainer .item.size-s
   {
-  	width: 42%;
+  	width: 46%;
+    margin-left: 2%;
   }
+
   #rightcontainer .itemcontainer .item.selected
   {
-    width: 86%;
+    width: 97%;
+  }
+  #rightcontainer .itemcontainer .item.selected .optionfullscreen.button
+  {
+    display:none;
   }
   #rightcontainer .itemcontainer .item.portrait.selected.fullscreen,
   #rightcontainer .itemcontainer .item.selected.fullscreen
   {
-      width: 98%;
+      width: 97%;
   }
+
+
+
+
+
+  #rightcontainer .itemcontainer .item.selected .stage {
+    position: relative;
+    width: 86.4%;
+    margin-left: 5.6%;
+  }
+  #rightcontainer .itemcontainer .item .main.active {
+    width: 99%;
+  }
+  #rightcontainer .itemcontainer .item.selected .infotoggle.button
+  {
+    right:4px;
+  }
+  #rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft,
+  #rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
+  {
+  width:36px;
+  height:36px;
+  background-size:20px;
+  }
+  #rightcontainer .itemcontainer .item.selected .intro .imagenav .navright
+  {
+    right:-1px;
+  }
+  #rightcontainer .itemcontainer .item.selected .intro .imagenav .navleft
+  {
+    left:-10px;
+  }
+
 
 
   #rightcontainer .itemcontainer .item .itemcontent .intro h3 {
@@ -369,21 +422,21 @@ margin-right:4.5%;
 
 @media screen and (min-width: 960px) {
 
-
-#rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage img
-{
-width:100%;
-}
-#rightcontainer .itemcontainer .item.selected .stage,
-#rightcontainer .itemcontainer .item.selected .mediaplaceholder
-{
-position: relative;
-width:94%;
-}
-.leftview #mainarea #rightcontainer .placeholder .contentarea .itemcontainer .item
-{
-	width:100% !important;
-}
-
+  #rightcontainer .itemcontainer .item .itemcontent .intro .coverimage .stage img
+  {
+  width:100%;
+  }
+  #rightcontainer .itemcontainer .item.selected .stage,
+  #rightcontainer .itemcontainer .item.selected .mediaplaceholder
+  {
+  position: relative;
+  /*width:94%;*/
+  width: 88%;
+  margin-left: 5.6%;
+  }
+  .leftview #mainarea #rightcontainer .placeholder .contentarea .itemcontainer .item
+  {
+    width:100% !important;
+  }
 
 }
