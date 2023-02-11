@@ -740,6 +740,10 @@ jQuery(function($) {
         var el = '#page-332 .section-container'; 
         $(el).html('');
 
+        var titlebox =  $('#page-332').find('h1');
+        var starttitletext =  'Wie';
+        titlebox.html(starttitletext); 
+        
         var slccatid = 378;
         var posts;
         var url = 'https://zee-plaats-werk-land.nl/devsite';
@@ -805,12 +809,15 @@ jQuery(function($) {
           //alert( pro.attr('id') );
           pro.parent().addClass('selectview');
           pro.addClass('active'); 
+          titlebox.html( pro.find('h3.name').html() );
           $('#infocontainer .contentarea, #infocontainer .contentarea .itemcontent').scrollTop(0); 
 
         });
 
         $('body').on('click', '#page-332 .section-container .backbutton', function(ev) {
 
+          titlebox.html(starttitletext);
+          
           $('#page-332 .section-container .profile.active').removeClass('active');
           $('#page-332 .section-container').removeClass('selectview');
           

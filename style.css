@@ -296,9 +296,9 @@ line-height: 0.7em;
   /*padding: 0px 3px 3px 0px;
   font-size: 13px; 
   line-height: 0.96em;*/
-  padding: 0px 8px 3px 0px;
+  padding: 0px 4px 1px 0px;
   font-size: 13px;
-  line-height: 1.4em;
+  line-height: 1.4em;  
 }
 
 
@@ -384,12 +384,13 @@ line-height: 0.7em;
   display:none;
 }
 
-
-
+.itemcontent figcaption
+{
+  font-size: 11px;
+}
 
 
 /* info menu  pages */
-
 #page-332.active
 {
 overflow:auto !important;
@@ -411,7 +412,7 @@ height:auto !important;
   height:30px;
   position:absolute;
   right:0px;
-  top:-35px;
+  top:-32px;
   z-index:900;
 
   background-image:url('images/kruis.png');
@@ -438,6 +439,13 @@ height:auto !important;
 #page-332 .section-container.selectview .profile.active
 {
   display:block;
+}
+#infocontainer .placeholder .itemcontent .textbox h1
+{
+  margin:3px 0px 8px;
+}
+#page-332 .section-container.selectview .profile.active > img
+{
 }
 /*
 #page-332 .section-container .profile
@@ -509,6 +517,7 @@ height:auto !important;
 #page-332 .section-container.selectview .profile.active img
 {
   display:block;
+  margin-top: 8px;
 	width:60%;
 	height:auto;
 }
@@ -1165,8 +1174,8 @@ margin-bottom: 8px;
 }
 #maincontainer.rightmenu #rightmenu-toggle
 {
-	width:22%;
-	max-width:470px;
+	width:20%; /* 22%; */
+	max-width:310px; /*470px;*/
 }
 #maincontainer #rightmenu-toggle .placeholder
 {
@@ -1178,8 +1187,8 @@ margin-bottom: 8px;
 	position:absolute;
 	top:90px;
 	right:-400px;
-	width:22%;
-	max-width:470px;
+	width: 20%; /* 22%; */
+	max-width:310px; /*470px; */
 	height:calc(100vh - 90px);
 }
 #maincontainer.rightmenu #rightmenu-container
